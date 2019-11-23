@@ -8,10 +8,12 @@
   var canvas = null;
   var canvasPosition = null;
   var context = null;
+  var drag = false;
+  var dragStart;
+  var dragEnd;
 
-  function calcMouseEvent(event)
-  {
-	context.beginPath();
+  function draw() {
+    context.beginPath();
 	context.strokeStyle = "red";
 	context.rect(10, 20, 100, 50);
 	context.stroke();
@@ -37,10 +39,19 @@
 	context.lineTo(60, 150);
 	context.moveTo(250, 70);
 	context.lineTo(250, 150);
-	
 	context.stroke();
+  }
 
-  
+  function clear() {
+    context.save();
+    context.setTransform(1, 0, 0, 1, 0, 0);
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.restore();
+  }
+
+  function calcMouseEvent(event)
+  {
+	draw();
      return {
        "x": event.clientX - canvasPosition.left,
        "y": event.clientY - canvasPosition.top,
@@ -52,16 +63,32 @@
   function mouseDown(event)
   {
     const mouse = calcMouseEvent(event);
+	    dragStart = {
+		x: event.clientX - canvasPosition.left,
+		y: event.clientY - canvasPosition.top
+    }
+    drag = true;
   }
 
   function mouseMove(event)
   {
     const mouse = calcMouseEvent(event);
+	  if (drag) {
+		dragEnd = {
+		x: event.clientX - canvasPosition.left,
+		y: event.clientY - canvasPosition.top
+      }
+      context.translate(dragEnd.x - dragStart.x, dragEnd.y - dragStart.y);
+	  clear();
+      draw();
+	  dragStart = dragEnd;
+    }
   }
 
   function mouseUp(event)
   {
     const mouse = calcMouseEvent(event);
+	drag = false;
   }
 
   function mouseWheel(event)
