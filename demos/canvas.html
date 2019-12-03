@@ -12,26 +12,31 @@
   var dragStart;
   var dragEnd;
 
-  function draw() {
-    context.beginPath();
-	context.strokeStyle = "red";
-	context.rect(10, 20, 100, 50);
-	context.stroke();
-	
-	context.beginPath();
-	context.strokeStyle = "orange";
-	context.rect(200, 20, 100, 50);
-	context.stroke();
-	
-	context.beginPath();
-	context.strokeStyle = "blue";
-	context.rect(10, 150, 100, 50);
-	context.stroke();
-	
-	context.beginPath();
-	context.strokeStyle = "green";
-	context.rect(200, 150, 100, 50);
-	context.stroke();
+  var nodes = [
+    {"x": 10, "y": 20, "color": "red"},
+    {"x": 200, "y": 20, "color": "orange"},
+    {"x": 10, "y": 150, "color": "blue"},
+    {"x": 200, "y": 150, "color": "green"}
+  ]
+
+  // TODO: Összerakni, hogy a csomópontokhoz hasonlóan ez is for ciklussal legyen kirajzolva.
+  var edges = [
+    (0, 1),
+    (2, 3)
+  ];
+
+  var selectedIndex = null;
+
+  function draw()
+  {
+    // TODO: A téglalapok helyett képek legyenek megjelenítve az egyes csomópontoknál.
+    for (var i = 0; i < nodes.length; ++i) {
+      var node = nodes[i];
+      context.beginPath();
+	  context.strokeStyle = node["color"];
+	  context.rect(node["x"], node["y"], 100, 50);
+	  context.stroke();
+    }
 	
 	context.beginPath();
 	context.strokeStyle = "black";
@@ -42,7 +47,8 @@
 	context.stroke();
   }
 
-  function clear() {
+  function clear()
+  {
     context.save();
     context.setTransform(1, 0, 0, 1, 0, 0);
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -57,15 +63,25 @@
        "y": event.clientY - canvasPosition.top,
        "button": event.button
      };
-	 
   }
 
   function mouseDown(event)
   {
     const mouse = calcMouseEvent(event);
-	    dragStart = {
-		x: event.clientX - canvasPosition.left,
-		y: event.clientY - canvasPosition.top
+    selectedIndex = null;
+    for (var i = 0; i < nodes.length; ++i) {
+      var node = nodes[i];
+      if (mouse["x"] >= node["x"]
+        && mouse["x"] <= node["x"] + 100
+        && mouse["y"] >= node["y"]
+        && mouse["y"] <= node["y"] + 50)
+      {
+        selectedIndex = i;
+      }
+    }
+	dragStart = {
+      x: event.clientX - canvasPosition.left,
+      y: event.clientY - canvasPosition.top
     }
     drag = true;
   }
@@ -73,12 +89,17 @@
   function mouseMove(event)
   {
     const mouse = calcMouseEvent(event);
-	  if (drag) {
-		dragEnd = {
+	if (drag) {
+	  dragEnd = {
 		x: event.clientX - canvasPosition.left,
 		y: event.clientY - canvasPosition.top
       }
-      context.translate(dragEnd.x - dragStart.x, dragEnd.y - dragStart.y);
+      if (selectedIndex != null) {
+        var dx = dragEnd.x - dragStart.x;
+        var dy = dragEnd.y - dragStart.y;
+        nodes[selectedIndex]["x"] += dx;
+        nodes[selectedIndex]["y"] += dy;
+      }
 	  clear();
       draw();
 	  dragStart = dragEnd;
