@@ -3,6 +3,10 @@
     <meta charset="utf-8" />
   </head>
   <style>
+  canvas#my-canvas {
+  background-color: rgb(100,100,100);
+}
+
   </style>
   <script>
   var canvas = null;
@@ -11,12 +15,13 @@
   var drag = false;
   var dragStart;
   var dragEnd;
+ 
 
   var nodes = [
-    {"x": 10, "y": 20, "color": "red"},
-    {"x": 200, "y": 20, "color": "orange"},
-    {"x": 10, "y": 150, "color": "blue"},
-    {"x": 200, "y": 150, "color": "green"}
+    {"x": 10, "y": 20},
+    {"x": 200, "y": 20},
+    {"x": 10, "y": 150},
+    {"x": 200, "y": 150}
   ]
 
   // TODO: Összerakni, hogy a csomópontokhoz hasonlóan ez is for ciklussal legyen kirajzolva.
@@ -29,22 +34,28 @@
 
   function draw()
   {
-    // TODO: A téglalapok helyett képek legyenek megjelenítve az egyes csomópontoknál.
-    for (var i = 0; i < nodes.length; ++i) {
-      var node = nodes[i];
-      context.beginPath();
-	  context.strokeStyle = node["color"];
-	  context.rect(node["x"], node["y"], 100, 50);
+	// TODO: A téglalapok helyett képek legyenek megjelenítve az egyes csomópontoknál.
+	for (var i = 0; i < nodes.length; ++i) {
+	  var node = nodes[i];
+	  context.beginPath();
+	  //context.strokeStyle = node["color"]; erre így nincs szükség, mivel képek vannak
+	  //téglalap helyett képek:
+	  var image = document.getElementById("image");
+	  context.drawImage(image, node["x"], node["y"]);
 	  context.stroke();
-    }
+	}
 	
-	context.beginPath();
-	context.strokeStyle = "black";
-	context.moveTo(60, 70);
-	context.lineTo(60, 150);
-	context.moveTo(250, 70);
-	context.lineTo(250, 150);
-	context.stroke();
+	//vonalak for ciklussal rajzolva:
+	for (var i = 0; i < edges.length; ++i) {
+	  var node = nodes[i];
+	  var node2 = nodes[i+2];
+	  context.beginPath();
+	  context.strokeStyle = "black";
+	  //vonalak a képekkel együtt mozognak:
+	  context.moveTo(node["x"]+50, node["y"]+50);
+	  context.lineTo(node2["x"]+50, node2["y"]);
+	  context.stroke();
+    	}
   }
 
   function clear()
@@ -57,7 +68,7 @@
 
   function calcMouseEvent(event)
   {
-	draw();
+    draw();
      return {
        "x": event.clientX - canvasPosition.left,
        "y": event.clientY - canvasPosition.top,
@@ -100,16 +111,16 @@
         nodes[selectedIndex]["x"] += dx;
         nodes[selectedIndex]["y"] += dy;
       }
-	  clear();
-      draw();
-	  dragStart = dragEnd;
+	clear();
+      	draw();
+	dragStart = dragEnd;
     }
   }
 
   function mouseUp(event)
   {
     const mouse = calcMouseEvent(event);
-	drag = false;
+    drag = false;
   }
 
   function mouseWheel(event)
@@ -128,11 +139,14 @@
     canvas.addEventListener("mouseup", mouseUp, false);
     canvas.addEventListener("mousewheel", mouseWheel, false);
 	
-	context = canvas.getContext("2d");
+    context = canvas.getContext("2d");
   }
+  
+
   </script>
   <body onload="initialize()">
     <canvas id="my-canvas" width="800" height="600">
+	  	<img id="image" src="tesla.png">
     </canvas>
   </body>
 </html>
