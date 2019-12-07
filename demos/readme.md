@@ -1,4 +1,2 @@
-## Féléves beszámoló
-
-### Valamit írok ide is
+### Ezzel vigyázni kell, ez egy kamu readme
 
