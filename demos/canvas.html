@@ -16,7 +16,6 @@
   var dragStart;
   var dragEnd;
  
-
   var nodes = [
     {"x": 10, "y": 20},
     {"x": 200, "y": 20},
@@ -26,10 +25,16 @@
 
   // TODO: Összerakni, hogy a csomópontokhoz hasonlóan ez is for ciklussal legyen kirajzolva.
   var edges = [
-    (0, 1),
-    (2, 3)
+      {
+          "moveto": nodes[0],
+          "lineto": nodes[2],
+      },
+      {
+          "moveto": nodes[1],
+          "lineto": nodes[3],
+      }
   ];
-
+	  
   var selectedIndex = null;
 
   function draw()
@@ -47,15 +52,13 @@
 	
 	//vonalak for ciklussal rajzolva:
 	for (var i = 0; i < edges.length; ++i) {
-	  var node = nodes[i];
-	  var node2 = nodes[i+2];
-	  context.beginPath();
-	  context.strokeStyle = "black";
-	  //vonalak a képekkel együtt mozognak:
-	  context.moveTo(node["x"]+50, node["y"]+50);
-	  context.lineTo(node2["x"]+50, node2["y"]);
-	  context.stroke();
-    	}
+            context.beginPath();
+            context.strokeStyle = "black";
+            //vonalak a képekkel együtt mozognak:
+            context.moveTo(edges[i]["moveto"]["x"]+50, edges[i]["moveto"]["y"]+50);
+            context.lineTo(edges[i]["lineto"]["x"]+50, edges[i]["lineto"]["y"]);
+            context.stroke();
+        }
   }
 
   function clear()
