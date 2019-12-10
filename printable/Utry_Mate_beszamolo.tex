@@ -1,0 +1,88 @@
+\documentclass[a4paper]{article}
+
+% Set margins
+\usepackage[hmargin=2cm, vmargin=2cm]{geometry}
+
+\frenchspacing
+
+% Language packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[magyar]{babel}
+
+% AMS
+\usepackage{amssymb,amsmath}
+
+% Graphic packages
+\usepackage{graphicx}
+
+% Colors
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+
+% Enumeration
+\usepackage{enumitem}
+
+\usepackage{listings}
+\usepackage{python}
+
+\begin{document}
+
+\noindent \textbf{Szakdolgozat I. -- Féléves beszámoló}
+
+\vskip 8mm
+
+\noindent {\Large Utry Máté Attila: Webalkalmazás fejlesztése szervezeti folyamatok kezeléséhez}
+
+\vskip 4mm
+
+\noindent Neptun kód: \texttt{YR10UU}
+
+\vskip 1cm
+
+% A félévben végzett munka a konzulens és a szakdolgozat téma kiválasztásával kezdődött. Konzulensnek Piller Imre tanár urat kértem fel. A kiírt témái közül a 9-es (Webalkalmazás fejlesztése szervezeti folyamatok kezeléséhez) tetszett meg a legjobban, hiszen a nyáron végzett 8 hetes szakmai gyakorlatom során is hasonló, kisebb, adatok kezelésére alkalmas webalkalmazást kellett fejlesztenem, így nem állt távol tőlem ez a témakör.
+
+Az első konzultáción megbeszéltük a szakdolgozat felépítését, az alkalmazandó technikákat, programnyelveket. Az alkalmazás szerver oldali része Python alapú keretrendszert fog használni, míg a kliens oldali része JavaScript alapon fog működni. Az adatokat SQLite relációs adatbázis-kezelő rendszer fogja eltárolni. A folyamatok modellezése véges állapotú automatákkal fog megvalósulni.
+
+A szakdolgozat megírásához több, az idei félévben hallgatott tárgyak is segítséget tudnak nyújtani. Például a szervezeti folyamatok működésének alapjait, egy szervezet felépítését, a szervezeten belüli információáramlás megvalósítását a „Vállalati információs rendszerek fejlesztése” tárgyból ismerhettem meg. Valamint nem csak a szakmai gyakorlatom során, hanem Webtechnológiák 1 tárgyból is még jobban meg tudtam ismerni a JavaScript működését, felépítését. Ehhez kapcsolódott a félév során végzett munkám is.
+
+A feladatom a félévre egy HTML Canvas-os drag \& drop alkalmazás modellezése, elkészítése volt. Ehhez el kellett sajátítanom a HTML Canvas alapjait, hogyan lehet létrehozni egy vászon (\textit{HTML Canvas}) objektumot, illetve miket lehet rajta ábrázolni. Az alkalmazás JavaScriptet használ, ez teszi ki a programkód legnagyobb részét.
+
+Különböző függvények működtetik a programot. Például ilyen, amelyik a kirajzolást valósítja meg (téglalapok képekkel való ábrázolása, valamint a vonalak rendezett megjelenítése). Kezdetben csak 4 téglalap volt megjelenítve, és közöttük 2 vonal, összekötve belőlük 2-2-t. Ezt a későbbiekben úgy kellett módosítanom, hogy a téglalapok helyett képek jelenjenek meg, illetve ezek tetszés szerint mozgathatóak legyenek az egér segítségével. Ezt sikerült is megoldanom. Ezt követően már csak azt kellett megírnom, hogy a kirajzolt vonalak a képekkel együtt mozogjanak, tehát ha a canvas másik területére húzom az egérrel az egyik képet, azt kövesse a hozzá kapcsolt vonal.
+
+A canvas-t a HTML kód <body> részében a
+\begin{python}
+<canvas id="my-canvas" width="800" height="600">
+\end{python}
+programsor valósítja meg. Az \texttt{id} segítségével tudom beállítani például a canvas hátterének színét, a két számérték pedig a canvas szélességét és magasságát határozza meg. A canvason kívüli rész már nem a canvas része, ezért arra a területre már nem lehet mozgatni objektumokat.
+
+A folyamatok modellezéséhez egy egyszerű gráfszerkesztőre volt szükség, így a különféle eseménykezelő függvényekkel is meg kellett ismerkednem.
+Ezek \textit{callback} jelleggel működnek, vagyis a program futásának elején meg kell adni, hogy milyen esemény hatására mely saját definiálású függvény kerüljön végrehajtásra. Ilyen eseménykezelő függvények az egér mozgatásáért, egérkattintásért, a billentyűesemények és az időzítő események kezeléséért felelős függvények.
+
+A program elkészítésénél minél inkább általános megoldásra kellett törekedni.
+A kezdetben programkódban rögzített paramétereket (mint például a gráf csomópontjainak a helyét) fokozatosan átírtam adattömbökbe.
+A csomópontokat összekötő élek esetében hasonló volt a helyzet.
+
+A gráfszerkesztőben a későbbiekben jellemzően képek fognak megjelenni majd a csomópontok helyén.
+Megvizsgáltam néhány példát, hogy ez hogyan valósítható meg, majd az aktuálisan készített egyszerű gráfszerkesztőben implementáltam.
+
+A szerkesztőprogram fejlesztésével kapcsolatban a következőkben az alábbi feladatok megoldása a cél.
+\begin{itemize}
+\item A program jelenleg csak egyetlen HTML fájlból áll. Ez ugyan segíti az átvihetőséget, de ahogyan nő a programkód sorainak a száma, úgy célszerű lesz a nagyobb logikai egységeket az OOP elveknek megfelelően külön osztályokba szervezni.
+\item Össze kell gyűjteni példákat olyan üzleti folyamatokra, amelyet a későbbiekben gráfként ábrázolni lehet, és lehet vizsgálni az egyes tulajdonságait.
+\item A gráf csomópontjaihoz és éleihez is további információk hozzárendelésére lesz szükség. Ehhez a csomópontnak és az éleknek is külön osztályba kell kerülniük. Ehhez tehát meg kell majd tervezni, és definiálni kell, hogy pontosan milyen adatok kezelésére és megjelenítésére lehet itt szükség.
+\end{itemize}
+
+\vskip 2cm
+
+\noindent Javasolt érdemjegy:
+
+\vskip 1cm
+
+\noindent Miskolc, 2019.12.06.
+
+\hskip 11.3cm Piller Imre
+
+\hskip 11cm (Témavezető)
+
+\end{document}
