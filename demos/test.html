@@ -1,0 +1,235 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <style>
+  canvas#my-canvas {
+  background-color: rgb(100,100,100);
+}
+
+  </style>
+  <script>
+ 
+  // TODO: Megnézni, hogy hogyan lehetne kiszervezni a vásznat, csúcspontokat, éleket, ... objektumokba.
+  // TODO: Dönteni kellene arról, hogy osztály vagy prototípus alapú objektum orientáltság lenne-e inkább megfelelő.
+
+  var canvas = null;
+  var canvasPosition = null;
+  var context = null;
+  var drag = false;
+  var dragStart;
+  var dragEnd;
+ 
+  var nodes = [
+    {"x": 10,  "y": 20},
+    {"x": 200, "y": 20},
+    {"x": 10,  "y": 150},
+    {"x": 200, "y": 150}
+  ]
+
+  // TODO: Összerakni, hogy a csomópontokhoz hasonlóan ez is for ciklussal legyen kirajzolva.
+  /*var edges = [
+      {
+          "moveto": nodes[0],
+          "lineto": nodes[2]
+      },
+      {
+          "moveto": nodes[1],
+          "lineto": nodes[3]
+      }
+  ];*/
+
+  // var edges = [[0, 2], [1, 3];
+  
+  var edges = [
+    {"from": 0, "to": 2},
+    {"from": 1, "to": 3}
+  ]
+
+  var selectedIndex = null;
+
+  function addNode()
+  {
+  context.fillStyle = "red";
+	//context.lineWidth = 10;
+	context.lineCap = 'square';
+	context.beginPath();
+	context.moveTo(50,100);
+	context.lineTo(240,100);
+	context.lineTo(70,230);
+	context.lineTo(140,30);
+	context.lineTo(220,230);
+	context.closePath();
+	context.fill();
+  }
+
+  function draw()
+  {
+	// TODO: A téglalapok helyett képek legyenek megjelenítve az egyes csomópontoknál.
+	for (var i = 0; i < nodes.length; ++i) {
+	  var node = nodes[i];
+	  context.beginPath();
+	  //context.strokeStyle = node["color"]; erre így nincs szükség, mivel képek vannak
+	  //téglalap helyett képek:
+    var image = document.getElementById("image");
+    context.font = "20px Georgia";
+    context.fillText("anydxd", node["x"]+20, node["y"]+70);
+	  context.drawImage(image, node["x"], node["y"]);
+	  context.stroke();
+  }
+	
+	for (var i = 0; i < edges.length; ++i) {
+
+      var sourceNodeIndex = edges[i][0];
+      var targetNodeIndex = edges[i][1];
+
+      var sourceNodeIndex = edges[i]["from"];
+      var targetNodeIndex = edges[i]["to"];
+
+      var sourceNode = nodes[sourceNodeIndex];
+      var targetNode = nodes[targetNodeIndex];
+
+      // context.moveTo(edges[i]["moveto"]["x"]+50, edges[i]["moveto"]["y"]+50);
+      // context.lineTo(edges[i]["lineto"]["x"]+50, edges[i]["lineto"]["y"]);
+      context.beginPath();
+			context.lineWidth = 3;
+      context.strokeStyle = "black";
+      /*context.moveTo(sourceNode["x"] + 50, sourceNode["y"] + 50); //60, 70
+      //context.lineTo(targetNode["x"] + 50, targetNode["y"]);
+      var xc = (targetNode["x"] + sourceNode["x"]) / 2;
+      var yc = (targetNode["y"] + sourceNode["y"]) / 2;
+      context.quadraticCurveTo(xc, yc, targetNode["x"] + 50, targetNode["y"]);
+      //context.quadraticCurveTo(sourceNode["x"], sourceNode["y"], targetNode["x"], targetNode["y"]);*/
+      var dx = targetNode["x"] - sourceNode["x"];
+      var dy = targetNode["y"] - sourceNode["y"];
+      context.moveTo(sourceNode["x"] + 50, sourceNode["y"] + 50);
+      context.setLineDash([5, 10]); 
+      context.bezierCurveTo(sourceNode["x"] + dx * 0.33 +50, sourceNode["y"]+50, sourceNode["x"] + dx * 0.67 +50, targetNode["y"], targetNode["x"]+50, targetNode["y"]);
+
+			context.stroke();
+			
+			context.beginPath();
+			context.fillStyle = "black";
+			context.moveTo(targetNode["x"] + 50, targetNode["y"]);
+      context.lineTo(targetNode["x"] + 65, targetNode["y"] -15);
+      context.moveTo(targetNode["x"] + 50, targetNode["y"]);
+      context.lineTo(targetNode["x"] + 35, targetNode["y"] -15);
+      context.stroke();
+			//context.fill();  
+        }
+  }
+ 
+  
+  function clear()
+  {
+    context.save();
+    context.setTransform(1, 0, 0, 1, 0, 0);
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.restore();
+  }
+
+  function calcMouseEvent(event)
+  {
+    draw();
+     return {
+       "x": event.clientX - canvasPosition.left,
+       "y": event.clientY - canvasPosition.top,
+       "button": event.button
+     };
+  }
+
+  function mouseDown(event)
+  {
+    //mouseDown = false;
+    const mouse = calcMouseEvent(event);
+    selectedIndex = null;
+    for (var i = 0; i < nodes.length; ++i) {
+      var node = nodes[i];
+      if (mouse["x"] >= node["x"]
+        && mouse["x"] <= node["x"] + 100
+        && mouse["y"] >= node["y"]
+        && mouse["y"] <= node["y"] + 50)
+      {
+        selectedIndex = i;
+      }
+    }
+	dragStart = {
+      x: event.clientX - canvasPosition.left,
+      y: event.clientY - canvasPosition.top
+    }
+    drag = true;
+  }
+
+  function mouseMove(event)
+  {
+    const mouse = calcMouseEvent(event);
+	if (drag) {
+	  dragEnd = {
+		x: event.clientX - canvasPosition.left,
+		y: event.clientY - canvasPosition.top
+      }
+      if (selectedIndex != null) {
+        var dx = dragEnd.x - dragStart.x;
+        var dy = dragEnd.y - dragStart.y;
+        nodes[selectedIndex]["x"] += dx;
+        nodes[selectedIndex]["y"] += dy;
+      }
+  clear();
+    draw();
+	dragStart = dragEnd;
+    }
+  }
+
+  function mouseUp(event)
+  {
+    const mouse = calcMouseEvent(event);
+    drag = false;
+    mouseDown = false;
+  }
+
+  function mouseWheel(event)
+  {
+    const mouse = calcMouseEvent(event);
+    const delta = event.wheelDelta;
+    event.preventDefault();
+  }
+  
+	function keyUp(event)
+	{
+
+  }
+  
+  function keyDown(event)
+{
+  var letter = event.key;
+		//context.clearRect(0, 0, 300, 300);
+    //context.fillText(letter, 20, 20);
+  if(letter == 'a')
+  {
+    addNode();
+  }
+}
+
+
+  function initialize()
+  {
+    canvas = document.getElementById("my-canvas");
+    canvasPosition = canvas.getBoundingClientRect();
+	  window.addEventListener("keydown", keyDown, false);
+    window.addEventListener("keyup", keyUp, false);
+    canvas.addEventListener("mousedown", mouseDown, false);
+    canvas.addEventListener("mousemove", mouseMove, false);
+    canvas.addEventListener("mouseup", mouseUp, false);
+    canvas.addEventListener("mousewheel", mouseWheel, false);
+    context = canvas.getContext("2d");
+  }
+
+  </script>
+  <body onload="initialize()">
+    <canvas id="my-canvas" width="800" height="600">
+	  	<img id="image" src="tesla.png">
+    </canvas>
+    <br/>
+    <input type="button" onclick="addNode()" value="CCCP" />
+  </body>
+</html>
