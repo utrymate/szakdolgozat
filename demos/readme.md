@@ -1,16 +1,21 @@
-## Rövid, átfogó jellegű leírás, használati útmutató a gráfszerkesztő jelenlegi állapotához
+## Rövid, átfogó jellegű leírás, használati útmutató a gráfszerkesztő jelenlegi állapotához (updated!)
 
 ### Hozzáadás a Toolboxból:
-Rákattintunk a hozzáadandó elemre, majd a kurzort a canvas-ra visszük, így az megjelenik rajta előre definiált helyen.
-Ezután húzással tudjuk mozgatni az elemet (a kört egyelőre csak a jobb alsó negyedénél fogva)
+Rákattintunk a hozzáadandó elemre, így az megjelenik a canvason előre definiált helyen.
+Ezután húzással tudjuk mozgatni az elemet (most már a kör is megfelelően mozgatható).
 
 ### Összeköttetés hozzárendelése node-okhoz:
-A Toolbox-ból az Add Edge gomb megnyomásával érhető el. Ekkor meg kell adni ID alapján, hogy melyik 2 elemet szeretnénk összekötni.
-A node id-ját lekérdezni az adott node-ra való dupla kattintással lehet.
-* Folyamatos (continuous) és szaggatott (dashed) vonal is hozzáadható a csomópontok összekötése esetén.
-* A Start csomópont egyelőre nem mozgatható, azonban hozzá is húzható vonal. Az ID-ja 0.
+Az összekötés az alábbi módon valósítható meg:
+ - A Shift gomb lenyomása mellett egy adott node-ra való kattintás fogja kijelöni a kezdő node-ot.
+ - A Shift gombot elengedve, helyette az Alt gomb lenyomása, és egy másik node kiválasztása az egérrel fogja meghatározni azt,
+ hogy hová lesz bekötve az adott vonal.
+
+### Node törlése
+A Ctrl gomb nyomva tartása mellett kattintsunk a törölni kívánt node-ra, így az el fog tűnni.
+(Egyelőre csak olyat törölhetünk, ami nincs összekötve másik node-dal).
 
 ### Node átméretezés, szöveg hozzáadása:
 Az adott node-on dupla kattintással érhető el (a Toolbox alatt jelenik meg a felület, ahol ezek megadhatóak).
-* A beírt szöveg azonnal megjelenik az adott node-on, azonban hogy ne tűnjön egybemosott szövegnek, a canvasra kell vinni a kurzort.
-* A Resize (átméretezés) gomb megnyomása után szintén a canvasra kell irányítani a kurzort, hogy az adott node mérete megváltozzon.
+ - A beírt szöveg azonnal megjelenik az adott node-on (azonnal olvasható formában), illetve ha a szöveg kilógna a node-ról,
+az automatikusan nőni kezd.
+ - A Resize (átméretezés) gomb megnyomása után szintén azonnal az új méretben jelenik meg az adott node (körnél is működik).
