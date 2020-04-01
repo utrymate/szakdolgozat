@@ -51,12 +51,8 @@ function draw()
             context.setLineDash([]);
             context.arc(node["x"], node["y"], node["radius"], 0, 2 * Math.PI);
             context.stroke();
-            // context.fillStyle = "grey";
-            // context.fill();
             context.fillStyle = "black";
-            context.font = "20px Arial";
-            context.textBaseline = 'middle';
-            context.textAlign = "center";
+            context.globalCompositeOperation='source-over';
             context.fillText(node["text"], node["x"], node["y"]);
         }
 
@@ -68,16 +64,11 @@ function draw()
             context.arc(node["x"], node["y"], node["radius"], 0, 2 * Math.PI);
             context.stroke();
             context.fillStyle = "black";
-            context.font = "20px Arial";
-            context.textBaseline = 'middle';
-            context.textAlign = "center";
-            context.fillText(node["text"],node["x"], node["y"]);
+            context.fillText(node["text"], node["x"], node["y"]);
         }
     }
 
     for (var i = 0; i < edges.length; ++i) {
-        // TODO: a vonalak elég random mozognak, valami szabálykövetőbb mozgás kéne
-        // TODO: a vonalak ne látszódjanak a node-okon
         var edge = edges[i];
         var sourceNodeIndex = edges[i]["from"];
         var targetNodeIndex = edges[i]["to"];
@@ -90,7 +81,7 @@ function draw()
         context.beginPath();
         context.lineWidth = 3;
         context.strokeStyle = "black";
-        context.globalCompositeOperation='destination-over'; //BAJUSZ
+        context.globalCompositeOperation='destination-over';
         //try {
         var dx = targetNode["x"] - sourceNode["x"];
         var dy = targetNode["y"] - sourceNode["y"];
@@ -172,8 +163,7 @@ function mouseDown(event)
                 selectedIndex = i;
             }
         }
-
-        // TODO: kör mozgatási terület kijelölés - megírni rendesen ezt is
+        
         if (node["type"] == "circle" || "start" || "end")
         {
 
@@ -237,12 +227,10 @@ function mouseUp(event)
 
     for (var i = 0; i < nodes.length; ++i) {
         var node = nodes[i];
-
-        //téglalapra kattintás - nincs baj, mert m x n méretű, nem úgy, mint a kör
         if(node["type"] == "rectangle")
         {
             if (mouse["x"] >= node["x"]
-                && mouse["x"] <= node["x"] + node["width"] //+width hogy az egész node-ot húzni tudd
+                && mouse["x"] <= node["x"] + node["width"]
                 && mouse["y"] >= node["y"]
                 && mouse["y"] <= node["y"] + node["height"])
             {
@@ -268,7 +256,6 @@ function mouseUp(event)
                     clear();
                     draw();
                 }
-                //console.log();
                 if (event.ctrlKey === true) {
                     nodes.splice(selectedIndex, 1);
                     clear();
@@ -453,14 +440,13 @@ function addEnd() {
         }
     }));
     if (csakegy){
-        nodes.push( {"id": 9999, "type": "end", "x": 740, "y": 540, "text": "", "radius": 40, "width": 0, "height": 0});
+        nodes.push( {"id": 9999, "type": "end", "x": 1220, "y": 660, "text": "", "radius": 40, "width": 0, "height": 0});
         // INFO: Ha nem írom bele, hogy "text": "", akkor a rajta lévő szöveg "undefined" lesz
         draw();
     }
 }
 
 function addEdge(from, to) {
-    // TODO: Nem létező értéket ne lehessen hozzáadni
     edges.push({"from": from, "to": to, "type": "dashed"});
     // edge1 = document.getElementById("edge1").value = '';
     // edge2 = document.getElementById("edge2").value = '';
