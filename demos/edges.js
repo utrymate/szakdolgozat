@@ -13,10 +13,8 @@ function drawEdges(context) {
         context.lineWidth = 3;
         context.strokeStyle = "black";
         context.globalCompositeOperation='destination-over';
-        //try {
         var dx = targetNode["x"] - sourceNode["x"];
         var dy = targetNode["y"] - sourceNode["y"];
-        // INFO: x+50: node bal felső sarkától 50-nel jobbra. Ez van kicserélve sN["width"]/2 -re, ezért nem működik körnél
         context.moveTo(sourceNode["x"] + sourceNode["width"]/2, sourceNode["y"] + sourceNode["height"]/2);
         if(edge["type"] == "dashed")
         {
@@ -37,19 +35,6 @@ function drawEdges(context) {
         context.moveTo(targetNode["x"] + 50, targetNode["y"]);
         context.lineTo(targetNode["x"] + 35, targetNode["y"] -15);
         context.stroke();
-        //////////////////////
-        // if TÉGLALAP
-        //      if (mouse["x"] >= node["x"]
-        //        && mouse["x"] <= node["x"] + node["width"] //+width hogy az egész node-ot húzni tudd
-        //        && mouse["y"] >= node["y"]
-        //        && mouse["y"] <= node["y"] + node["height"])
-        // if KÖR
-        // let shortestDistance = Math.abs(Math.sqrt(Math.pow(mouse["x"]-node["x"], 2) + Math.pow(mouse["y"]-node["y"], 2)));
-        //////////////////////
         */
-        /*} catch (err) {
-            alert("Rossz ID. Innen már nincs visszaút");
-        }*/
-
     }
 }
