@@ -51,12 +51,15 @@ function addId() {
     return max;
 }
 
+// Classos megoldás alapján push-ol
 function addRectangle() {
     var newid = addId();
-    nodes.push( {"id": newid+1, "type": "rectangle", "x": 100, "y": 100, "text": "", "width": 100, "height": 50})
+    nodes.push(new Rectangle(100, 100, newid+1, 50, 100, ""))
+    // Fontos a sorrend, mert ez egy szar, ezért ide leírom: x, y, id, height, width, text
+    // KÉRDÉS: Típus vajon kell-e ide? Mert az eddigi logika alapján kellett, de most már gondolom nem, mert class
     draw();
-    // INFO: az itt megadott height, width értékeket nézi a text hozzáadós a node["width"]
 }
+// INFO: az itt megadott height, width értékeket nézi a text hozzáadós a node["width"]
 
 //addCircles
 function addCircle() {
