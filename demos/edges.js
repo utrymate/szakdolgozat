@@ -1,3 +1,17 @@
+class Edge {
+    constructor(sourceNodeX, sourceNodeY, targetNodeX, targetNodeY, id){
+        this.sourceNodeX = sourceNodeX;
+        this.sourceNodeY = sourceNodeY;
+        this.targetNodeX = targetNodeX;
+        this.targetNodeY = targetNodeY;
+        this.id = id;
+    }
+    
+    draw(context) {
+        // TODO
+    }
+}
+
 function drawEdges(context) {
     for (var i = 0; i < edges.length; ++i) {
         var edge = edges[i];
