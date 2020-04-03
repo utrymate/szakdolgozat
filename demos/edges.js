@@ -3,12 +3,8 @@ function drawEdges(context) {
         var edge = edges[i];
         var sourceNodeIndex = edges[i]["from"];
         var targetNodeIndex = edges[i]["to"];
-        // console.log(sourceNodeIndex);
-        // console.log(targetNodeIndex);
         var sourceNode = getNode(sourceNodeIndex);//nodes[sourceNodeIndex];
-        var targetNode = getNode(targetNodeIndex);//nodes[targetNodeIndex];
-        // context.moveTo(edges[i]["moveto"]["x"]+50, edges[i]["moveto"]["y"]+50);
-        // context.lineTo(edges[i]["lineto"]["x"]+50, edges[i]["lineto"]["y"]);
+        var targetNode = getNode(targetNodeIndex);
         context.beginPath();
         context.lineWidth = 3;
         context.strokeStyle = "black";
