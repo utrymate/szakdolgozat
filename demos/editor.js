@@ -54,8 +54,8 @@ function addId() {
 // Classos megoldás alapján push-ol
 function addRectangle() {
     var newid = addId();
-    nodes.push(new Rectangle(100, 100, newid+1, 50, 100, ""))
-    // Fontos a sorrend, mert ez egy szar, ezért ide leírom: x, y, id, height, width, text
+    nodes.push(new Rectangle(100, 100, newid+1, 50, 100, ""));
+    // Fontos a sorrend, ezért ide leírom: x, y, id, height, width, text
     // KÉRDÉS: Típus vajon kell-e ide? Mert az eddigi logika alapján kellett, de most már gondolom nem, mert class
     draw();
 }
