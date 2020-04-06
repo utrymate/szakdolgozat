@@ -4,46 +4,50 @@ function getNode(id){
     return node[0];
 }
 
+function getEdge(id){
+    let edge = edges.filter((edge) =>  edge.id === parseInt(id));
+    return edge[0];
+}
+
 function closeText() {
     document.getElementById("addTextRect").style.display = "none";
     document.getElementById("addTextCirc").style.display = "none";
 }
 
 function addTextToNode(value) {
-    context.globalCompositeOperation='source-over';
-    nodes[selectedIndex]["text"] = value;
+    nodes[selectedIndex]["text"] = value; //.text is jó
     context.font = "20px Arial";
     context.textBaseline = 'middle';
     context.textAlign = "center";
-    context.fillText(value, nodes[selectedIndex]["x"]+nodes[selectedIndex]["width"]/2, nodes[selectedIndex]["y"]+nodes[selectedIndex]["height"]/2);       
-    if(nodes[selectedIndex]["type"] == "rectangle")
-    {
-        if(15 > nodes[selectedIndex]["width"] / value.length)
-        {
-            nodes[selectedIndex]["width"] += 14;
-        }
-    }
+    context.fillText(value, nodes[selectedIndex]["x"]+nodes[selectedIndex]["width"]/2, nodes[selectedIndex]["y"]+nodes[selectedIndex]["height"]/2);
+    nodes[selectedIndex].widen(value.length);
     /* // TODO: height növelése + sor törés egy bizonyos hossz után
     if(nodes[selectedIndex]["width"] > 150)
     {
         nodes[selectedIndex]["height"] = 80;
     }*/
-    if(nodes[selectedIndex]["type"] == "circle" || "start" || "end")
-    {
-        if(8 > nodes[selectedIndex]["radius"] / value.length)
-        {
-            nodes[selectedIndex]["radius"] += 7;
-        }
-    }
     clear();
-    draw(); 
+    draw();
+    //context.globalCompositeOperation='source-over';
 }
 
-function addId() {
+function addNodeId() {
     let max = 0;
     if(nodes.length !==0){
         nodes.forEach(e => {
-            if(e.id > max && e.id !== 9999) { //Így nem az End node lesz a legnagyobb ID-jú
+            if(e.id > max /*&& e.id !== 9999*/) { //Így nem az End node lesz a legnagyobb ID-jú
+                max = e.id;
+            }
+        });
+    }
+    return max;
+}
+
+function addEdgeId() {
+    let max = 0;
+    if(edges.length !==0){
+        edges.forEach(e => {
+            if(e.id > max) {
                 max = e.id;
             }
         });
@@ -53,7 +57,7 @@ function addId() {
 
 // Classos megoldás alapján push-ol
 function addRectangle() {
-    var newid = addId();
+    var newid = addNodeId();
     nodes.push(new Rectangle(100, 100, newid+1, 50, 100, ""));
     // Fontos a sorrend, ezért ide leírom: x, y, id, height, width, text
     // KÉRDÉS: Típus vajon kell-e ide? Mert az eddigi logika alapján kellett, de most már gondolom nem, mert class
@@ -63,28 +67,45 @@ function addRectangle() {
 
 //addCircles
 function addCircle() {
-    var newid = addId();
-    nodes.push( {"id": newid+1, "type": "circle", "x": 200, "y": 100, "text": "", "radius": 40, "width": 0, "height": 0})
+    var newid = addNodeId();
+    nodes.push(new Circle(200, 100, newid+1, 40, ""));
+    // nodes.push( {"id": newid+1, "type": "circle", "x": 200, "y": 100, "text": "", "radius": 40, "width": 0, "height": 0})
     draw();
 }
 
 //addStart
 function addStart() {
+    var newid = addNodeId();
+    nodes.push(new Start(60, 60, newid+1, 40, ""));
+    // SORREND: x, y, id, radius, text
+    //nodes.push( {"id": 0, "type": "start", "x": 60, "y": 60, "text": "", "radius": 40, "width": 0, "height": 0});
+    draw();
+/*  
+    // Ez akkor van, ha csak 1 db lehet belőle, de lehessen több
     let csakegy = true;
     nodes.forEach((value => {
-        if (value["type"] === "start"){
+        if (value["type"] === Start()){
             console.log("nem fut le");
             csakegy = false;
         }
     }));
     if (csakegy){
-        nodes.push( {"id": 0, "type": "start", "x": 60, "y": 60, "text": "", "radius": 40, "width": 0, "height": 0});
+        nodes.push(new Start(60, 60, 0, 40, ""));
+        //nodes.push( {"id": 0, "type": "start", "x": 60, "y": 60, "text": "", "radius": 40, "width": 0, "height": 0});
         draw();
         console.log("csak 1 lehet");
     }
+*/
 }
 
 function addEnd() {
+    var newid = addNodeId();
+    nodes.push(new End(1220, 660, newid+1, 40, ""));
+    // SORREND: x, y, id, radius, text
+    //nodes.push( {"id": 9999, "type": "end", "x": 1220, "y": 660, "text": "", "radius": 40, "width": 0, "height": 0});
+    draw();
+/*
+    // Itt is ez a helyzet
     let csakegy = true;
     nodes.forEach((value => {
         if (value["type"] === "end"){
@@ -96,10 +117,13 @@ function addEnd() {
         // INFO: Ha nem írom bele, hogy "text": "", akkor a rajta lévő szöveg "undefined" lesz
         draw();
     }
+*/
 }
 
 function addEdge(from, to) {
-    edges.push({"from": from, "to": to, "type": "dashed"});
+    //edges.push({"from": from, "to": to, "type": "dashed"});
+    var newid = addEdgeId();
+    edges.push(new Edge(from, to, newid+1));
     // edge1 = document.getElementById("edge1").value = '';
     // edge2 = document.getElementById("edge2").value = '';
 }
@@ -150,26 +174,11 @@ function mouseDown(event)
     selectedIndex = null;
     for (var i = 0; i < nodes.length; ++i) {
         var node = nodes[i];
-        if(node["type"] == "rectangle")
-        {
-            if (mouse["x"] >= node["x"]
-                && mouse["x"] <= node["x"] + node["width"] //+width hogy az egész node-ot húzni tudd
-                && mouse["y"] >= node["y"]
-                && mouse["y"] <= node["y"] + node["height"])
-            {
-                selectedIndex = i;
-            }
+        if (node.isMouseOnNode(mouse['x'], mouse['y'])){
+            selectedIndex = i;
         }
-        
-        if (node["type"] == "circle" || "start" || "end")
-        {
 
-            let shortestDistance = Math.abs(Math.sqrt(Math.pow(mouse["x"]-node["x"], 2) + Math.pow(mouse["y"]-node["y"], 2)));
-            if (shortestDistance <= node["radius"])
-            {
-                selectedIndex = i;
-            }
-        }
+        //todo: check if mouse is on node
     }
     dragStart = {
         x: event.clientX - canvasPosition.left,
@@ -188,7 +197,7 @@ function mouseMove(event)
         dragEnd = {
             x: event.clientX - canvasPosition.left,
             y: event.clientY - canvasPosition.top
-        }
+        };
         if (selectedIndex != null) {
             var dx = dragEnd.x - dragStart.x;
             var dy = dragEnd.y - dragStart.y;
@@ -208,7 +217,6 @@ function mouseUp(event)
     mouseDown = false;
 
     selectedIndex = null;
-
     /*
     // TODO: edge törlése
     for (var i=0; i<edges.length; ++i)
@@ -221,89 +229,59 @@ function mouseUp(event)
         }
     }
     */
-
     for (var i = 0; i < nodes.length; ++i) {
         var node = nodes[i];
-        if(node["type"] == "rectangle")
-        {
-            if (mouse["x"] >= node["x"]
-                && mouse["x"] <= node["x"] + node["width"]
-                && mouse["y"] >= node["y"]
-                && mouse["y"] <= node["y"] + node["height"])
-            {
-                selectedIndex = i;
-                console.log(event);
-                if (mouseUpEvent === true){
-                    document.getElementById("addTextRect").style.display = "";
-                    document.getElementById("addTextCirc").style.display = "none";
-                    context.fillStyle = "orange";
-                    context.font = "20px Arial";
-                    context.textBaseline = 'middle';
-                    context.textAlign = "center";
-                    context.fillText("Node's ID: "+node["id"], canvas.width-100, 30);
-                }
-                if (event.shiftKey === true) {
-                    drawEdge["from"] = node["id"];
-                    console.log(node["id"]);
-                }
-                if (event.altKey === true) {
-                    drawEdge["to"] = node["id"];
-                    console.log(node["id"]);
-                    addEdge(drawEdge["from"], drawEdge["to"]);
-                    clear();
-                    draw();
-                }
-                if (event.ctrlKey === true) {
-                    nodes.splice(selectedIndex, 1);
-                    clear();
-                    draw();
-                }
-            }
-        }
 
-        if(node["type"] == "circle" || "start" || "end")
+        if (node.isMouseOnNode(mouse['x'], mouse['y']))
         {
-            let shortestDistance = Math.abs(Math.sqrt(Math.pow(mouse["x"]-node["x"], 2) + Math.pow(mouse["y"]-node["y"], 2)));
-            if (shortestDistance <= node["radius"])
-            {
-                selectedIndex = i;
-                console.log(event);
-                if (mouseUpEvent === true){
-                    document.getElementById("addTextCirc").style.display = "";
-                    document.getElementById("addTextRect").style.display = "none";
-                    context.fillStyle = "orange";
-                    context.font = "20px Arial";
-                    context.textBaseline = 'middle';
-                    context.textAlign = "center";
-                    if(node["type"] == "start")
+            selectedIndex = i;
+            //console.log(event);
+            if (mouseUpEvent === true){
+                document.getElementById("addTextRect").style.display = "";
+                document.getElementById("addTextCirc").style.display = "none";
+                context.fillStyle = "orange";
+                context.font = "20px Arial";
+                context.textBaseline = 'middle';
+                context.textAlign = "center";
+                node.printNodeID(context, canvas.width-100, 30);
+                // eredeti: context.fillText("Node's ID: "+node["id"], canvas.width-100, 30);
+
+            }
+            //EREDETI:
+            /*if (event.shiftKey === true) {
+                drawEdge["from"] = node["id"];
+                console.log(node["id"]);
+            }
+            if (event.altKey === true) {
+                drawEdge["to"] = node["id"];
+                console.log(node["id"]);
+                addEdge(drawEdge["from"], drawEdge["to"], id);
+                clear();
+                draw();
+            }*/
+            //ÉS A MŰKÖDŐ:
+            if (event.shiftKey === true) {
+                //drawEdge["from"] = node["id"];
+                drawEdge['from'] = nodes[selectedIndex];
+            }
+            if (event.altKey === true) {
+                drawEdge["to"] = nodes[selectedIndex];//node["id"];
+                addEdge(drawEdge["from"], drawEdge["to"]);
+                clear();
+                draw();
+            }
+            if (event.ctrlKey === true) {
+                for (var j = 0; j < edges.length; ++j) {
+                    if(nodes[selectedIndex] === edges[j].to || nodes[selectedIndex] === edges[j].from)
                     {
-                        context.fillText("Start node's ID: "+node["id"], canvas.width-100, 30);
-                    }
-                    else if(node["type"] == "end")
-                    {
-                        context.fillText("End node's ID: "+node["id"], canvas.width-100, 30);
-                    }
-                    else
-                    {
-                        context.fillText("Node's ID: "+node["id"], canvas.width-100, 30);
+                        edges.splice(j, 1);
+                        // Probléma 1: ez csak 1 vonalat töröl (többet kell, ha a node-hoz több van kötve)
+                        // Probléma 2: annyi vonalat kell törölni, ahány a node-hoz van kötve
                     }
                 }
-                if (event.shiftKey === true) {
-                    drawEdge["from"] = node["id"];
-                    console.log(node["id"])
-                }
-                if (event.altKey === true) {
-                    drawEdge["to"] = node["id"];
-                    console.log(node["id"]);
-                    addEdge(drawEdge["from"], drawEdge["to"]);
-                    clear();
-                    draw();
-                }
-                if (event.ctrlKey === true) {
-                    nodes.splice(selectedIndex, 1);
-                    clear();
-                    draw();
-                }
+                nodes.splice(selectedIndex, 1);
+                clear();
+                draw();
             }
         }
     }
