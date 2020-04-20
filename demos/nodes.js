@@ -116,7 +116,7 @@ class End extends Circle{
 
 }
 
-function drawNodes(context) {
+function drawNodes(context, nodes) {
     for (let i = 0; i < nodes.length; ++i) {
         let node = nodes[i];
         node.draw(context);
