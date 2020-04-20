@@ -4,66 +4,88 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body onload="initialize()">
 <script src="graph.js"></script>
 <script src="editor.js"></script>
 <script src="nodes.js"></script>
 <script src="edges.js"></script>
-<canvas id="my-canvas" width="1280" height="720"></canvas>
-<table border=10>
-    <caption>Toolbox</caption>
-    <tr>
-        <th>
-            <p>Add node</p>
-        </th>
-        <th>
-            <p>Add circle</p>
-        </th>
-        <th>
-            <p>Add start</p>
-        </th>
-        <th>
-            <p>Add end</p>
-        </th>
-        <th>
-            <p>Edit element<br>(Ez nem csinál most semmit)</p>
-        </th>
-        <th>
-            <p>Edit edge (old)</p>
-        </th>
-    </tr>
-    <tr>
-        <td>
-            <!-- node hozzáadás-->
-            <div id="rectangle" onclick="addRectangle()"></div>
-        </td>
-        <td>
-            <!-- kör hozzáadás-->
-            <div id="circle" onclick="addCircle()"></div>
-        </td>
-        <td>
-            <!-- start hozzáadás-->
-            <div id="start" onclick="addStart()"></div>
-        </td>
-        <td>
-            <!-- start hozzáadás-->
-            <div id="end" onclick="addEnd()"></div>
-        </td>
-        <td>
-            <div class="editElement">
-                <!-- add vonal -->
-                <button class="button" onclick="editElement()">Edit element</button>
-            </div>
-        </td>
-        <td>
-            <div class="addEdge">
-                <!-- add vonal -->
-                <button onclick="openEdge()">Old add edge</button>
-            </div>
-        </td>
-    </tr>
-</table>
 
+<body onload="">
+
+<div class="grid-container">
+    <div class="item1">
+        <canvas id="my-canvas" width="1280" height="720"></canvas>
+    </div>
+    <div class="item2">
+        <table border=10>
+            <caption>Toolbox</caption>
+            <tr>
+                <th>
+                    <p>Add node</p>
+                </th>
+                <td>
+                    <!-- node hozzáadás-->
+                    <div id="rectangle" onclick="editor.addRectangle()"></div>
+                </td>
+            </tr>
+            <tr>
+                 <th>
+                    <p>Add circle</p>
+                 </th>
+                <td>
+                    <!-- kör hozzáadás-->
+                    <div id="circle" onclick="editor.addCircle()"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p>Add start</p>
+                </th>
+                <td>
+                    <!-- start hozzáadás-->
+                    <div id="start" onclick="editor.addStart()"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p>Add end</p>
+                </th>
+                <td>
+                    <!-- end hozzáadás-->
+                    <div id="end" onclick="editor.addEnd()"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p>Edit element<br>(Ez nem csinál most semmit)</p>
+                </th>
+                <td>
+                    <div class="editElement">
+                        <!-- ez még nem működik, de a gomb szépen néz ki -->
+                        <button class="button" onclick="editElement()">Edit element</button>
+                    </div>
+                </td>
+            </tr>
+            <!--
+            <tr>
+                <th>
+                    <p>Edit edge (old)</p>
+                </th>
+                <td>
+                    <div class="addEdge">
+                        <button onclick="openEdge()">Old add edge</button>
+                    </div>
+                </td>
+            </tr>
+            -->
+        </table>
+    </div>
+  </div>
+<script>
+    //let graph = new Graph(); //todo: konstruktorokat atadni
+    //todo letrehozni a tobbi osztaly is.
+    let editor = new Editor();
+    initialize(editor)
+</script>
 <!-- add edge-->
 <div id="addEdge" style="display: none">
     <span class="helper"></span>
@@ -87,7 +109,7 @@
     <span class="helper"></span>
     <div>
         <label for="textInput" >Type text here: </label>
-        <input type="text" onfocus="this.value=''" name="textInput" id="textInput" onkeyup="addTextToNode(this.value)">
+        <input type="text" onfocus="this.value=''" name="textInput"  onkeyup="editor.addTextToNode(this.value)">
     </div>
     <div>
         <label for="textInput" >Type width here: </label>
@@ -108,7 +130,7 @@
     <span class="helper"></span>
     <div>
         <label for="textInput" >Type text here: </label>
-        <input type="text" onfocus="this.value=''" name="textInput" id="textInput" onkeyup="addTextToNode(this.value)">
+        <input type="text" onfocus="this.value=''" name="textInput"  onkeyup="addTextToNode(this.value)">
     </div>
     <div>
         <label for="textInput" >Type radius here: </label>
@@ -120,4 +142,7 @@
     </div>
 </div>
 </body>
+<script>
+    //editor.resize();
+</script>
 </html>
