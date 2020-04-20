@@ -28,12 +28,9 @@ class Graph {
         drawNodes(this.context, this.nodes);
         drawEdges(this.context, this.edges);
     }
-
-
 }
 
-
-
+////////////////////////////////////////Ez alatt a régiek:
 var canvas = null;
 var canvasPosition = null;
 var context = null;
@@ -74,5 +71,4 @@ function initialize(editor)
     editor.graph.canvas.addEventListener("mouseup", editor.mouseUp.bind(editor), false);
     editor.graph.canvas.addEventListener("mousewheel", editor.mouseWheel.bind(editor), false);
     editor.graph.context = editor.graph.canvas.getContext("2d");
-    //window.addEventListener("resize", editor.resize.bind(editor));
 }
