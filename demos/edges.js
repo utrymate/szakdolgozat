@@ -46,7 +46,7 @@ class Edge {
     }
 }
 
-function drawEdges(context) {
+function drawEdges(context, edges) {
     for (let i = 0; i < edges.length; ++i) {
         let edge = edges[i];
         var sourceNodeIndex = edges[i]["from"];
