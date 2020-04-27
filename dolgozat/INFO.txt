@@ -1,0 +1,31 @@
+2020. 04. 26. Kérdések Pillertõl (hanghívásban)
+ - Nézze meg amit eddig haladtam, jó-e az úgy.
+ - Hivatkozásokat hogyan használjam (xFLOWer-rõl dolgozom fel az egészet)
+ - Mindegyik szakdolgozatponton haladjunk végig, hogy konkrétan mi legyen benne,
+hogyan kezdjem el
+ - Demo programban milyen módosítások kellenek még, mi lesz még pluszba bele téve
+
+1. Bevezetés
+
+
+2. Üzleti folyamatok és modellezésük
+általános áttekintést kellene adjon arról, hogy mik azok az üzleti folyamatok, hogyan szokták modellezni õket, 
+milyen matematikai modellek vannak, egyáltalán miért lényeges, milyen szoftveres eszközök vannak.
+
+3. Specifikáció
+kellene részletesen leírni, hogy milyen feladatokat és hogyan old majd meg az elkészített alkalmazás.
+
+4. Tervezés
+osztálydiagram kellene, illetve az adatok mentése kapcsán érdemes kliens-szerver architektúrás és 
+REST API-s leírást is beletenni.
+
+5. JavaScript implementáció
+elég, hogy ha késõbbre marad, mert az már feltételezi, hogy kész van az alkalmazás és használható.
+
+6. Folyamat példák
+elég, hogy ha késõbbre marad, mert az már feltételezi, hogy kész van az alkalmazás és használható.
+
+7. Összegzés
+
+
+Hivatkozások

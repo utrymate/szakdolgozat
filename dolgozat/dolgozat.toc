@@ -1,14 +1,19 @@
 \select@language {magyar} \contentsline {chapter}{\numberline {1}Bevezetés}{1}{chapter.1}%
 \select@language {magyar} \contentsline {chapter}{\numberline {2}Üzleti folyamatok és modellezésük}{2}{chapter.2}%
-\select@language {magyar} \contentsline {chapter}{\numberline {3}Megvalósítás/Specifikáció}{3}{chapter.3}%
-\select@language {magyar} \contentsline {chapter}{\numberline {4}Tervezés}{5}{chapter.4}%
-\select@language {magyar} \contentsline {section}{\numberline {4.1}Táblázatok}{5}{section.4.1}%
-\select@language {magyar} \contentsline {section}{\numberline {4.2}Ábrák}{5}{section.4.2}%
-\select@language {magyar} \contentsline {section}{\numberline {4.3}További környezetek}{6}{section.4.3}%
-\select@language {magyar} \contentsline {chapter}{\numberline {5}JavaScript implementáció}{7}{chapter.5}%
-\select@language {magyar} \contentsline {chapter}{\numberline {6}Folyamat példák}{8}{chapter.6}%
-\select@language {magyar} \contentsline {section}{\numberline {6.1}A fejezet célja}{8}{section.6.1}%
-\select@language {magyar} \contentsline {section}{\numberline {6.2}Tartalom és felépítés}{8}{section.6.2}%
-\select@language {magyar} \contentsline {section}{\numberline {6.3}Amit csak említés szintjén érdemes szerepeltetni}{8}{section.6.3}%
-\select@language {magyar} \contentsline {chapter}{\numberline {7}Összefoglalás}{10}{chapter.7}%
-\select@language {magyar} \contentsline {chapter}{Irodalomjegyzék}{11}{chapter.7}%
+\select@language {magyar} \contentsline {section}{\numberline {2.1}Mik azok az üzleti folyamatok?}{2}{section.2.1}%
+\select@language {magyar} \contentsline {section}{\numberline {2.2}Üzleti folyamatok modellezése}{4}{section.2.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {2.2.1}Modellezés folyamatábrával}{4}{subsection.2.2.1}%
+\select@language {magyar} \contentsline {section}{\numberline {2.3}Egy folyamatokat szemléltető szoftveres eszköz}{7}{section.2.3}%
+\select@language {magyar} \contentsline {subsection}{\numberline {2.3.1}Draw.io}{7}{subsection.2.3.1}%
+\select@language {magyar} \contentsline {chapter}{\numberline {3}Megvalósítás/Specifikáció}{9}{chapter.3}%
+\select@language {magyar} \contentsline {chapter}{\numberline {4}Tervezés}{11}{chapter.4}%
+\select@language {magyar} \contentsline {section}{\numberline {4.1}Táblázatok}{11}{section.4.1}%
+\select@language {magyar} \contentsline {section}{\numberline {4.2}Ábrák}{11}{section.4.2}%
+\select@language {magyar} \contentsline {section}{\numberline {4.3}További környezetek}{12}{section.4.3}%
+\select@language {magyar} \contentsline {chapter}{\numberline {5}JavaScript implementáció}{13}{chapter.5}%
+\select@language {magyar} \contentsline {chapter}{\numberline {6}Folyamat példák}{14}{chapter.6}%
+\select@language {magyar} \contentsline {section}{\numberline {6.1}A fejezet célja}{14}{section.6.1}%
+\select@language {magyar} \contentsline {section}{\numberline {6.2}Tartalom és felépítés}{14}{section.6.2}%
+\select@language {magyar} \contentsline {section}{\numberline {6.3}Amit csak említés szintjén érdemes szerepeltetni}{14}{section.6.3}%
+\select@language {magyar} \contentsline {chapter}{\numberline {7}Összefoglalás}{16}{chapter.7}%
+\select@language {magyar} \contentsline {chapter}{Irodalomjegyzék}{17}{chapter.7}%

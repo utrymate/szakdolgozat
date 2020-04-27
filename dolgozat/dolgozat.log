@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7300 64-bit) (preloaded format=pdflatex 2020.2.21)  22 APR 2020 16:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7300 64-bit) (preloaded format=pdflatex 2020.2.21)  27 APR 2020 17:40
 entering extended mode
 **./dolgozat.tex
 (dolgozat.tex
@@ -489,22 +489,22 @@ File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
 )
 \openout1 = `dolgozat.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
 
 *geometry* detected driver: dvips
 *geometry* verbose mode - [ preamble ] result:
@@ -559,7 +559,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 )
 \c@lstlisting=\count296
 \AtBeginShipoutBox=\box57
-Package hyperref Info: Link coloring OFF on input line 11.
+Package hyperref Info: Link coloring OFF on input line 10.
 
 ("C:\Program Files\MiKTeX 2.9\tex/latex/hyperref\nameref.sty"
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
@@ -572,9 +572,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count297
 )
-LaTeX Info: Redefining \ref on input line 11.
-LaTeX Info: Redefining \pageref on input line 11.
-LaTeX Info: Redefining \nameref on input line 11.
+LaTeX Info: Redefining \ref on input line 10.
+LaTeX Info: Redefining \pageref on input line 10.
+LaTeX Info: Redefining \nameref on input line 10.
 
 (dolgozat.out) (dolgozat.out)
 \@outlinefile=\write4
@@ -588,7 +588,7 @@ LaTeX Info: Redefining \mit on input line 578.
 \openout2 = `cover/cimlap.aux'.
 
  (cover/cimlap.tex
-<images/me_logo.png, id=58, 1204.5pt x 1148.29pt>
+<images/me_logo.png, id=78, 1204.5pt x 1148.29pt>
 File: images/me_logo.png Graphic file (type png)
 <use images/me_logo.png>
 Package pdftex.def Info: images/me_logo.png  used on input line 9.
@@ -674,7 +674,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 56--59
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.31 \include{chapters/1_introduction}
+l.30 \include{chapters/1_introduction}
                                        [1
 
 
@@ -684,16 +684,60 @@ l.31 \include{chapters/1_introduction}
 
  (chapters/2_BPM.tex
 2. fejezet.
-)pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has
+pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.29 \item E
+            lső lépésben konkrétan meghatározzák, hogy melyek azok az ...
+[2
+
+
+
+]pdfTeX warning (ext4): destination with the same identifier (name{page.3}) has
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.32 \include{chapters/2_BPM}
-                              [2
+l.48 \end{enumerate}
+                     [3]
+<images/uzleti_intelligencia.png, id=154, 513.92pt x 384.43625pt>
+File: images/uzleti_intelligencia.png Graphic file (type png)
+<use images/uzleti_intelligencia.png>
+Package pdftex.def Info: images/uzleti_intelligencia.png  used on input line 68
+.
+(pdftex.def)             Requested size: 256.95937pt x 192.21765pt.
+<images/folyamatabra.png, id=156, 211.54031pt x 660.21657pt>
+File: images/folyamatabra.png Graphic file (type png)
+<use images/folyamatabra.png>
+Package pdftex.def Info: images/folyamatabra.png  used on input line 89.
+(pdftex.def)             Requested size: 148.0772pt x 462.14844pt.
 
 
+LaTeX Warning: `h' float specifier changed to `ht'.
 
-]
+pdfTeX warning (ext4): destination with the same identifier (name{page.4}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.94 \newpage
+              %Egybe legyen, aminek egybe kell lennie [4 <./images/uzleti_intel
+ligencia.png>] [5 <./images/folyamatabra.png>]
+<images/uresfolyamat.png, id=167, 249.18094pt x 426.09187pt>
+File: images/uresfolyamat.png Graphic file (type png)
+<use images/uresfolyamat.png>
+Package pdftex.def Info: images/uresfolyamat.png  used on input line 112.
+(pdftex.def)             Requested size: 199.345pt x 340.87395pt.
+ [6 <./images/uresfolyamat.png>]
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\H' on input line 119.
+
+<images/drawio.png, id=176, 1446.15282pt x 782.925pt>
+File: images/drawio.png Graphic file (type png)
+<use images/drawio.png>
+Package pdftex.def Info: images/drawio.png  used on input line 127.
+(pdftex.def)             Requested size: 433.8492pt x 234.8793pt.
+[7 <./images/drawio.png>]) [8]
 \openout2 = `chapters/3_specifikacio.aux'.
 
  (chapters/3_specifikacio.tex
@@ -709,24 +753,15 @@ File: lstlang1.sty 2019/09/10 1.8c listings language file
 )
 ("C:\Program Files\MiKTeX 2.9\tex/latex/listings\lstmisc.sty"
 File: lstmisc.sty 2019/09/10 1.8c (Carsten Heinz)
-))pdfTeX warning (ext4): destination with the same identifier (name{page.3}) ha
-s been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.33 \include{chapters/3_specifikacio}
-                                       [3
+)) [9
 
 
 
-]pdfTeX warning (ext4): destination with the same identifier (name{page.4}) has
- been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.33 \include{chapters/3_specifikacio}
-                                       [4]
+] [10]
 \openout2 = `chapters/4_tervezes.aux'.
 
- (chapters/4_tervezes.tex
+
+(chapters/4_tervezes.tex
 4. fejezet.
 File: images/me_logo.png Graphic file (type png)
 <use images/me_logo.png>
@@ -735,7 +770,7 @@ Package pdftex.def Info: images/me_logo.png  used on input line 44.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[5
+[11
 
 
 
@@ -754,12 +789,12 @@ Package hyperref Info: bookmark level for unknown remark defaults to 0 on input
  line 75.
 Package hyperref Info: bookmark level for unknown example defaults to 0 on inpu
 t line 79.
-) [6]
+) [12]
 \openout2 = `chapters/5_JSimplementacio.aux'.
 
  (chapters/5_JSimplementacio.tex
 5. fejezet.
-) [7
+) [13
 
 
 
@@ -768,30 +803,27 @@ t line 79.
 
  (chapters/6_folyamatPeldak.tex
 6. fejezet.
-
-LaTeX Warning: Citation `coombs1987markup' on page 8 undefined on input line 8.
-
-
-) [8
+) [14
 
 
 
-] [9]
+] [15]
 \openout2 = `chapters/7_summary.aux'.
 
  (chapters/7_summary.tex
 7. fejezet.
-) [10
+) [16
+
+
+
+] (dolgozat.bbl) [17
 
 
 
 ]
-No file dolgozat.bbl.
 \openout2 = `cover/hasznalati.aux'.
 
-(cover/hasznalati.tex) [11
-
-
+ (cover/hasznalati.tex) [18
 
 ]
 \tf@thm=\write6
@@ -799,9 +831,9 @@ No file dolgozat.bbl.
 
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 58.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 58.
- (dolgozat.aux (cover/cimlap.aux)
-(cover/feladatkiiras.aux) (chapters/1_introduction.aux) (chapters/2_BPM.aux)
-(chapters/3_specifikacio.aux) (chapters/4_tervezes.aux)
+ (dolgozat.aux
+(cover/cimlap.aux) (cover/feladatkiiras.aux) (chapters/1_introduction.aux)
+(chapters/2_BPM.aux) (chapters/3_specifikacio.aux) (chapters/4_tervezes.aux)
 (chapters/5_JSimplementacio.aux) (chapters/6_folyamatPeldak.aux)
 (chapters/7_summary.aux) (cover/hasznalati.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 58.
@@ -813,24 +845,18 @@ Package rerunfilecheck Warning: File `dolgozat.out' has changed.
 (rerunfilecheck)                or use package `bookmark'.
 
 Package rerunfilecheck Info: Checksums for `dolgozat.out':
-(rerunfilecheck)             Before: 607BBD1B5A6173C938FADDCBE300849D;874
-(rerunfilecheck)             After:  A691FFE317D9B549713A368CE360D678;920.
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
+(rerunfilecheck)             Before: 106770A05F7FB3F65D9CB546FF56CB15;1332
+(rerunfilecheck)             After:  8BE4126EFDF45A49D72E3ABF36F88040;1331.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 58.
  ) 
 Here is how much of TeX's memory you used:
- 12234 strings out of 481518
- 177297 string characters out of 2922210
- 658067 words of memory out of 3000000
- 27136 multiletter control sequences out of 15000+200000
+ 12299 strings out of 481518
+ 178397 string characters out of 2922210
+ 658871 words of memory out of 3000000
+ 27170 multiletter control sequences out of 15000+200000
  553642 words of font info for 75 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 46i,11n,65p,541b,1313s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 46i,11n,65p,818b,1313s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/cm-super/cm-super-t1.enc}{C:/Pro
 gram Files/MiKTeX 2.9/fonts/enc/dvips/cm-super/cm-super-ts1.enc}<C:/Program Fil
 es/MiKTeX 2.9/fonts/type1/public/amsfonts/latxfont/lcircle1.pfb><C:/Program Fil
@@ -848,9 +874,9 @@ fonts/type1/public/cm-super/sfxc1200.pfb><C:/Program Files/MiKTeX 2.9/fonts/typ
 e1/public/cm-super/sfxc1440.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public
 /cm-super/sfxc2488.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/txfonts/
 t1xbtt.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/txfonts/t1xtt.pfb>
-Output written on dolgozat.pdf (16 pages, 461813 bytes).
+Output written on dolgozat.pdf (23 pages, 745111 bytes).
 PDF statistics:
- 249 PDF objects out of 1000 (max. 8388607)
- 48 named destinations out of 1000 (max. 500000)
- 118 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 337 PDF objects out of 1000 (max. 8388607)
+ 73 named destinations out of 1000 (max. 500000)
+ 178 words of extra memory for PDF output out of 10000 (max. 10000000)
 
