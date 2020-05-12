@@ -2,15 +2,17 @@
 <html lang="hu">
 <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<script src="graph.js"></script>
-<script src="editor.js"></script>
-<script src="nodes.js"></script>
-<script src="edges.js"></script>
+<script src="js/graph.js"></script>
+<script src="js/editor.js"></script>
+<script src="js/nodes.js"></script>
+<script src="js/edges.js"></script>
 
-<body onload="">
-
+<script>
+    let editor = new Editor();
+</script>
+<body onload="" onresize="editor.resize()">
 <div class="grid-container">
     <div class="item1">
         <canvas id="my-canvas" width="1280" height="720"></canvas>
@@ -25,6 +27,14 @@
                 <td>
                     <!-- node hozzáadás-->
                     <div id="rectangle" onclick="editor.addRectangle()"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p>Add diamond</p>
+                </th>
+                <td>
+                    <div id="diamond" onclick="editor.addDiamond()"></div>
                 </td>
             </tr>
             <tr>
@@ -55,15 +65,24 @@
                 </td>
             </tr>
             <tr>
+                <td colspan="2">
+                    <div id="addTextRect" style="">
+                        <span class="helper"></span>
+                        <div id="resize-nodes">
+
+                        </div>
+                    </div>
+                </td>
+                <!--
                 <th>
                     <p>Edit element<br>(Ez nem csinál most semmit)</p>
                 </th>
                 <td>
                     <div class="editElement">
-                        <!-- ez még nem működik, de a gomb szépen néz ki -->
                         <button class="button" onclick="editElement()">Edit element</button>
                     </div>
                 </td>
+                -->
             </tr>
             <!--
             <tr>
@@ -78,13 +97,129 @@
             </tr>
             -->
         </table>
+        <button onclick="saveEditorData()">Mentés</button>
+        <label for="temavalto">Téma</label>
+        <select name="theme" id="temavalto" onchange="editor.changeTheme(this.value)">
+            <option value="fapados">fapados</option>
+            <option value="fullos">fullos</option>
+        </select>
     </div>
   </div>
 <script>
     //let graph = new Graph(); //todo: konstruktorokat atadni
     //todo letrehozni a tobbi osztaly is.
-    let editor = new Editor();
-    initialize(editor)
+    window.onscroll = function (e) {
+        editor.resize()
+    }
+    initialize(editor);
+    editor.resize();
+    const apiURL = "http://localhost:8000/api";
+    function GetEditorData() {
+        fetch(apiURL+'/nodes').then(response => response.json())
+            .then(data => {
+                console.log(data);
+                data.map(node => {
+                    let newNode = {};
+                    switch (node["type"]) {
+                        case "rectangle":
+                            newNode = new Rectangle(node["x"],node["y"],node["id"],node["height"], node["width"], node["text"], editor.graph.themes[editor.graph.selectedtheme].rectangleColor);
+                            break;
+                        case "circle":
+                            newNode = new Circle(node["x"],node["y"],node["id"],node["radius"], node["text"], editor.graph.themes[editor.graph.selectedtheme].circleColor);
+                            break;
+                        case "diamond":
+                            newNode = new Diamond(node["x"],node["y"],node["id"],node["height"], node["width"], node["text"], editor.graph.themes[editor.graph.selectedtheme].diamondColor);
+                            break;
+                        case "start":
+                            newNode = new Start(node["x"],node["y"],node["id"],node["radius"], node["text"]);
+                            break;
+                        case "end":
+                            newNode = new End(node["x"],node["y"],node["id"],node["radius"], node["text"]);
+                            break;
+                    }
+                    editor.graph.nodes.push(newNode)
+                })
+            }).then(r => {
+                //itt mar betoltottuk a nodes-okat
+                fetch(apiURL+'/edges').then(response =>response.json())
+                    .then(data => {
+                        data.map(elem =>{
+                            let from = editor.getNode(elem.edgefrom);
+                            let to = editor.getNode(elem.edgeto);
+                            let newEdge = new Edge(from, to,elem.id);
+                            editor.graph.edges.push(newEdge);
+                        })
+                    })
+        })
+
+
+
+    }
+    function saveEditorData() {
+        let example = {"type":"circle","x":100,"y":200,"id":1,"text":"valami", "height":0,"width":0, "radius":50};
+        let nodes = [];
+        let edges = [];
+        let type="";
+        editor.graph.nodes.map(node => {
+                switch (node.constructor.name ){
+                case "Rectangle":
+                    type = "rectangle";
+                    break;
+                case "Circle":
+                    type = "circle";
+                    break;
+                case "Diamond":
+                    type = "diamond";
+                    break;
+                case "Start":
+                    type = "start";
+                    break;
+                case "End":
+                    type = "start";
+                    break;
+            }
+
+            let nodeJSON = {
+                "type": type,
+                "x": node.x,
+                "y": node.y,
+                "id": node.id,
+                "text":node.text,
+                "height": node.height ? node.height : 0,
+                "width": node.width ? node.width : 0,
+                "radius": node.radius ? node.radius : 0,
+                //"theme": editor.graph.selectedtheme
+            };
+            nodes.push(nodeJSON)
+
+        });
+        editor.graph.edges.map(edge =>{
+            let edgeJSON = {
+                "id": edge.id,
+                "from": edge.from.id,
+                "to": edge.to.id
+            };
+            edges.push(edgeJSON);
+        });
+        console.log(JSON.stringify(nodes));
+        fetch(apiURL+'/nodes', {
+            method: 'POST',
+            body: JSON.stringify(nodes)
+        }).then(response => response.json()).then(data => {
+            //ha valami ertelmeset is kapunk itt elerjuk
+        }).then(r =>{
+            fetch(apiURL+'/edges', {
+                method: 'POST',
+                body: JSON.stringify(edges)
+            }).then(response => response.json()).then(data => {
+                //ha valami ertelmeset is kapunk itt elerjuk
+            });
+        })
+
+
+    }
+
+    GetEditorData();
 </script>
 <!-- add edge-->
 <div id="addEdge" style="display: none">
@@ -105,25 +240,7 @@
 </div>
 
 <!-- RECTANGLE szöveg bevitel, újraméretezés -->
-<div id="addTextRect" style="display: none">
-    <span class="helper"></span>
-    <div>
-        <label for="textInput" >Type text here: </label>
-        <input type="text" onfocus="this.value=''" name="textInput"  onkeyup="editor.addTextToNode(this.value)">
-    </div>
-    <div>
-        <label for="textInput" >Type width here: </label>
-        <input type="number" name="width" id="width">
-    </div>
-    <div>
-        <label for="textInput" >Type height here: </label>
-        <input type="number" name="height" id="height">
-    </div>
-    <div>
-        <button onclick="resizeRectangle()">Resize</button>
-        <button onclick="closeText()">Close</button>
-    </div>
-</div>
+
 
 <!-- CIRCLE szöveg bevitel, újraméretezés -->
 <div id="addTextCirc" style="display: none">
@@ -143,6 +260,6 @@
 </div>
 </body>
 <script>
-    //editor.resize();
+    // editor.resize();
 </script>
 </html>

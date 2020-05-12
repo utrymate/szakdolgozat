@@ -1,3 +1,4 @@
+﻿# Erre már nincs szükség, hiszen van Felhasználói kézikönyv a szakdolgozatban :)
 ## Rövid, átfogó jellegű leírás, használati útmutató a gráfszerkesztő jelenlegi állapotához (updated!)
 
 ### Hozzáadás a Toolboxból:
