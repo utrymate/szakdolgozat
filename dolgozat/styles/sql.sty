@@ -1,0 +1,64 @@
+% Forrás: David Stutz GitHub. Lásd:
+% https://github.com/davidstutz/latex-resources/blob/master/listings-sql/sql.tex
+
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{ltgray}{rgb}{0.5,0.5,0.5}
+\definecolor{lightblue}{rgb}{0.2, 0.5, 0.9}
+
+\usepackage{listings}
+
+% Forrás: Philipp Kief GitHub. Lásd:
+% https://github.com/PKief/latex-thesis-template/blob/master/settings/listings.tex
+% Kiegészítés: más színek használata, kulcsszavak hozzáadása
+% Kiegészíthető, de nincs használatban: insert, into, alter, update, set, delete, as, and, or
+\lstdefinelanguage{SQL}{
+    keywords={create, table, select, where, from, integer, not, null, varchar, references, primary, foreign, key},
+    keywordstyle=\color{lightblue}\bfseries,
+    ndkeywords={},
+    ndkeywordstyle=\color{green}\bfseries,
+    identifierstyle=\color{black},
+    sensitive=false,
+    comment=[l]{--},
+    morecomment=[s]{/*}{*/},
+    commentstyle=\color{black}\ttfamily,
+    stringstyle=\color{darkred}\ttfamily,
+    morestring=[b]',
+    morestring=[b]"
+}
+
+\newcommand\sqlstyle{\lstset{
+  	backgroundcolor=\color{white},
+  	basicstyle=\footnotesize, %ttm is lehet
+  	breakatwhitespace=false,
+  	breaklines=true,
+  	captionpos=b,
+  	commentstyle=\color{dkgreen},
+  	deletekeywords={...},
+  	escapeinside={\%*}{*)},
+  	extendedchars=true,
+  	frame=single,
+  	keepspaces=true,
+  	keywordstyle=\color{blue},
+  	language=SQL,
+  	morekeywords={*,modify,MODIFY,...},
+  	numbers=left,
+  	numbersep=15pt,
+  	numberstyle=\tiny,
+  	rulecolor=\color{ltgray},
+  	showspaces=false,
+  	showstringspaces=false, 
+  	showtabs=false,
+  	stepnumber=1,
+  	tabsize=4,
+  	title=\lstname
+}}
+
+\lstnewenvironment{SQL}[1][]
+{
+\sqlstyle
+\lstset{#1}
+}
+{}
+
