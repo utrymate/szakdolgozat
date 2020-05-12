@@ -1,80 +1,152 @@
 \Chapter{Tervezés}
 
-A 4. fejezetben osztálydiagram kellene, illetve az adatok mentése kapcsán érdemes kliens-szerver architektúrás és REST API-s leírást is beletenni.
+\Section{Bevezetés}
 
-Itt kezdődik a dolgozat lényegi része, úgy értve, hogy a saját munka bemutatása.
-Jellemzően ebben szerepelni szoktak blokkdiagramok, a program struktúrájával foglalkozó leírások.
-Ehhez célszerű UML ábrákat (például osztály- és szekvenciadiagramokat) használni.
+A specifikációk alapján a programban a felhasználónak kell tudnia csomópontokat hozzáadni, szerkeszteni, és azokat összekötni más csomópontokkal. Továbbá az éppen aktuális munkáját a gráfszerkesztőn el kell tudni mentenie, és a program újraindításánál visszatöltenie azt. Ez utóbbi megvalósításához szükség van valamilyen "tárolóra", vagyis egy szerverre és egy adatbázisra. Ennél a fejezetnél már nem csak a látható programrészen van a hangsúly, hanem legalább ugyanakkora figyelmet kap a szerver oldal is az adatbázissal, hiszen azok is kiemelkedő részei az alkalmazásnak.
 
-Amennyiben a dolgozat inkább kutatás jellegű, úgy itt lehet konkretizálni a kutatási módszertant, a kutatás tervezett lépéseit, az indoklást, hogy mit, miért és miért pont úgy érdemes csinálni, ahogyan az a későbbiekben majd részletezésre kerül.
+\Section{Technológia és architektúra a szerver oldalon}
 
-Ebben a fejezetben az implementáció nem kell, hogy túl nagy szerepet kapjon.
-Ez még csak a tervezési fázis.
-(Nyilván ha olyan a téma, hogy magának az implementációnak a módjával foglalkozik, adott formális nyelvet mutat be, úgy a kódpéldákat már innen sem lehet kihagyni.)
-
-\Section{Táblázatok}
-
-Táblázatokhoz a \texttt{table} környezetet ajánlott használni.
-Erre egy minta \aref{tab:minta}. táblázat.
-A hivatkozáshoz az egyedi \texttt{label} értéke konvenció szerint \texttt{tab:} prefixszel kezdődik.
-
-\begin{table}[h]
-\centering
-\caption{Minta táblázat. A táblázat felirata a táblázat felett kell legyen!}
-\label{tab:minta}
-\begin{tabular}{l|c|c|}
-a & b & c \\
-\hline
-1 & 2 & 3 \\
-4 & 5 & 6 \\
-\hline
-\end{tabular}
-\end{table}
-
-\Section{Ábrák}
-
-Ábrákat a \texttt{figure} környezettel lehet használni.
-A használatára egy példa \aref{fig:cimer}. ábrán látható.
-Az \texttt{includegraphics} parancsba 
-Az ábrák felirata az ábra alatt kell legyen.
-Az ábrák hivatkozásához használt nevet konvenció szerint \texttt{fig:}-el célszerű kezdeni.
+Ahhoz, hogy a bevezetőben említett specifikációt megvalósító szoftvert meg tudjuk írni, először kijelöljük a megfelelő technológiákat és az architektúrát. A kliens-szerver architetúra megfelelő erre az alkalmazásra. A kliens egy böngészős frontend, ami egy API-n keresztül tud kommunikálni a backend szerverrel, amely perzisztensen tárolja az adatokat egy relációs adatbázisban. A kliens esetünkben a böngészőben futó \textbf{JavaScript} alkalmazás, míg a szerver egy \textbf{Python} nyelven íródott \textbf{Falcon API}-t használ, valamint \textbf{SQLite} adatbázist a tárolásra.
+ 
+Hogy ez működjön a számítógépünkön először telepíteni kell a \textbf{Python}t, és a \textbf{pip}-et. A Pythont egyszerűen le lehet tölteni a hivatalos honlapról a \url{https://www.python.org/downloads/} URL címen keresztül. Windows felhasználóként a Windowshoz készült 64-bites setup segítségével telepítettem fel az alkalmazást. A \ref{fig:pyt1} ábrán látható, hogy a Python telepítésével egyidejűleg lehetőségünk van a pip telepítésére is, ehhez azonban manuális telepítés szükséges.
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.3]{images/me_logo.png}
-\caption{A Miskolci Egyetem címere.}
-\label{fig:cimer}
+\includegraphics[scale=0.7]{images/python1.png}
+\caption{Python telepítése pip-pel együtt}
+\label{fig:pyt1}
 \end{figure}
 
-\Section{További környezetek}
+A telepítés következő lépésében célszerű bepipálni a 4. pontot, ami a környezeti változókhoz hozzáadja a Python-t, hiszen ennek elmulasztása esetén láthatósági problémák jelentkezhetnek használat közben. Lásd: \ref{fig:pyt2} ábra.
 
-A matematikai témájú dolgozatokban szükség lehet tételek és bizonyításaik megadására.
-Ehhez szintén vannak készen elérhető környezetek.
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.7]{images/python2.png}
+\caption{Python hozzáadása környezeti változókhoz}
+\label{fig:pyt2}
+\end{figure}
 
-\begin{definition}
-Ez egy definíció
-\end{definition}
+Végigmenve a telepítőn már fel is telepítettük sikeresen a Pythont és a pip-et, amiről értesít is a setup. Le is ellenőrizhetjük, hogy valóban települtek-e a kívánt alkalmazások: parancssorba beírva a \texttt{python} parancsot attól függetlenül, hogy melyik jegyzékben vagyunk (hiszen hozzáadtuk a környezeti változókhoz a Pythont), azonnal elindul a \textit{python.exe} fájl. Helyét a \texttt{where python} parancs beírásával érhetjük el, amely megegyezik a telepítéskor megadott hellyel. A pip esetében ha kiadjuk a \texttt{pip} parancsot a parancssorba, az megmutatja, hogy milyen pip parancsok érhetőek el (innen tudhatjuk, hogy létezik a pip fájlunk, hiszen ha nem lenne, a parancsok kilistázása helyett hibaüzenetet írna ki a parancssor).
 
-\begin{lemma}
-Ez egy lemma
-\end{lemma}
+Ezek után a program működéséhez elengedhetetlen csomagokat telepítjük: az \textbf{SQLAlchemy}-t és a korábban említett \textbf{Falcon}-t. A telepítés a következő formátum megadásával történik: \texttt{python -m pip install [csomag neve]}
 
-\begin{theorem}
-Ez egy tétel
-\end{theorem}
+Tehát például a Falcont az alábbi parancs kiadása telepíti:
 
-\begin{proof}
-Ez egy bizonyítás
-\end{proof}
+\begin{python}
+python -m pip install falcon
+\end{python}
 
-\begin{corollary}
-Ez egy tétel
-\end{corollary}
+Az SQLAlchemy-t pedig így a következő paranccsal fogjuk tudni telepíteni:
+\begin{python}
+python -m pip install sqlalchemy
+\end{python}
 
-\begin{remark}
-Ez egy megjegyzés
-\end{remark}
+Az SQLite3-at is érdemes telepítenünk, ha manuálisan akarjuk létrehozni az adatbázist és a táblákat. A telepítést itt is a hivatalos \url{https://www.sqlite.org/download.html} oldalon keresztül tehetjük meg.
 
-\begin{example}
-Ez egy példa
-\end{example}
+Ezt követően egy webszerver telepítése következik, például \textbf{waitress} vagy Unix-szerű rendszerek esetében a \textbf{gunicorn}, amivel elérhetjük a programot egy porton keresztül. Esetünkben a 8000-es portot használjuk. A backend szerver API-n keresztül szolgálja fel a statikus elemeket is, mint a HTML, CSS, JavaScript fájlok.
+ 
+Itt láthatjuk az útvonalakat amelyen az API felszolgáljuk a statikus elemeket:
+
+\begin{python}
+api.add_route('/js/{filename}', StaticJS())
+api.add_route('/css/{filename}', StaticCSS())
+api.add_route('/{filename}', StaticHTML())
+\end{python}
+
+A backend programban a Falcon keretrendszer kezeli az api-t, és egy adatbáziskezelő segítségével csatlakozunk az adatbázishoz az alábbi módon:
+
+\begin{python}
+api = falcon.API()
+dbms = mydatabase.MyDatabase(mydatabase.SQLITE, username='', password='', 
+dbname='mydb.sqlite')
+\end{python}
+
+Az adatbáziskezelő osztály tartalmaz metódusokat, amivel az alapvető műveleteket elvégezhetjük, mint például a lekérdezést, beszúrást, törlést.
+
+\begin{python}
+# beszuras, torles
+    def execute_query(self, query=''):
+            if query == '' : return
+            print (query)
+            with self.db_engine.connect() as connection:
+                try:
+                    connection.execute(query)
+                except Exception as e:
+                    print(e)
+def get_all_data(self, table='', query=''):
+            query = query if query != '' else "SELECT * 
+FROM '{}';".format(table)
+            print(query)
+            returnData = []
+            with self.db_engine.connect() as connection:
+                try:
+                    result = connection.execute(query)
+                except Exception as e:
+                    print(e)
+                else:   
+                    for row in result:
+                        print(row) # print(row[0], row[1], row[2])
+                        d = dict(row.items())
+                        returnData.append(d)
+                    result.close()
+            print("\n")       
+            return returnData
+\end{python}
+
+\Section{A kliens oldal}
+A JavaScript kliens program 9 osztályból áll. Az osztályok mind külön feladatot látnak el. Az Editor osztály körül öleli a többi osztályt, és megosztja közöttuk az információkat. A Graph osztály kezeli a szerkesztőt. A szerkesztő és tartalma megrajzolása ebben az osztályban valósul meg. Minden a szerkesztőn megjelenő elem ennek az osztálynak valamelyik adattagjában megtalálható. Két fontos adattagja a \textbf{nodes} és \textbf{edges} tömbök, melyek a \textbf{Node} és \textbf{Edge} osztályok vagy ezen osztályok egyik leszármazottjának a példányait tartalmazzák. A Node osztály tartalmazza az csomópontokat a különböző alakzataival, míg az Edge osztály az alakzatokat összekötő vonalakat valósítja meg.
+ 
+A Node osztálynak 3 közvetlen leszármazottja van: \textbf{Diamond}, \textbf{Rectangle} és \textbf{Circle} (magyarul: rombusz, téglalap és kör) melyek mind implementálják a Node osztály konstruktorát. A Circle osztálynak további két leszármazottja van: a \textbf{Start} és az \textbf{End}, melyek a kezdő- és végállapotokat jelölik.
+ 
+% Ide majd kell OD.
+
+Ezen osztályoknak mind vannak saját metódusai, melyek ugyanazokat a funkciókat látják el, csak a részletekben térnek el. Ilyen például a \textit{resize()} és \textit{draw()} metódus. Mivel minden alakzatot meg kell rajzolni, vagy adott esetben átméretezni, ezek a metódusok minden alakzatot megvalósító osztályban megtalálhatóak, és a legtöbb funkció végrehajtásakor ezek meg is hívódnak.
+%kiegészítve
+ 
+A frontend egy API-n, \textbf{HTTP kérések}kel kommunikál a szerverrel. A mentés úgy zajlik, hogy a frontend alkalmazás összegyűjti az összes csomópontot és az őket összekötő vonalakat, majd egy objektumot csinál minden egyes csomópontból és vonalból csak a szükséges adatokkal, ezt követően pedig hozzáadja egy tömbhöz. Ezután JSON formátumba alakítja a tömbben lévő objektumokat, amit egy \textbf{HTTP POST} kéréssel elküldünk a szervernek.
+
+A lekéréshez \textbf{HTTP GET} kérést használunk, itt JSON formátumú tömböt kapunk benne a megfelelő adatokat tartalmazó objektumokkal. Ezeket az adatokat visszaalakítjuk hozzájutva így a megfelelő osztályok konstruktorainak paraméteréhez. Ezután a paraméterekkel osztályt hozunk létre belőle, és ezeket az osztályokat hozzáadjuk a Graph osztály nodes és edges adattagjaihoz. Innentől kezdve tudjuk reprezentálni őket a kliens alkalmazással.
+ 
+A szerver egy API-n keresztül szolgálja fel a statikus fájlokat, köztük a kliens programot is és itt kommunikál a klienssel. Az \texttt{/api/nodes} végponton HTTP GET kéréssel felszolgáljuk az adatokat JSON formátumban. Lásd: \ref{fig:get} ábra.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.9]{images/get.png}
+\caption{GET kérés}
+\label{fig:get}
+\end{figure}
+
+Ugyanezen a végponton HTTP POST kérés után mentjük az adatokat, amelynek a sikerességéről egy JSON válasz tájékoztat. Ez a \ref{fig:post} ábrán látható.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.6]{images/post.png}
+\caption{POST kérés}
+\label{fig:post}
+\end{figure}
+ 
+A szerver a már fentebb említett SQLite adatbázissal is kommunikál, itt perzisztensen tároljuk az adatokat, így a következő indításnál is megmarad minden a szerkesztőben.
+Az adatbázis két táblát használ, a \textbf{nodes} és az \textbf{edges} táblákat. Először manuálisan kell lértrehozni őket az alábbi módon:
+
+\begin{SQL}
+CREATE TABLE nodes (
+        id INTEGER NOT NULL,
+        type VARCHAR,
+        x INTEGER,
+        y INTEGER,
+        text VARCHAR,
+        height INTEGER,
+        width INTEGER,
+        radius INTEGER,
+        PRIMARY KEY (id)
+);
+
+CREATE TABLE edges (
+        id INTEGER NOT NULL,
+        edgefrom INTEGER NOT NULL,
+        edgeto INTEGER NOT NULL,
+        PRIMARY KEY (id),
+        FOREIGN KEY(edgefrom) REFERENCES nodes (id),
+        FOREIGN KEY(edgeto) REFERENCES nodes (id)
+);
+\end{SQL}
