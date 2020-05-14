@@ -18,7 +18,7 @@
         <canvas id="my-canvas" width="1280" height="720"></canvas>
     </div>
     <div class="item2">
-        <table border=10>
+        <table  class="tablazat" >
             <caption>Toolbox</caption>
             <tr>
                 <th>
@@ -97,12 +97,13 @@
             </tr>
             -->
         </table>
-        <button onclick="saveEditorData()">Mentés</button>
-        <label for="temavalto">Téma</label>
-        <select name="theme" id="temavalto" onchange="editor.changeTheme(this.value)">
-            <option value="fapados">fapados</option>
-            <option value="fullos">fullos</option>
+        <button  class="button" onclick="saveEditorData()">Save</button>
+        <label for="temavalto">graph themes:
+        <select class="selector" name="theme" id="temavalto" onchange="editor.changeTheme(this.value)">
+            <option value="fapados">minimal</option>
+            <option value="fullos">fancy</option>
         </select>
+        </label>
     </div>
   </div>
 <script>
@@ -122,22 +123,29 @@
                     let newNode = {};
                     switch (node["type"]) {
                         case "rectangle":
-                            newNode = new Rectangle(node["x"],node["y"],node["id"],node["height"], node["width"], node["text"], editor.graph.themes[editor.graph.selectedtheme].rectangleColor);
+                            newNode = new Rectangle(node["x"],node["y"],node["id"],node["height"], node["width"], '', editor.graph.themes[editor.graph.selectedtheme].rectangleColor);
                             break;
                         case "circle":
-                            newNode = new Circle(node["x"],node["y"],node["id"],node["radius"], node["text"], editor.graph.themes[editor.graph.selectedtheme].circleColor);
+                            newNode = new Circle(node["x"],node["y"],node["id"],node["radius"], '', editor.graph.themes[editor.graph.selectedtheme].circleColor);
                             break;
                         case "diamond":
-                            newNode = new Diamond(node["x"],node["y"],node["id"],node["height"], node["width"], node["text"], editor.graph.themes[editor.graph.selectedtheme].diamondColor);
+                            newNode = new Diamond(node["x"],node["y"],node["id"],node["height"], node["width"], '', editor.graph.themes[editor.graph.selectedtheme].diamondColor);
                             break;
                         case "start":
-                            newNode = new Start(node["x"],node["y"],node["id"],node["radius"], node["text"]);
+                            newNode = new Start(node["x"],node["y"],node["id"],node["radius"], '');
                             break;
                         case "end":
-                            newNode = new End(node["x"],node["y"],node["id"],node["radius"], node["text"]);
+                            newNode = new End(node["x"],node["y"],node["id"],node["radius"], '');
                             break;
                     }
-                    editor.graph.nodes.push(newNode)
+                    // for (let i=0; i<node["text"].length; i++){
+                    //     console.log(i);
+                    //     newNode.widen(node["text"].length)
+                    // }
+                    let index = editor.graph.nodes.push(newNode) -1;
+                    editor.graph.selectedIndex = index;
+                    editor.addTextToNode(node["text"]);
+
                 })
             }).then(r => {
                 //itt mar betoltottuk a nodes-okat
@@ -149,11 +157,9 @@
                             let newEdge = new Edge(from, to,elem.id);
                             editor.graph.edges.push(newEdge);
                         })
+                        editor.graph.draw();
                     })
         })
-
-
-
     }
     function saveEditorData() {
         let example = {"type":"circle","x":100,"y":200,"id":1,"text":"valami", "height":0,"width":0, "radius":50};
