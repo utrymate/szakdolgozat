@@ -1,23 +1,3 @@
-// function isInsideBox(x, y, x1, x2, y1, y2) {
-//     var a = getValueA(x1, x2, y1, y2);
-//     var b = getValueB(x1, y1, a);
-//     var auxY = (a * x) + b;
-//     if (auxY <= y) {
-//         return true;
-//     } else {
-//         return false;
-//     }
-// }
-//
-// function getValueA(x1, x2, y1, y2) {
-//     return ((y1 - y2) / (x1 - x2));
-// }
-//
-// function getValueB(x1, y1, a) {
-//     return (y1 - (a * x1));
-// }
-
-
 class Node {
     constructor(x, y, id){
         this.x = x;
@@ -86,7 +66,6 @@ class Diamond extends Node{
         context.closePath();
     }
 
-    //TODO: ezt megírni normálisan, hogy csak a rombuszra kattintva lehessen azt mozgatni
     isMouseOnNode(x, y) {
 
         // let a = getValueA(this.x, this.x+this.width, this.y, this.y-this.height);
@@ -115,9 +94,6 @@ class Diamond extends Node{
     }
 
     showSelectedElement(){
-
-        //todo: itt kapjon dash-ed valamit
-        // context.setLineDash([6]); // ezzel kap dash-t
 
         let inputContainer = document.getElementById("resize-nodes");
         inputContainer.innerHTML = '';
@@ -197,8 +173,6 @@ class Rectangle extends Node{
     }
 
     showSelectedElement(){
-        //todo: itt kapjon dash-ed valamit
-        // context.setLineDash([6]); // ezzel kap dash-t
         let inputContainer = document.getElementById("resize-nodes");
         inputContainer.innerHTML = '';
         inputContainer.innerHTML = `
@@ -268,8 +242,6 @@ class Circle extends Node{
     }
 
     showSelectedElement(){
-        //todo: itt kapjon dash-ed valamit
-        // context.setLineDash([6]); // ezzel kap dash-t
         let inputContainer = document.getElementById("resize-nodes");
         inputContainer.innerHTML = '';
         inputContainer.innerHTML = `
