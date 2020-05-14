@@ -12,6 +12,7 @@ class Edge {
         var angle = Math.atan2(dy, dx);
         context.beginPath();
         context.lineWidth = 3;
+        context.strokeStyle = 'black';
         //context.strokeStyle = "black";
         //context.strokeStyle = 'rgb(128, 128, 128)';
         //context.globalCompositeOperation='destination-over'; //edge a node-k alatt
@@ -26,7 +27,7 @@ class Edge {
         //ez a nyíl lesz majd valahogy
         context.beginPath();
         //context.setLineDash([]);
-        context.fillStyle = "black";
+        context.fillStyle = 'black';
         context.moveTo(this.to.x, this.to.y); //+ this.to.width/2, + this.to.height/2
         context.lineTo(this.to.x - head * Math.cos(angle - Math.PI / 10), this.to.y - head * Math.sin(angle - Math.PI / 10));
         //  Középre kötés:
@@ -43,6 +44,7 @@ class Edge {
         // //context.lineTo(this.to.x - 10 * Math.cos(angle + Math.PI / 6) +70, this.to.y - 10 * Math.sin(angle - Math.PI / 6)-20);
         // context.lineTo(this.to.x + 15 - dx/6, this.to.y -20 - dy/8);
         context.fill();
+        context.closePath()
     }
 }
 

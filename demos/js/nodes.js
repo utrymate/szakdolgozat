@@ -1,3 +1,23 @@
+// function isInsideBox(x, y, x1, x2, y1, y2) {
+//     var a = getValueA(x1, x2, y1, y2);
+//     var b = getValueB(x1, y1, a);
+//     var auxY = (a * x) + b;
+//     if (auxY <= y) {
+//         return true;
+//     } else {
+//         return false;
+//     }
+// }
+//
+// function getValueA(x1, x2, y1, y2) {
+//     return ((y1 - y2) / (x1 - x2));
+// }
+//
+// function getValueB(x1, y1, a) {
+//     return (y1 - (a * x1));
+// }
+
+
 class Node {
     constructor(x, y, id){
         this.x = x;
@@ -18,11 +38,16 @@ class Diamond extends Node{
         this.color = color;
     }
 
-    draw(context) {
-        /*
+    draw(context, selected) {
+        if (this.width < 50){
+            this.width = 50;
+        }
+        if (this.height < 50){
+            this.height = 50;
+        }
         context.save();
         context.beginPath();
-        //context.fillStyle = this.color;
+        context.fillStyle = this.color;
         //context.moveTo(this.x, this.y);
         // // move the rotation point to the center of the rect
         //
@@ -39,68 +64,55 @@ class Diamond extends Node{
         context.fillStyle = this.color;
 
 
-        // the top right edge
 
-       // context.fill();
-        //context.fillStyle = "blue";
         context.translate( this.x+this.width/2, this.y+this.height/2 );
         // rotate the rect
         context.rotate(45*Math.PI/180);
         context.rect( -this.width/2, -this.height/2, this.width,this.height);
 
-        //context.fillRect(this.x, this.y, this.width, this.height);
-        //context.rect( -this.width/2, -this.height/2, this.width,this.height);
-        context.fillText(this.text,this.x, this.y+this.height/2);
         context.fill();
-        context.stroke();
         context.restore();
-        */
 
-       context.beginPath();
-       context.moveTo(this.x, this.y);
-       context.lineTo(this.x - this.width / 2, this.y + this.height / 2);
-       context.lineTo(this.x, this.y + this.height);
-       context.lineTo(this.x + this.width / 2, this.y + this.height / 2);
-       context.lineTo(this.x, this.y);
-        
-       context.lineWidth = 1;
-       context.fillStyle = this.color;
-
-       context.closePath();
-
-       context.fill();
-       context.stroke();
+        context.fillStyle = "blue";
+        context.fillText(this.text,this.x+this.width/2, this.y+this.height/2);
+        if (selected){
+            context.setLineDash([10, 10]);
+            //context.stroke();
+            context.strokeStyle = 'blue';
+            context.strokeRect(this.x-this.width/4, this.y-this.height/4, this.width*1.5,this.height*1.5);
+            context.strokeStyle = 'black';
+        }
+        context.setLineDash([]);
+        context.closePath();
     }
 
-    //TODO: ezt megírni normálisan, hogy csak a rombuszra kattintva lehessen azt mozgatni
     isMouseOnNode(x, y) {
 
-        console.log("x: "+x+", y: "+y);
-        return x >= this.x
-            && x <= this.x +this.width
-            && y >= this.y
-            && y <= this.y + this.height;
+        // let a = getValueA(this.x, this.x+this.width, this.y, this.y-this.height);
+        // let b = getValueB(this.x, this.y, a);
+        // let auxY = (a * x) + b;
+        // return auxY <= y;
+        return x >= this.x-this.width/4
+            && x <= this.x +this.width*1.5
+            && y >= this.y-this.height/4
+            && y <= this.y + this.height*1.5;
     }
 
     widen(length){
         if(15 > this.width / length)
         {
             this.width += 14;
+            this.height += 14;
         }
     }
 
     resize(){
-        this["height"] = document.getElementById("height").value;
-        this["width"] = document.getElementById("width").value;
-        document.getElementById("height").value = '';
-        document.getElementById("width").value = '';
+        this["height"] = parseInt(document.getElementById("size").value);
+        this["width"] = parseInt(document.getElementById("size").value);
+        document.getElementById("size").value = '';
     }
 
     showSelectedElement(){
-
-        //todo: itt kapjon dash-ed valamit
-        // context.setLineDash([6]); // ezzel kap dash-t
-
         let inputContainer = document.getElementById("resize-nodes");
         inputContainer.innerHTML = '';
         inputContainer.innerHTML = `
@@ -109,16 +121,11 @@ class Diamond extends Node{
             <input type="text" onfocus="this.value=''" name="textInput"  onkeyup="editor.addTextToNode(this.value)">
         </div>
         <div>
-            <label for="textInput" >Type width here: </label>
-            <input type="number" name="width" id="width">
+            <label for="textInput" >Type size here: </label>
+            <input type="number" name="size" id="size">
         </div>
         <div>
-            <label for="textInput" >Type height here: </label>
-            <input type="number" name="height" id="height">
-        </div>
-       
-        <div>
-            <button onclick="editor.resizeNode()">Resize</button>
+            <button  class="button" onclick="editor.resizeNode()">Resize</button>
         </div>`
     }
 }
@@ -132,16 +139,32 @@ class Rectangle extends Node{
         this.color = color;
     }
 
-    draw(context) {
+    draw(context, selected) {
+        if (this.width < 50){
+            this.width = 50;
+        }
+        if (this.height < 50){
+            this.height = 50;
+        }
         context.beginPath();
         //context.fillStyle = "yellow";
         context.fillStyle = this.color;
         context.fillRect(this.x, this.y, this.width, this.height);
+
         context.stroke();
         context.fillStyle = "blue";
         //context.globalCompositeOperation='source-over';
         context.fillText(this.text,this.x+this.width/2, this.y+this.height/2);
-        console.log();
+        if (selected){
+            context.setLineDash([10, 10]);
+            //context.stroke();
+
+            context.strokeStyle = 'blue';
+            context.strokeRect(this.x, this.y, this.width,this.height);
+            context.strokeStyle = 'black';
+        }
+        context.closePath();
+        context.setLineDash([]);
     }
     // parameters: mouse[x] & mouse[y]
     // mouse["x"] -> x ; node["x"] -> this.x
@@ -168,8 +191,6 @@ class Rectangle extends Node{
     }
 
     showSelectedElement(){
-        //todo: itt kapjon dash-ed valamit
-        // context.setLineDash([6]); // ezzel kap dash-t
         let inputContainer = document.getElementById("resize-nodes");
         inputContainer.innerHTML = '';
         inputContainer.innerHTML = `
@@ -186,7 +207,7 @@ class Rectangle extends Node{
             <input type="number" name="height" id="height">
         </div>
         <div>
-            <button onclick="editor.resizeNode()">Resize</button>
+            <button class="button" onclick="editor.resizeNode()">Resize</button>
         </div>`
     }
 }
@@ -199,14 +220,26 @@ class Circle extends Node{
         this.color = color;
     }
 
-    draw(context) {
+    draw(context, selected) {
+        if (this.radius < 20){
+            this.radius = 20;
+        }
+
         context.beginPath();
         context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
         context.fillStyle = this.color;
         context.fill();
-        context.fillStyle = "black";
+        context.fillStyle = "blue";
         //context.globalCompositeOperation='source-over';
         context.fillText(this.text, this.x, this.y);
+        if (selected){
+            context.setLineDash([10, 10]);
+            context.strokeStyle = 'blue';
+            context.stroke();
+            context.strokeStyle = 'black';
+        }
+        context.closePath();
+        context.setLineDash([]);
     }
 
     isMouseOnNode(x, y) {
@@ -222,13 +255,11 @@ class Circle extends Node{
     }
 
     resize(){
-        this["radius"] = document.getElementById("radius").value;
+        this["radius"] = parseInt(document.getElementById("radius").value);
         document.getElementById("radius").value = '';
     }
 
     showSelectedElement(){
-        //todo: itt kapjon dash-ed valamit
-        // context.setLineDash([6]); // ezzel kap dash-t
         let inputContainer = document.getElementById("resize-nodes");
         inputContainer.innerHTML = '';
         inputContainer.innerHTML = `
@@ -241,7 +272,7 @@ class Circle extends Node{
             <input type="number" name="radius" id="radius">
         </div>
         <div>
-            <button onclick="editor.resizeNode()">Resize</button>
+            <button class="button" onclick="editor.resizeNode()">Resize</button>
         </div>`
     }
 }
@@ -251,19 +282,30 @@ class Start extends Circle{
         super(x, y, id, radius, text);
     }
 
-    draw(context) {
+    draw(context, selected) {
         context.beginPath();
-        context.lineWidth = 3;
         context.setLineDash([]);
+        context.lineWidth = 3;
         context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
         context.stroke();
         context.fillStyle = "black";
         //context.globalCompositeOperation='source-over';
         context.fillText(this.text, this.x, this.y);
+        if (selected){
+            context.setLineDash([10, 10]);
+            context.strokeStyle = 'blue';
+            context.stroke();
+            context.strokeStyle = 'black';
+        }
+        context.lineWidth = 3;
+        context.setLineDash([]);
+        context.strokeStyle = 'black';
+        context.closePath()
     }
     printNodeID(context, x, y) {
         context.fillText("Start node's ID: "+this.id, x, y);
     }
+
 
 }
 
@@ -272,15 +314,28 @@ class End extends Circle{
         super(x, y, id, radius, text);
     }
 
-    draw(context) {
+    draw(context, selected) {
         context.beginPath();
-        context.lineWidth = 6;
         context.setLineDash([]);
+        context.lineWidth = 6;
         context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
         context.stroke();
         context.fillStyle = "black";
         //context.globalCompositeOperation='source-over';
         context.fillText(this.text, this.x, this.y);
+
+
+        context.stroke();
+        if (selected){
+            context.setLineDash([10, 10]);
+            context.strokeStyle = 'blue';
+            context.stroke();
+            context.strokeStyle = 'black';
+        }
+        context.setLineDash([]);
+        context.lineWidth = 3;
+        context.strokeStyle = 'black';
+        context.closePath();
     }
 
     printNodeID(context, x, y) {
@@ -289,13 +344,29 @@ class End extends Circle{
 
 }
 
-function drawNodes(context, nodes) {
+function drawNodes(context, nodes, selectedIndex) {
+    let takaras = false;
+    let selected = false;
     for (let i = 0; i < nodes.length; ++i) {
+        selected = i === selectedIndex;
         let node = nodes[i];
-
-        node.draw(context);
+        for (let j = 0; j < nodes.length; ++j){
+            if (i !== j){
+                let nodeOther = nodes[j];
+                if (node.isMouseOnNode(nodeOther.x, nodeOther.y) || nodeOther.isMouseOnNode(node.x, node.y)){
+                    takaras = true;
+                }
+            }
+        }
+        node.draw(context, selected);
+    }
+    if (takaras){
+        editor.graph.canvas.style.backgroundColor = "red";
+    } else {
+        editor.graph.canvas.style.backgroundColor = "#808080";
     }
 }
+
 
         // if (node["type"] == "rectangle")
         // {

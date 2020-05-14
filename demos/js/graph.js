@@ -14,7 +14,7 @@ class Graph {
         this.themes = {
             fapados: {
                 rectangleColor: "yellow",
-                circleColor: "blue",
+                circleColor: "green",
                 diamondColor: "orange",
                 edgeColor: "black"
             },
@@ -41,10 +41,10 @@ class Graph {
     }
 
     draw() {
-        this.checkStartEnd();
-        drawNodes(this.context, this.nodes);
-        drawEdges(this.context, this.edges);
 
+        this.checkStartEnd();
+        drawNodes(this.context, this.nodes, this.selectedIndex);
+        drawEdges(this.context, this.edges);
     }
 
     checkStartEnd(){
@@ -62,12 +62,9 @@ class Graph {
             }
         }
         if (!start || !end){
-            this.context.fillStyle = "yellow";
+            this.context.font = "30px Arial";
+            this.context.fillText("Nincs Start vagy End", this.canvasPosition.x-250, this.canvasPosition.y+100);
             this.context.font = "20px Arial";
-            this.context.textBaseline = 'middle';
-            this.context.textAlign = "center";
-            //this.context.fillText("Nincs Start vagy End", this.canvasPosition.x/2, this.canvasPosition.y+100);
-            this.context.fillText("Nincs Start vagy End", 120, 50);
         }
     }
 
@@ -128,7 +125,6 @@ function initialize(editor)
     fullosCircleGrd.addColorStop(1, "#de6262");
     editor.graph.themes.fullos.circleColor = fullosCircleGrd;
 
-    // Itt megírtam Diamondra
     let fullosDiaGrd = editor.graph.context.createLinearGradient(0, 0, 1280, 720);
     fullosDiaGrd.addColorStop(0, "#c6ffdd");
     fullosDiaGrd.addColorStop(0.5, "#fbd786");

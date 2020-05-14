@@ -3,7 +3,7 @@ class Editor {
         this.fullosRectGrd = {};
         this.fullosCircleGrd =  {};
         this.fullosEdgeGrd = {};
-        this.graph =  new Graph(); // ez egy osztaly lesz majd
+        this.graph =  new Graph();
     }
 
     mouseUp(event, context)
@@ -37,7 +37,7 @@ class Editor {
                     this.graph.context.font = "20px Arial";
                     this.graph.context.textBaseline = 'middle';
                     this.graph.context.textAlign = "center";
-                    node.printNodeID(this.graph.context, 300, 50);
+                    node.printNodeID(this.graph.context, 100, 50);
                 }
                 if (event.shiftKey === true) {
                     this.graph.drawEdge['from'] = this.graph.nodes[selectedIndex];
@@ -237,6 +237,7 @@ class Editor {
         //console.log(this.graph);
         this.graph.clear();
         this.graph.draw();
+
         //mouseUpEvent = false;
         let mouse = this.calcMouseEvent(event);
         if (this.graph.drag) {
@@ -251,6 +252,7 @@ class Editor {
                     ( this.graph.nodes[this.graph.selectedIndex]["y"]+dy > 1 &&  this.graph.nodes[this.graph.selectedIndex]["y"]+dy < this.graph.canvas.height )) {
                     this.graph.nodes[this.graph.selectedIndex]["x"] += dx;
                     this.graph.nodes[this.graph.selectedIndex]["y"] += dy;
+
                 }
             }
             this.graph.dragStart = this.graph.dragEnd;
@@ -381,6 +383,7 @@ class Editor {
 
         this.graph.clear();
         this.graph.draw();
+
         this.graph.canvasPosition = this.graph.canvas.getBoundingClientRect();
         let newWidth = this.graph.canvasPosition.width;  //grid-be 2:3 aranyba foglal helyet a toolbox es canvas
         let newHeight = this.graph.canvasPosition.height; //megtartja a 16:9-es keparanyt
@@ -388,7 +391,8 @@ class Editor {
         this.graph.canvas.width = newWidth;
         this.graph.context.translate(oldWidth/newWidth, oldHeight/newHeight);
         this.graph.context.scale(oldWidth/newWidth, oldHeight/newHeight);
-
+        this.graph.context.textAlign = "center";
+        this.graph.context.textBaseline = 'middle';
         this.graph.clear();
         this.graph.draw();
     }

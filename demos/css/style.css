@@ -1,8 +1,14 @@
 /*.addEdge {
     text-align: center;
 }*/
+
+
+
 .item1 { grid-area: canvas; }
-.item2 { grid-area: menu; }
+.item2 {
+    grid-area: menu;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
 .grid-container {
     display: grid;
     grid-template-areas:
@@ -12,21 +18,63 @@
     grid-gap: 10px;
     padding: 10px;
 }
+.tablazat {
+    border-spacing: 0;
+    /*border-collapse: collapse;*/
+    border: 20px solid #4169e1;
+    margin-bottom: 10px;
+    border-radius: 18px;
+    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
 
-.button {
+}
+input[type=text], select {
+    /*width: 100%;*/
+    padding: 12px 20px;
+    margin: 8px 0;
     display: inline-block;
-    padding: 15px 25px;
-    font-size: 24px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=number], select {
+    width: 25%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.selector {
+    padding: 10px 15px;
+    font-size: 18px;
     cursor: pointer;
     text-align: center;
     text-decoration: none;
     outline: none;
     color: #fff;
-    background-color: rgb(0, 0, 255);
+    background-color: #4169e1;
+    border: none;
+    /*border-radius: 20px;*/
+}
+.button {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 18px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4169e1;
     border: none;
     border-radius: 20px;
-    box-shadow: 0 9px #999;
+    box-shadow: 0px 5px #999;
 }
+
+
 
 /*ráviszem az egeret*/
 .button:hover {
@@ -36,7 +84,7 @@
 /*kattintáskor*/
 .button:active {
     background-color: rgba(0,0,255,0.6);
-    box-shadow: 0 5px #999; /*Ne az egész menjen le - benyomásnak tűnjön*/
+    box-shadow: 0 1px #999; /*Ne az egész menjen le - benyomásnak tűnjön*/
     transform: translateY(4px); /*Lejjebb mozdul*/
 }
 
@@ -44,6 +92,7 @@ th, td {
     padding: 5px;
     text-align: middle;
     /*color: white;*/
+    border: 2px solid #ddd;
 }
 
 table {
@@ -82,7 +131,7 @@ caption {
 #circle {
     width: 100px;
     height: 100px;
-    background: blue;
+    background: green;
     border-radius: 50%;
     margin-left: auto;
     margin-right: auto;
