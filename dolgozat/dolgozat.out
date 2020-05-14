@@ -5,15 +5,31 @@
 \BOOKMARK [2][-]{subsection.2.2.1}{Modellez\351s folyamat\341br\341val}{section.2.2}% 5
 \BOOKMARK [1][-]{section.2.3}{Egy folyamatokat szeml\351lteto szoftveres eszk\366z}{chapter.2}% 6
 \BOOKMARK [2][-]{subsection.2.3.1}{Draw.io}{section.2.3}% 7
-\BOOKMARK [0][-]{chapter.3}{Megval\363s\355t\341s/Specifik\341ci\363}{}% 8
-\BOOKMARK [0][-]{chapter.4}{Tervez\351s}{}% 9
-\BOOKMARK [1][-]{section.4.1}{T\341bl\341zatok}{chapter.4}% 10
-\BOOKMARK [1][-]{section.4.2}{\301br\341k}{chapter.4}% 11
-\BOOKMARK [1][-]{section.4.3}{Tov\341bbi k\366rnyezetek}{chapter.4}% 12
-\BOOKMARK [0][-]{chapter.5}{JavaScript implement\341ci\363}{}% 13
-\BOOKMARK [0][-]{chapter.6}{Folyamat p\351ld\341k}{}% 14
-\BOOKMARK [1][-]{section.6.1}{A fejezet c\351lja}{chapter.6}% 15
-\BOOKMARK [1][-]{section.6.2}{Tartalom \351s fel\351p\355t\351s}{chapter.6}% 16
-\BOOKMARK [1][-]{section.6.3}{Amit csak eml\355t\351s szintj\351n \351rdemes szerepeltetni}{chapter.6}% 17
-\BOOKMARK [0][-]{chapter.7}{\326sszefoglal\341s}{}% 18
-\BOOKMARK [0][-]{chapter.7}{Irodalomjegyz\351k}{}% 19
+\BOOKMARK [0][-]{chapter.3}{Specifik\341ci\363}{}% 8
+\BOOKMARK [1][-]{section.3.1}{\301ttekint\351s}{chapter.3}% 9
+\BOOKMARK [1][-]{section.3.2}{A program fel\351p\355t\351se}{chapter.3}% 10
+\BOOKMARK [1][-]{section.3.3}{Miben k\374l\366nb\366zik az elk\351sz\355tett program a m\341r haszn\341latban l\351vo gr\341fszerkesztoktol?}{chapter.3}% 11
+\BOOKMARK [1][-]{section.3.4}{Egyszerubb folyamat\341bra l\351trehoz\341sa l\351p\351srol l\351p\351sre}{chapter.3}% 12
+\BOOKMARK [1][-]{section.3.5}{UX design szempontok a programn\341l}{chapter.3}% 13
+\BOOKMARK [2][-]{subsection.3.5.1}{Mi az a UX design?}{section.3.5}% 14
+\BOOKMARK [2][-]{subsection.3.5.2}{UX alapk\366vetelm\351nyek}{section.3.5}% 15
+\BOOKMARK [0][-]{chapter.4}{Tervez\351s}{}% 16
+\BOOKMARK [1][-]{section.4.1}{Bevezet\351s}{chapter.4}% 17
+\BOOKMARK [1][-]{section.4.2}{Technol\363gia \351s architekt\372ra a szerver oldalon}{chapter.4}% 18
+\BOOKMARK [1][-]{section.4.3}{A kliens oldal}{chapter.4}% 19
+\BOOKMARK [0][-]{chapter.5}{JavaScript implement\341ci\363}{}% 20
+\BOOKMARK [1][-]{section.5.1}{A kliens program muk\366d\351se}{chapter.5}% 21
+\BOOKMARK [1][-]{section.5.2}{Felhaszn\341l\363i k\351zik\366nyv a programhoz}{chapter.5}% 22
+\BOOKMARK [2][-]{subsection.5.2.1}{Csom\363pont hozz\341ad\341sa}{section.5.2}% 23
+\BOOKMARK [2][-]{subsection.5.2.2}{Csom\363pontok \366sszek\366t\351se vonallal}{section.5.2}% 24
+\BOOKMARK [2][-]{subsection.5.2.3}{Csom\363pont t\366rl\351se}{section.5.2}% 25
+\BOOKMARK [2][-]{subsection.5.2.4}{Sz\366veg hozz\341ad\341sa csom\363ponthoz}{section.5.2}% 26
+\BOOKMARK [2][-]{subsection.5.2.5}{Csom\363pont \341tm\351retez\351se}{section.5.2}% 27
+\BOOKMARK [2][-]{subsection.5.2.6}{T\351ma megv\341ltoztat\341sa}{section.5.2}% 28
+\BOOKMARK [2][-]{subsection.5.2.7}{Folyamat\341bra ment\351se}{section.5.2}% 29
+\BOOKMARK [0][-]{chapter.6}{Folyamat p\351ld\341k}{}% 30
+\BOOKMARK [1][-]{section.6.1}{\301ttekint\351s}{chapter.6}% 31
+\BOOKMARK [1][-]{section.6.2}{Elso p\351lda}{chapter.6}% 32
+\BOOKMARK [1][-]{section.6.3}{M\341sodik p\351lda}{chapter.6}% 33
+\BOOKMARK [0][-]{chapter.7}{\326sszefoglal\341s}{}% 34
+\BOOKMARK [0][-]{chapter.7}{Irodalomjegyz\351k}{}% 35

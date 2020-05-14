@@ -5,15 +5,31 @@
 \select@language {magyar} \contentsline {subsection}{\numberline {2.2.1}Modellezés folyamatábrával}{4}{subsection.2.2.1}%
 \select@language {magyar} \contentsline {section}{\numberline {2.3}Egy folyamatokat szemléltető szoftveres eszköz}{7}{section.2.3}%
 \select@language {magyar} \contentsline {subsection}{\numberline {2.3.1}Draw.io}{7}{subsection.2.3.1}%
-\select@language {magyar} \contentsline {chapter}{\numberline {3}Megvalósítás/Specifikáció}{9}{chapter.3}%
-\select@language {magyar} \contentsline {chapter}{\numberline {4}Tervezés}{11}{chapter.4}%
-\select@language {magyar} \contentsline {section}{\numberline {4.1}Táblázatok}{11}{section.4.1}%
-\select@language {magyar} \contentsline {section}{\numberline {4.2}Ábrák}{11}{section.4.2}%
-\select@language {magyar} \contentsline {section}{\numberline {4.3}További környezetek}{12}{section.4.3}%
-\select@language {magyar} \contentsline {chapter}{\numberline {5}JavaScript implementáció}{13}{chapter.5}%
-\select@language {magyar} \contentsline {chapter}{\numberline {6}Folyamat példák}{14}{chapter.6}%
-\select@language {magyar} \contentsline {section}{\numberline {6.1}A fejezet célja}{14}{section.6.1}%
-\select@language {magyar} \contentsline {section}{\numberline {6.2}Tartalom és felépítés}{14}{section.6.2}%
-\select@language {magyar} \contentsline {section}{\numberline {6.3}Amit csak említés szintjén érdemes szerepeltetni}{14}{section.6.3}%
-\select@language {magyar} \contentsline {chapter}{\numberline {7}Összefoglalás}{16}{chapter.7}%
-\select@language {magyar} \contentsline {chapter}{Irodalomjegyzék}{17}{chapter.7}%
+\select@language {magyar} \contentsline {chapter}{\numberline {3}Specifikáció}{9}{chapter.3}%
+\select@language {magyar} \contentsline {section}{\numberline {3.1}Áttekintés}{9}{section.3.1}%
+\select@language {magyar} \contentsline {section}{\numberline {3.2}A program felépítése}{9}{section.3.2}%
+\select@language {magyar} \contentsline {section}{\numberline {3.3}Miben különbözik az elkészített program a már használatban lévő gráfszerkesztőktől?}{11}{section.3.3}%
+\select@language {magyar} \contentsline {section}{\numberline {3.4}Egyszerűbb folyamatábra létrehozása lépésről lépésre}{13}{section.3.4}%
+\select@language {magyar} \contentsline {section}{\numberline {3.5}UX design szempontok a programnál}{14}{section.3.5}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.5.1}Mi az a UX design?}{14}{subsection.3.5.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.5.2}UX alapkövetelmények}{15}{subsection.3.5.2}%
+\select@language {magyar} \contentsline {chapter}{\numberline {4}Tervezés}{17}{chapter.4}%
+\select@language {magyar} \contentsline {section}{\numberline {4.1}Bevezetés}{17}{section.4.1}%
+\select@language {magyar} \contentsline {section}{\numberline {4.2}Technológia és architektúra a szerver oldalon}{17}{section.4.2}%
+\select@language {magyar} \contentsline {section}{\numberline {4.3}A kliens oldal}{22}{section.4.3}%
+\select@language {magyar} \contentsline {chapter}{\numberline {5}JavaScript implementáció}{23}{chapter.5}%
+\select@language {magyar} \contentsline {section}{\numberline {5.1}A kliens program működése}{23}{section.5.1}%
+\select@language {magyar} \contentsline {section}{\numberline {5.2}Felhasználói kézikönyv a programhoz}{27}{section.5.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.2.1}Csomópont hozzáadása}{27}{subsection.5.2.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.2.2}Csomópontok összekötése vonallal}{27}{subsection.5.2.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.2.3}Csomópont törlése}{27}{subsection.5.2.3}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.2.4}Szöveg hozzáadása csomóponthoz}{27}{subsection.5.2.4}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.2.5}Csomópont átméretezése}{27}{subsection.5.2.5}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.2.6}Téma megváltoztatása}{28}{subsection.5.2.6}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.2.7}Folyamatábra mentése}{28}{subsection.5.2.7}%
+\select@language {magyar} \contentsline {chapter}{\numberline {6}Folyamat példák}{29}{chapter.6}%
+\select@language {magyar} \contentsline {section}{\numberline {6.1}Áttekintés}{29}{section.6.1}%
+\select@language {magyar} \contentsline {section}{\numberline {6.2}Első példa}{29}{section.6.2}%
+\select@language {magyar} \contentsline {section}{\numberline {6.3}Második példa}{30}{section.6.3}%
+\select@language {magyar} \contentsline {chapter}{\numberline {7}Összefoglalás}{31}{chapter.7}%
+\select@language {magyar} \contentsline {chapter}{Irodalomjegyzék}{32}{chapter.7}%
