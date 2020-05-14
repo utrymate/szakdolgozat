@@ -2,13 +2,18 @@
 
 \Section{A kliens program működése}
 
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{images/umldiagram.png}
+\caption{A program UML diagramja}
+\label{fig:uml}
+\end{figure}
+
 A kliens program a következőképpen működik: A graphEditor.html dokumentum betöltése után létrehozzuk az Editor osztály egy példányát. Ezután inicializáljuk a szerkesztőt egy függvény segítségével. Itt beállítjuk a program működéséhez elengedhetetlen adattagokat, események kezelését. lyen adattagok a graph, canvas, context, themes.
 
 Végül egy metódus segítségével átméretezzük az adott böngészőablak méretéhez arányosan biztosítva így, hogy bármilyen méretű képernyőn használható legyen a program.
 
-%todo
-
-Az indítás után a program egy aszinkron GET kéréssel lekéri az adatokat a szervertől JSON formátumban. Az adatokból létrehozza a megfelelő osztályokat a konstruktor paraméterekkel. Ezután a csomópontokat hozzáadja a nodes adattaghoz. Ha ez sikerült, a függvény egy Promise-szal (ígéret) jelzi, és lekérhetjük az összekötő vonalakat. Mivel aszinkron az előző kérés is, előfordulhat olyan, hogy az összekötő vonalak hamarabb megérkeznek mint maguk a csomópontok, és ez a programban végzetes hibához vezetne. Ezért van szükség a Promise-ra. 
+Az indítás után a program egy aszinkron GET kéréssel lekéri az adatokat a szervertől JSON formátumban. Az adatokból létrehozza a megfelelő osztályokat a konstruktor paraméterekkel. Ezután a csomópontokat hozzáadja a nodes adattaghoz.
 
 \begin{javascript}
 function GetEditorData() {
@@ -24,64 +29,26 @@ function GetEditorData() {
                    case "circle":
                        newNode = new Circle(node["x"],node["y"],node["id"],node["radius"], node["text"], editor.graph.themes[editor.graph.selectedtheme].circleColor);
                        break;
-                   case "diamond":
-                       newNode = new Diamond(node["x"],node["y"],node["id"],node["height"], node["width"], node["text"], editor.graph.themes[editor.graph.selectedtheme].diamondColor);
-                       break;
-                   case "start":
-                       newNode = new Start(node["x"],node["y"],node["id"],node["radius"], node["text"]);
-                       break;
-                   case "end":
-                       newNode = new End(node["x"],node["y"],node["id"],node["radius"], node["text"]);
-                       break;
+		//...a tobbi csomopontra hasonlokeppen
                }
                editor.graph.nodes.push(newNode)
            })
-       }).then(r => {
-           //itt mar betoltottuk a nodes-okat
-
-//*
-
-       fetch(apiURL+'/edges').then(response =>response.json())
-           .then(data => {
-               data.map(elem =>{
-                   let from = editor.getNode(elem.edgefrom);
-                   let to = editor.getNode(elem.edgeto);
-                   let newEdge = new Edge(from, to,elem.id);
-                   editor.graph.edges.push(newEdge);
-               })
-           })
-})
-
 \end{javascript}
-A //*-gal jelölt rész után egy másik GET kéréssel lekérjük az összekötő vonalakat, és a megfelelő adatokból létrehozzuk az Edge osztály példányait és hozzáadjuk őket az edges adattaghoz, így a következő rajzolásnál már látszódnak a gráfok. 
 
-A mentés gombra kattintva először átalakítjuk az nodes és edges adattagokban található osztályokat JSON adattá, majd egy aszinkron POST kéréssel mentjük az adatokat a szerveren.
+Ha ez sikerült, a függvény egy Promise-szal (ígéret) jelzi, és lekérhetjük az összekötő vonalakat. Mivel aszinkron az előző kérés is, előfordulhat olyan, hogy az összekötő vonalak hamarabb megérkeznek mint maguk a csomópontok, és ez a programban végzetes hibához vezetne. Ezért van szükség a Promise-ra. 
+
+\begin{javascript}
+       .then(r => {
+           //itt mar betoltottuk a nodes-okat
+\end{javascript}
+
+Ezután egy másik GET kéréssel lekérjük az összekötő vonalakat, és a megfelelő adatokból létrehozzuk az Edge osztály példányait és hozzáadjuk őket az edges adattaghoz, így a következő rajzolásnál már látszódnak a gráfok. 
+
+A szerkesztő állapotát a következőképpen tudjuk elmenteni: A mentés gombra kattintva először átalakítjuk az nodes és edges adattagokban található osztályokat JSON adattá, majd egy aszinkron POST kéréssel mentjük az adatokat a szerveren.
+
 Az csomópontokat megvalósító osztályokat univerzálisan kezeljük, amilyen tulajdonsággal nem rendelkezik egyszerűen 0-ra állítjuk, úgyse foglalkozunk vele.
 
 \begin{javascript}
-function saveEditorData() {
-   let example = {"type":"circle","x":100,"y":200,"id":1,"text":"valami", "height":0,"width":0, "radius":50};
-   let nodes = [];
-   let edges = [];
-   let type="";
-   editor.graph.nodes.map(node => {
-           switch (node.constructor.name ){
-           case "Rectangle":
-               type = "rectangle";
-               break;
-           case "Circle":
-               type = "circle";
-               break;
-           case "Diamond":
-               type = "diamond";
-               break;
-           case "Start":
-               type = "start";
-               break;
-           case "End":
-               type = "start";
-               break;
-       }
 
        let nodeJSON = {
            "type": type,
@@ -95,32 +62,9 @@ function saveEditorData() {
            //"theme": editor.graph.selectedtheme
        };
        nodes.push(nodeJSON)
-
-   });
-   editor.graph.edges.map(edge =>{
-       let edgeJSON = {
-           "id": edge.id,
-           "from": edge.from.id,
-           "to": edge.to.id
-       };
-       edges.push(edgeJSON);
-   });
-   console.log(JSON.stringify(nodes));
-   fetch(apiURL+'/nodes', {
-       method: 'POST',
-       body: JSON.stringify(nodes)
-   }).then(response => response.json()).then(data => {
-       //ha valami ertelmeset is kapunk itt elerjuk
-   }).then(r =>{
-       fetch(apiURL+'/edges', {
-           method: 'POST',
-           body: JSON.stringify(edges)
-       }).then(response => response.json()).then(data => {
-           //ha valami ertelmeset is kapunk itt elerjuk
-       });
-   })
 \end{javascript}
 
+Az osszekötő vonalakat is csak azután küldjük el a szervernek, hogy megbizonyosodtunk arról, hogy a csomópontokat hibamentesen elmentettük. Az SQLite adatbázisban olyan idegen kulcs relációval kapcsolódnak a vonalak a csomópontokhoz, hogy ha a csomópont nem létezik, nem tudjuk elmenteni az összekötő vonalat.
  
 Az eseménykezelés a következőképp zajlik: A billentyűk lenyomása és felengedéséhez az editor megfelelő metódusát rendeljük.
 
@@ -133,7 +77,7 @@ editor.graph.canvas.addEventListener("mouseup", editor.mouseUp.bind(editor), fal
 editor.graph.canvas.addEventListener("mousewheel", editor.mouseWheel.bind(editor), false);
 \end{javascript}
  
-Például a mouseDown eseménykezelő metódus úgy működik hogy ha lenyomjuk az egér bal gombját, a függvény újra rajzoltatja a gráfokat, majd kiszámítja hogy az egér rajta van-e valamely csomóponton, ha rajta van az lesz az éppen kijelölt csomópont, és a csomópont osztályban jelez, hogy húzható (drag) állapotba került, azaz az éppen kijelölt csomópont követi az egérmutató mozgását.
+Például a mouseDown eseménykezelő metódus úgy működik hogy ha lenyomjuk az egér bal gombját, a függvény újra rajzoltatja a gráfokat, majd kiszámítja hogy az egér rajta van-e valamely csomóponton, ha rajta van az lesz az éppen kijelölt csomópont, és a csomópont osztályban jelez, hogy húzható (\textit{drag}) állapotba került, azaz az éppen kijelölt csomópont követi az egérmutató mozgását.
 
 \begin{javascript}
 mouseDown(event)
@@ -195,8 +139,7 @@ if (event.ctrlKey === true) {
 }
 \end{javascript}
 
-Az automatikus és manuális méretnövelés a következőképpen működik: 
-Minden csomópontnak van megfelelő metódusa a feladathoz, ami a csomópont saját tulajdonsága alapján elvégzi a feladatot. Például a \textit{widen(length)} metódus elfogad egy paramétert, amely ha túl nagynak bizonyul, növeli a csomópont méretét. A téglalap esetében a szélességet növeljük:
+Az automatikus és manuális méretnövelés a következőképpen működik: Minden csomópontnak van megfelelő metódusa a feladathoz, ami a csomópont saját tulajdonsága alapján elvégzi a feladatot. Például a \textit{widen(length)} metódus elfogad egy paramétert, amely ha túl nagynak bizonyul, növeli a csomópont méretét. A téglalap esetében a szélességet növeljük:
 
 \begin{javascript}
 widen(length){
@@ -259,12 +202,11 @@ Az itt beírt szöveg azonnal megjelenik az adott csomóponton, illetve ha a be�
 Az átméretezni kívánt csomópontra való dupla kattintással (a szöveg hozzáadásához hasonlóan) érhető el a csomópont átméretezése. Az új méreteket az eszköztár aljában a kattintásra megjelenő felületen lehet megadni.
 
 A téglalap esetén először annak szélességét, majd a magasságát kell megadnunk. A kör alakú csomópontok (circle, start, end) esetében csak a kör sugarát kell megadnunk.
-%Ezt át kell nevezni, ha magyarul lesznek leírva a csomópontok nevei
 
 Miután beírtuk az új méreteket, az ezek alatt található \texttt{Resize} gomb megnyomása fogja átméretezni a kiválasztott csomópontot.
 
 \SubSection{Téma megváltoztatása}
-% TÉMÁK vagy TÉMA, ezt is el kell dönteni
+
 Az adott témát megváltoztatni az eszköztár alatt található \textbf{Témák} felirat melletti legördülő menüben lehetséges. Egy másik téma választása újabb színekkel látja el a csomópontokat. Természetesen egyszerre több témát is használhatunk. Ilyenkor kiválasztunk egyet, felvisszük a kívánt elemeket, majd témát váltunk, és az új téma új színeivel további elemeket adunk hozzá a folyamatábrához.
 
 \SubSection{Folyamatábra mentése}
