@@ -3,7 +3,7 @@ class Editor {
         this.fullosRectGrd = {};
         this.fullosCircleGrd =  {};
         this.fullosEdgeGrd = {};
-        this.graph =  new Graph();
+        this.graph =  new Graph(); // ez egy osztaly lesz majd
     }
 
     mouseUp(event, context)
