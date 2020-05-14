@@ -100,6 +100,7 @@ class EdgesResource(object):
 
 api = falcon.API()
 dbms = mydatabase.MyDatabase(mydatabase.SQLITE, username='', password='', dbname='mydb.sqlite')
+dbms.create_db_tables()
 nodes_endpoint = NodesResource()
 edges_endpoint = EdgesResource()
 api.add_route('/api/nodes', nodes_endpoint)
