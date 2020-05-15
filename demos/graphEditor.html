@@ -26,7 +26,7 @@
                 </th>
                 <td>
                     <!-- node hozzáadás-->
-                    <div id="rectangle" onclick="editor.addRectangle()"></div>
+                    <div id="rectangle" onclick="editor.addRectangle()" title="Add rectangle to canvas"></div>
                 </td>
             </tr>
             <tr>
@@ -34,7 +34,7 @@
                     <p>Add diamond</p>
                 </th>
                 <td>
-                    <div id="diamond" onclick="editor.addDiamond()"></div>
+                    <div id="diamond" onclick="editor.addDiamond()" title="Add diamond to canvas"></div>
                 </td>
             </tr>
             <tr>
@@ -43,7 +43,7 @@
                  </th>
                 <td>
                     <!-- kör hozzáadás-->
-                    <div id="circle" onclick="editor.addCircle()"></div>
+                    <div id="circle" onclick="editor.addCircle()" title="Add circle to canvas"></div>
                 </td>
             </tr>
             <tr>
@@ -52,7 +52,7 @@
                 </th>
                 <td>
                     <!-- start hozzáadás-->
-                    <div id="start" onclick="editor.addStart()"></div>
+                    <div id="start" onclick="editor.addStart()" title="Add start symbol to canvas"></div>
                 </td>
             </tr>
             <tr>
@@ -61,7 +61,7 @@
                 </th>
                 <td>
                     <!-- end hozzáadás-->
-                    <div id="end" onclick="editor.addEnd()"></div>
+                    <div id="end" onclick="editor.addEnd()" title="Add end symbol to canvas"></div>
                 </td>
             </tr>
             <tr>
@@ -100,8 +100,8 @@
         <button  class="button" onclick="saveEditorData()">Save</button>
         <label for="temavalto">graph themes:
         <select class="selector" name="theme" id="temavalto" onchange="editor.changeTheme(this.value)">
-            <option value="fapados">minimal</option>
-            <option value="fullos">fancy</option>
+            <option value="minimal">minimal</option>
+            <option value="fancy">fancy</option>
         </select>
         </label>
     </div>
@@ -192,7 +192,8 @@
                 "height": node.height ? node.height : 0,
                 "width": node.width ? node.width : 0,
                 "radius": node.radius ? node.radius : 0,
-                //"theme": editor.graph.selectedtheme
+                "color": node.color ? node.color : editor.graph.themes.fancy.color
+                //"theme": editor.graph.themes.fancy
             };
             nodes.push(nodeJSON)
 
