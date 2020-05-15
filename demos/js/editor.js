@@ -2,8 +2,9 @@ class Editor {
     constructor() {
         this.fullosRectGrd = {};
         this.fullosCircleGrd =  {};
+        this.fullosDiaGrd = {};
         this.fullosEdgeGrd = {};
-        this.graph =  new Graph(); // ez egy osztaly lesz majd
+        this.graph =  new Graph();
     }
 
     mouseUp(event, context)
@@ -22,7 +23,6 @@ class Editor {
                     let nodeOther = this.graph.nodes[j];
                     if (node.isMouseOnNode(nodeOther.x, nodeOther.y) || nodeOther.isMouseOnNode(node.x, node.y)){
                         takaras = true;
-
                     }
                 }
             }
@@ -38,15 +38,30 @@ class Editor {
                     this.graph.context.textBaseline = 'middle';
                     this.graph.context.textAlign = "center";
                     node.printNodeID(this.graph.context, 100, 50);
+                    this.graph.context.fillStyle = "black";
                 }
                 if (event.shiftKey === true) {
                     this.graph.drawEdge['from'] = this.graph.nodes[selectedIndex];
                 }
                 if (event.altKey === true) {
-                    this.graph.drawEdge["to"] = this.graph.nodes[selectedIndex];//node["id"];
-                    this.addEdge(this.graph.drawEdge["from"], this.graph.drawEdge["to"]);
-                    this.graph.clear();
-                    this.graph.draw();
+                    this.graph.drawEdge["to"] = this.graph.nodes[selectedIndex];
+                    if (event.which === 1 ){
+                        //node["id"];
+                        this.addEdge(this.graph.drawEdge["from"], this.graph.drawEdge["to"]);
+                        this.graph.clear();
+                        this.graph.draw();
+                    } else if (event.which === 3){
+                        for (let j = 0; j < this.graph.edges.length; ++j) {
+                            if(this.graph.nodes[selectedIndex] === this.graph.edges[j].to)
+                            {
+                                this.graph.edges.splice(j, 1);
+                                j = j-1;
+                                this.graph.clear();
+                                this.graph.draw();
+                            }
+                        }
+                    }
+
                 }
                 if (event.ctrlKey === true) {
                     for (let j = 0; j < this.graph.edges.length; ++j) {
@@ -54,14 +69,14 @@ class Editor {
                         {
                             this.graph.edges.splice(j, 1);
                             j = j-1;
-                            // Probléma 1: ez csak 1 vonalat töröl (többet kell, ha a node-hoz több van kötve)
-                            // Probléma 2: annyi vonalat kell törölni, ahány a node-hoz van kötve
                         }
                     }
                     this.graph.nodes.splice(selectedIndex, 1);
                     this.graph.clear();
                     this.graph.draw();
+                    console.log(event)
                 }
+
             }
         }
         if (takaras){
@@ -81,12 +96,6 @@ class Editor {
     getEdge(id){
         let edge = this.graph.edges.filter((edge) =>  edge.id === parseInt(id));
         return edge[0];
-    }
-    // this.graph.
-
-    closeText() {
-        document.getElementById("addTextRect").style.display = "none";
-        document.getElementById("addTextCirc").style.display = "none";
     }
 
     addTextToNode(value) {
@@ -192,7 +201,7 @@ class Editor {
         this.graph.clear();
         this.graph.draw();
     }
-    //todo: a selectedIndex is this.graph.selectedIndex kell majd hogy legyen
+
     resizeCircle() {
         this.graph.nodes[this.graph.selectedIndex]["radius"] = parseInt(document.getElementById("radius").value);
         document.getElementById("radius").value = '';
@@ -259,84 +268,7 @@ class Editor {
         }
     }
 
-    // mouseUp(event) {
-    //     this.graph.clear();
-    //     this.graph.draw();
-    //     const mouse = this.calcMouseEvent(event);
-    //     this.graph.drag = false;
-    //     mouseDown = false;
-    //
-    //     this.graph.selectedIndex = null;
-    //     /*
-    //     // TODO: edge törlése
-    //     for (var i=0; i<edges.length; ++i)
-    //     {
-    //         var edge = edges[i];
-    //         if (event.keyCode === 82) {
-    //             edges.splice(selectedIndex, 1);
-    //             this.graph.clear();
-    //             this.graph.draw();
-    //         }
-    //     }
-    //     */
-    //     for (var i = 0; i < this.graph.nodes.length; ++i) {
-    //         var node = this.graph.nodes[i];
-    //
-    //         if (node.isMouseOnNode(mouse['x'], mouse['y']))
-    //         {
-    //             this.graph.selectedIndex = i;
-    //             //console.log(event);
-    //             if (this.graph.mouseUpEvent === true){
-    //                 document.getElementById("addTextRect").style.display = "";
-    //                 document.getElementById("addTextCirc").style.display = "none";
-    //                 this.graph.context.fillStyle = "orange";
-    //                 this.graph.context.font = "20px Arial";
-    //                 this.graph.context.textBaseline = 'middle';
-    //                 this.graph.context.textAlign = "center";
-    //                 node.printNodeID(this.graph.context, this.graph.canvas.width-100, 30);
-    //                 // eredeti: context.fillText("Node's ID: "+node["id"], canvas.width-100, 30);
-    //
-    //             }
-    //             //EREDETI:
-    //             /*if (event.shiftKey === true) {
-    //                 drawEdge["from"] = node["id"];
-    //                 console.log(node["id"]);
-    //             }
-    //             if (event.altKey === true) {
-    //                 drawEdge["to"] = node["id"];
-    //                 console.log(node["id"]);
-    //                 addEdge(drawEdge["from"], drawEdge["to"], id);
-    //                 this.graph.clear();
-    //                 this.graph.draw();
-    //             }*/
-    //             //ÉS A MŰKÖDŐ:
-    //             if (event.shiftKey === true) {
-    //                 //drawEdge["from"] = node["id"];
-    //                 this.graph.drawEdge['from'] = this.graph.nodes[this.graph.selectedIndex];
-    //             }
-    //             if (event.altKey === true) {
-    //                 this.graph.drawEdge["to"] = this.graph.nodes[this.graph.selectedIndex];//node["id"];
-    //                 this.addEdge(this.graph.drawEdge["from"], this.graph.drawEdge["to"]);
-    //                 this.graph.clear();
-    //                 this.graph.draw();
-    //             }
-    //             if (event.ctrlKey === true) {
-    //                 for (var j = 0; j < this.graph.edges.length; ++j) {
-    //                     if(this.graph.nodes[this.graph.selectedIndex] === this.graph.edges[j].to || this.graph.nodes[this.graph.selectedIndex] === this.graph.edges[j].from)
-    //                     {
-    //                         this.graph.edges.splice(j, 1);
-    //                         // Probléma 1: ez csak 1 vonalat töröl (többet kell, ha a node-hoz több van kötve)
-    //                         // Probléma 2: annyi vonalat kell törölni, ahány a node-hoz van kötve
-    //                     }
-    //                 }
-    //                 this.graph.nodes.splice(this.graph.selectedIndex, 1);
-    //                 this.graph.clear();
-    //                 this.graph.draw();
-    //             }
-    //         }
-    //     }
-    //     this.graph.mouseUpEvent = true;
-    // }
+
 
 
     mouseWheel(event) {
@@ -393,13 +325,13 @@ class Editor {
         this.graph.context.scale(oldWidth/newWidth, oldHeight/newHeight);
         this.graph.context.textAlign = "center";
         this.graph.context.textBaseline = 'middle';
+        this.graph.context.font = "20px Arial";
         this.graph.clear();
         this.graph.draw();
     }
 
 
     resizeNode(){
-        console.log( this.graph.nodes);
         this.graph.nodes[this.graph.selectedIndex].resize();
         this.graph.clear();
         this.graph.draw();

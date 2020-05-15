@@ -125,11 +125,10 @@ function initialize(editor)
     fullosCircleGrd.addColorStop(1, "#de6262");
     editor.graph.themes.fullos.circleColor = fullosCircleGrd;
 
-    // Itt megírtam Diamondra
     let fullosDiaGrd = editor.graph.context.createLinearGradient(0, 0, 1280, 720);
     fullosDiaGrd.addColorStop(0, "#c6ffdd");
     fullosDiaGrd.addColorStop(0.5, "#fbd786");
-    fullosDiaGrd.addColorStop(1, "#f7797d");
+    fullosDiaGrd.addColorStop(1, "#c6ffdd");
     editor.graph.themes.fullos.diamondColor = fullosDiaGrd;
 
     let fullosEdgeGrd = editor.graph.context.createLinearGradient(0, 0, 1280, 720);

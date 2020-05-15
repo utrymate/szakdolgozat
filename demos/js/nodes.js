@@ -1,3 +1,23 @@
+// function isInsideBox(x, y, x1, x2, y1, y2) {
+//     var a = getValueA(x1, x2, y1, y2);
+//     var b = getValueB(x1, y1, a);
+//     var auxY = (a * x) + b;
+//     if (auxY <= y) {
+//         return true;
+//     } else {
+//         return false;
+//     }
+// }
+//
+// function getValueA(x1, x2, y1, y2) {
+//     return ((y1 - y2) / (x1 - x2));
+// }
+//
+// function getValueB(x1, y1, a) {
+//     return (y1 - (a * x1));
+// }
+
+
 class Node {
     constructor(x, y, id){
         this.x = x;
@@ -7,6 +27,7 @@ class Node {
     printNodeID(context, x, y) {
         context.fillText("Node's ID: "+this.id, x, y);
     }
+
 }
 
 class Diamond extends Node{
@@ -16,6 +37,20 @@ class Diamond extends Node{
         this.width = width;
         this.text = text;
         this.color = color;
+    }
+
+    ConnectFromPoints() {
+        return {
+            x: this.x+(this.width/2),
+            y: this.y+this.height*1.2
+        }
+    }
+    ConnectToPoints() {
+
+        return {
+            x: this.x+this.width/2,
+            y: this.y-this.height*0.2
+        }
     }
 
     draw(context, selected) {
@@ -59,13 +94,16 @@ class Diamond extends Node{
             context.setLineDash([10, 10]);
             //context.stroke();
             context.strokeStyle = 'blue';
+            context.lineWidth = 3;
             context.strokeRect(this.x-this.width/4, this.y-this.height/4, this.width*1.5,this.height*1.5);
             context.strokeStyle = 'black';
         }
         context.setLineDash([]);
         context.closePath();
+        context.fillStyle = "black";
     }
 
+    //TODO: ezt megírni normálisan, hogy csak a rombuszra kattintva lehessen azt mozgatni
     isMouseOnNode(x, y) {
 
         // let a = getValueA(this.x, this.x+this.width, this.y, this.y-this.height);
@@ -95,16 +133,19 @@ class Diamond extends Node{
 
     showSelectedElement(){
 
+        //todo: itt kapjon dash-ed valamit
+        // context.setLineDash([6]); // ezzel kap dash-t
+
         let inputContainer = document.getElementById("resize-nodes");
         inputContainer.innerHTML = '';
         inputContainer.innerHTML = `
         <div>
         <label for="textInput" >Type text here: </label>
-            <input type="text" onfocus="this.value=''" name="textInput"  onkeyup="editor.addTextToNode(this.value)">
+            <input type="text" onfocus="" name="textInput" value="${this.text}" onkeyup="editor.addTextToNode(this.value)">
         </div>
         <div>
             <label for="textInput" >Type size here: </label>
-            <input type="number" name="size" id="size">
+            <input type="number" value="${this["width"]}" name="size" id="size">
         </div>
         <div>
             <button  class="button" onclick="editor.resizeNode()">Resize</button>
@@ -119,6 +160,19 @@ class Rectangle extends Node{
         this.width = width;
         this.text = text;
         this.color = color;
+    }
+
+    ConnectFromPoints() {
+        return {
+            x: this.x+this.width/2,
+            y: this.y+this.height
+        }
+    }
+    ConnectToPoints() {
+        return {
+            x: this.x+this.width/2,
+            y: this.y
+        }
     }
 
     draw(context, selected) {
@@ -142,10 +196,12 @@ class Rectangle extends Node{
             //context.stroke();
 
             context.strokeStyle = 'blue';
+            context.lineWidth = 3;
             context.strokeRect(this.x, this.y, this.width,this.height);
             context.strokeStyle = 'black';
         }
         context.closePath();
+        context.fillStyle = "black";
         context.setLineDash([]);
     }
     // parameters: mouse[x] & mouse[y]
@@ -173,20 +229,22 @@ class Rectangle extends Node{
     }
 
     showSelectedElement(){
+        //todo: itt kapjon dash-ed valamit
+        // context.setLineDash([6]); // ezzel kap dash-t
         let inputContainer = document.getElementById("resize-nodes");
         inputContainer.innerHTML = '';
         inputContainer.innerHTML = `
         <div>
             <label for="textInput" >Type text here: </label>
-            <input type="text" onfocus="this.value=''" name="textInput"  onkeyup="editor.addTextToNode(this.value)">
+            <input type="text" onfocus=""  value="${this.text}" name="textInput"  onkeyup="editor.addTextToNode(this.value)">
         </div>
         <div>
             <label for="textInput" >Type width here: </label>
-            <input type="number" name="width" id="width">
+            <input type="number" name="width" value="${this.width}" id="width">
         </div>
         <div>
             <label for="textInput" >Type height here: </label>
-            <input type="number" name="height" id="height">
+            <input type="number" name="height"  value="${this.height}" id="height">
         </div>
         <div>
             <button class="button" onclick="editor.resizeNode()">Resize</button>
@@ -200,6 +258,19 @@ class Circle extends Node{
         this.radius = radius;
         this.text = text;
         this.color = color;
+    }
+
+    ConnectFromPoints() {
+        return {
+            x: this.x,
+            y: this.y
+        }
+    }
+    ConnectToPoints() {
+        return {
+            x: this.x,
+            y: this.y
+        }
     }
 
     draw(context, selected) {
@@ -217,10 +288,12 @@ class Circle extends Node{
         if (selected){
             context.setLineDash([10, 10]);
             context.strokeStyle = 'blue';
+            context.lineWidth = 3;
             context.stroke();
             context.strokeStyle = 'black';
         }
         context.closePath();
+        context.fillStyle = "black";
         context.setLineDash([]);
     }
 
@@ -242,16 +315,18 @@ class Circle extends Node{
     }
 
     showSelectedElement(){
+        //todo: itt kapjon dash-ed valamit
+        // context.setLineDash([6]); // ezzel kap dash-t
         let inputContainer = document.getElementById("resize-nodes");
         inputContainer.innerHTML = '';
         inputContainer.innerHTML = `
         <div>
         <label for="textInput" >Type text here: </label>
-            <input type="text" onfocus="this.value=''" name="textInput"  onkeyup="editor.addTextToNode(this.value)">
+            <input type="text" value="${this.text}" name="textInput"  onkeyup="editor.addTextToNode(this.value)">
         </div>
         <div>
             <label for="textInput" >Type radius here: </label>
-            <input type="number" name="radius" id="radius">
+            <input type="number" name="radius"  value="${this.radius}" id="radius">
         </div>
         <div>
             <button class="button" onclick="editor.resizeNode()">Resize</button>
@@ -276,6 +351,7 @@ class Start extends Circle{
         if (selected){
             context.setLineDash([10, 10]);
             context.strokeStyle = 'blue';
+            context.lineWidth = 3;
             context.stroke();
             context.strokeStyle = 'black';
         }
@@ -311,6 +387,7 @@ class End extends Circle{
         if (selected){
             context.setLineDash([10, 10]);
             context.strokeStyle = 'blue';
+            context.lineWidth = 3;
             context.stroke();
             context.strokeStyle = 'black';
         }

@@ -6,9 +6,10 @@ class Edge {
     }
 
     draw(context) {
-        var head = 30;
-        var dx = this.to.x - this.from.x;
-        var dy = this.to.y - this.from.y;
+        let head = 30;
+        let dx = this.to.ConnectToPoints().x - this.from.ConnectFromPoints().x;
+        let dy = this.to.ConnectToPoints().y - this.from.ConnectFromPoints().y;
+        let lineLength = Math.sqrt( dx * dx + dy * dy );
         var angle = Math.atan2(dy, dx);
         context.beginPath();
         context.lineWidth = 3;
@@ -20,20 +21,20 @@ class Edge {
         //1: node 2: edge | source: edge felul
         //1: edge 2: node | destin: edge felul
         //1: edge 2: node | source: edge alul
-        context.moveTo(this.from.x, this.from.y); // + this.from.width/2, + this.from.height/2
+        context.moveTo(this.from.ConnectFromPoints().x, this.from.ConnectFromPoints().y); // + this.from.width/2, + this.from.height/2
         //context.bezierCurveTo(this.from.x + dx * 0.33 + 50, this.from.y + this.from.width/2, this.from.x + dx * 0.67 +50, this.to.y, this.to.x + this.to.width/2, this.to.y + this.to.height/2);
-        context.lineTo(this.to.x, this.to.y); //+ this.to.width/2, + this.to.height/2
+        context.lineTo(this.to.ConnectToPoints().x, this.to.ConnectToPoints().y); //+ this.to.width/2, + this.to.height/2
         context.stroke();
         //ez a nyíl lesz majd valahogy
         context.beginPath();
         //context.setLineDash([]);
         context.fillStyle = 'black';
-        context.moveTo(this.to.x, this.to.y); //+ this.to.width/2, + this.to.height/2
-        context.lineTo(this.to.x - head * Math.cos(angle - Math.PI / 10), this.to.y - head * Math.sin(angle - Math.PI / 10));
+        context.moveTo(this.to.ConnectToPoints().x, this.to.ConnectToPoints().y); //+ this.to.width/2, + this.to.height/2
+        context.lineTo(this.to.ConnectToPoints().x - head * Math.cos(angle - Math.PI / 10), this.to.ConnectToPoints().y - head * Math.sin(angle - Math.PI / 10));
         //  Középre kötés:
         //  context.lineTo(this.to.x - head * Math.cos(angle - Math.PI / 10) + this.to.width/2, this.to.y - head * Math.sin(angle - Math.PI / 10) + this.to.height/2);
         //context.moveTo(tox, toy);
-        context.lineTo(this.to.x - head * Math.cos(angle + Math.PI / 10), this.to.y - head * Math.sin(angle + Math.PI / 10));
+        context.lineTo(this.to.ConnectToPoints().x - head * Math.cos(angle + Math.PI / 10), this.to.ConnectToPoints().y - head * Math.sin(angle + Math.PI / 10));
         //  Középre kötés:
         //  context.lineTo(this.to.x - head * Math.cos(angle + Math.PI / 10) + this.to.width/2, this.to.y - head * Math.sin(angle + Math.PI / 10) + this.to.height/2);
         // context.moveTo(this.to.x+50, this.to.y);
