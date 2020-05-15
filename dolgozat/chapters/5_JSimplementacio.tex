@@ -120,7 +120,7 @@ if (event.shiftKey === true) {
    this.graph.drawEdge['from'] = this.graph.nodes[selectedIndex];
 }
 if (event.altKey === true) {
-   this.graph.drawEdge["to"] = this.graph.nodes[selectedIndex];//node["id"];
+   this.graph.drawEdge["to"] = this.graph.nodes[selectedIndex];
    this.addEdge(this.graph.drawEdge["from"], this.graph.drawEdge["to"]);
    this.graph.clear();
    this.graph.draw();
@@ -181,11 +181,17 @@ A bal oldali eszköztárban rákattintunk a hozzáadandó elemre, így az megjel
 
 Az összekötésnél figyelembe kell vennünk, hogy a program megkülönböztet forrás- és cél csomópontot, hiszen ez alapján dönti el, hogy a vonal melyik végén lesz a nyíl (vagyis melyik csomópontból melyik másik következik).
 
-\textbf{Forrás csomópont kijelölése:} A szerkesztő felületen a \texttt{Shift} gomb lenyomása mellett az adott csomópontra való kattintás fogja kijelölni a forrás csomópontot.
+\textbf{Forrás csomópont kijelölése:} A szerkesztő felületen a \texttt{Shift} gomb lenyomása mellett az adott csomópontra bal egérgombbal való kattintás fogja kijelölni a forrás csomópontot.
 
-\textbf{Célcsomópont kijelölése:} A Shift gombot elengedve, helyette az \texttt{Alt} gomb lenyomása mellett egy másik csomópontra való kattintás az egérrel fogja meghatározni a célcsomópontot, vagyis azt, hogy hová lesz bekötve az adott vonal.
+\textbf{Célcsomópont kijelölése:} A Shift gombot elengedve, helyette az \texttt{Alt} gomb lenyomása mellett egy másik csomópontra való kattintás az egér szintén bal gombjával fogja meghatározni a célcsomópontot, vagyis azt, hogy hová lesz bekötve az adott vonal.
 
 Ezt követően már meg is jeleníti a program a kívánt összeköttetést a két csomópont között.
+
+\SubSection{Csomópontok közötti vonal törlése}
+
+Vonalat letörölni hasonlóképpen lehet, mint ahogy azt létrehoztuk. Itt először a \texttt{Shift} gomb lenyomásával egyidejűleg a jobb egérgombot kell megnyomnunk azon a csomóponton, amelyikből a törölni kívánt vonal kiindul. Ezt követően az \texttt{Alt} gomb nyomva tartása mellett szintén jobb egérgombbal való kattintás azon a csomóponton, amelybe vezet a vonal, fogja letörölni az adott vonalat.
+
+A jobb kattintásra megjelenő, legtöbb böngészőbe beépített szerkesztő menü le van tiltva a canvas teljes területén, hogy vonal törlése esetén (ami jobb egérgomb kattintást igényel) ne zavarja meg a felhasználót.
 
 \SubSection{Csomópont törlése}
 
@@ -197,9 +203,13 @@ Amelyik csomópontra szöveget szeretnénk írni, azon egy dupla kattintás meg 
 
 Az itt beírt szöveg azonnal megjelenik az adott csomóponton, illetve ha a beírt szöveg hossza meghaladja a csomópont szélességét, akkor az automatikusan szélesedni kezd.
 
+Ha lekattintunk az adott csomópontról, majd később visszakattintunk rá (bármelyikre, amelyiken szöveg található), akkor annak a szövege megjelenik azon a helyen, ahol előzetesen beírtuk a csomópont szövegét.
+
 \SubSection{Csomópont átméretezése}
 
 Az átméretezni kívánt csomópontra való dupla kattintással (a szöveg hozzáadásához hasonlóan) érhető el a csomópont átméretezése. Az új méreteket az eszköztár aljában a kattintásra megjelenő felületen lehet megadni.
+
+Hogy legyen mihez viszonyítani, az adott csomópont aktuális mérete megjelenik azon a helyen, ahová majd az új méreteket fogjuk megadni.
 
 A téglalap esetén először annak szélességét, majd a magasságát kell megadnunk. A kör alakú csomópontok (circle, start, end) esetében csak a kör sugarát kell megadnunk.
 
@@ -213,4 +223,4 @@ Az adott témát megváltoztatni az eszköztár alatt található \textbf{Témá
 
 Az elkészült folyamatábrát a Témák melletti \textbf{Mentés} gombra kattintva menthetjük el. Ez a funkció minden, a szerkesztő felületen megtalálható elemet (csomópontok, összekötő vonalak, szövegek) elment. Viszont ha a Mentés gomb megnyomása után további szerkesztéseket hajtunk végre, és nem nyomunk ismételten mentés gombot, akkor ez utóbbi módosítások már nem lesznek eltárolva az adatbázisban.
 
-Fontos még megjegyezni, hogy a gráf szerkesztő program a szerver futtatása nélkül is használható, viszont ebben az esetben (értelemszerűen) a mentés funkciót nem tudjuk használni. Ilyenkor (a legtöbb böngészőben) a szerkesztő felületen bárhová kattintva az egér jobb gombjával \texttt{PNG} fájlként menthetjük a folyamatábrát.
+Fontos még megjegyezni, hogy a gráf szerkesztő program a szerver futtatása nélkül is használható, viszont ebben az esetben (értelemszerűen) a mentés funkciót nem tudjuk használni.

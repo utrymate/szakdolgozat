@@ -38,7 +38,7 @@ Bal oldalon található az \textbf{eszköztár}, amelynek segítségével külö
 
 \item Az eszköztár alatt található egy \textbf{mentés} gomb, melynek segítségével elmenthetjük az elkészített gráfot egy adatbázisba az esetleges későbbi módosítások céljából.
 
-\item Végül a mentés gomb mellett egy \textbf{témák} feliratú gomb helyezkedik el, melyre rákattintva választhatjuk ki az elemek különböző témáját, stílusát. Ez egy apróbb felhasználóbarát élményt nyújt azáltal, hogy különböző színű és alakú formák használatát is lehetővé teszi az alapértelmezetteken kívül. Természetesen ez nem folyásolja be a program használatát, csupán a kinézetét változtatja meg a felhasználó által kívántra.
+\item Végül a mentés gomb mellett egy \textbf{témák} feliratú gomb helyezkedik el, melyre rákattintva választhatjuk ki az elemek különböző témáját, stílusát. Ez egy apróbb felhasználóbarát élményt nyújt azáltal, hogy különböző színű formák használatát is lehetővé teszi az alapértelmezetteken kívül. Természetesen ez nem folyásolja be a program használatát, csupán a kinézetét változtatja meg a felhasználó által kívántra.
 \end{enumerate}
 
 A \textbf{szerkesztő felület} (vagy más szóval vászon (\textit{canvas})) a létrehozott elemek megjelenítéséért felelős. Kezdetben üres, egyszínű az egész. Ahogy viszont rákattintunk az eszköztárban egy általunk kiválasztott elemre, úgy az megjelenik rajta, és különböző műveleteket tudunk rajta végezni.
@@ -70,6 +70,8 @@ A \textbf{szerkesztő felület} (vagy más szóval vászon (\textit{canvas})) a 
 \item Ilyenkor, ha van a csomóponthoz tartozó vonal, akkor az is törlésre kerül (több vonal esetén az összes).
 \item A programnak ügyelnie kell arra, hogy egy csomópont törlése után se legyenek a későbbiekben létrehozott csomópontok ID-jai között azonosak.
 \end{itemize}
+
+\item Továbbá lehetőség van csak a vonal törlésére két adott csomópont között.
 
 \end{enumerate}
 
@@ -123,6 +125,7 @@ Ezekkel a fent felsorolt, esetlegesen felmerülő hibákkal szemben nézzük meg
 
 \begin{itemize}
 \item A felhasználót a canvas más színűre változtatásával figyelmezteti a program amiatt, hogy fedésbe került két csomópont.
+\item Valamint a canvas-on kívülre sem engedi mozgatni a csomópontot a program.
 \end{itemize}
 
 \item Figyelmeztet az alkalmazás, ha hiányzik kezdő- vagy végállapot.
