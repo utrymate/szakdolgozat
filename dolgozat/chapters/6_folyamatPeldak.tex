@@ -19,13 +19,13 @@ Az ábra egy kiváló példa teljes folyamatábrára: Van egy-egy kezdő- és v�
 
 A folyamatábrán egy megrendelési folyamatot láthatunk. Első lépésben az adott vállalathoz beérkezik az általuk megrendelt áru. Itt máris útelágazáshoz érkezünk: ha a megrendelés nem teljesíthető valamilyen oknál fogva (például aktuálisan nincs rá kapacitása a cégnek vagy nincs jelen az a személy, aki a megrendeléseket kezeli), akkor máris lezárásra kerül, és végállapotba jutunk a folyamatábrán. Ha viszont minden feltétel adott a megrendeléshez, akkor az teljesíthető. Ekkor összegyűjtik a megrendelés árucikkeit. Ezt követően egy újabb átjáró (vagy elágazás) következik. Láthatjuk, hogy az eddigi két rombusz elem más-más jelölést tartalmaz. Az előbbi egy eldöntendő (igaz vagy hamis) csomópont volt, utóbbi után pedig párhuzamos feladat végrehajtás következik. Egyfelől az összegyűjtött árucikkeket becsomagolják, majd ezt követően elszállítják a megrendelés helyére, ezzel egyidejűleg pedig értesítik a megrendelőt egy visszaigazolással, és regisztrálják a befizetést. Két újabb rombusz alakzat zárja az azonos jellel megjelölt korábbi útválasztó csomópontokat, és végül lezárásra kerül a megrendelés. Az egész folyamat pedig egy kezdő- és egy végállapot közé van fogva.
 
-A fenti ábra után tekintsük meg a \ref{fig:bpmn} ábrán, hogy pontosan ugyanez a folyamat hogyan modellezhető a szakdolgozat programjának segítségével.
+A fenti ábra után tekintsük meg a \ref{fig:bpmn1} ábrán, hogy pontosan ugyanez a folyamat hogyan modellezhető a szakdolgozat programjának segítségével.
 
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.6]{images/pelda1.png}
 \caption{BPMN diagram a saját programmal készítve}
-\label{fig:bpmn}
+\label{fig:bpmn1}
 \end{figure}
 
 Némi eltérés felfedezhető a két ábra között. A szakdolgozat alkalmazás színes csomópontokat használ, ami látványosabbá teszi a modellezést, azonban azok összekötésére kisebb hangsúlyt fektet. Előbbi ábrán a csomópontok szövegei több sorba való tagolással vannak megvalósítva, így minden tevékenységet jelölő csomópont azonos méretű. Hosszabb szövegek esetén viszont már nem lesz meg ez az egység. A szakdolgozat programjában ellenben minden csomópont pontosan azonos méretűre hozható a benne lévő szöveg hosszától függetlenül.
