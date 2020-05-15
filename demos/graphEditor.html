@@ -15,18 +15,18 @@
 <body onload="" onresize="editor.resize()">
 <div class="grid-container">
     <div class="item1">
-        <canvas id="my-canvas" width="1280" height="720"></canvas>
+        <canvas id="my-canvas" oncontextmenu="return false;" width="1280" height="720"></canvas>
     </div>
     <div class="item2">
         <table  class="tablazat" >
             <caption>Toolbox</caption>
             <tr>
                 <th>
-                    <p>Add rectangle</p>
+                    <p>Add node</p>
                 </th>
                 <td>
                     <!-- node hozzáadás-->
-                    <div id="rectangle" onclick="editor.addRectangle()" title="Add rectangle to canvas"></div>
+                    <div id="rectangle" onclick="editor.addRectangle()"></div>
                 </td>
             </tr>
             <tr>
@@ -34,7 +34,7 @@
                     <p>Add diamond</p>
                 </th>
                 <td>
-                    <div id="diamond" onclick="editor.addDiamond()" title="Add diamond to canvas"></div>
+                    <div id="diamond" onclick="editor.addDiamond()"></div>
                 </td>
             </tr>
             <tr>
@@ -43,7 +43,7 @@
                  </th>
                 <td>
                     <!-- kör hozzáadás-->
-                    <div id="circle" onclick="editor.addCircle()" title="Add circle to canvas"></div>
+                    <div id="circle" onclick="editor.addCircle()"></div>
                 </td>
             </tr>
             <tr>
@@ -52,7 +52,7 @@
                 </th>
                 <td>
                     <!-- start hozzáadás-->
-                    <div id="start" onclick="editor.addStart()" title="Add start to canvas"></div>
+                    <div id="start" onclick="editor.addStart()"></div>
                 </td>
             </tr>
             <tr>
@@ -61,7 +61,7 @@
                 </th>
                 <td>
                     <!-- end hozzáadás-->
-                    <div id="end" onclick="editor.addEnd()" title="Add end to canvas"></div>
+                    <div id="end" onclick="editor.addEnd()"></div>
                 </td>
             </tr>
             <tr>
@@ -107,8 +107,6 @@
     </div>
   </div>
 <script>
-    //let graph = new Graph(); //todo: konstruktorokat atadni
-    //todo letrehozni a tobbi osztaly is.
     window.onscroll = function (e) {
         editor.resize()
     }
