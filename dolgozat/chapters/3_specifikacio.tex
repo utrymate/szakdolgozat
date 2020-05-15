@@ -1,20 +1,19 @@
 \Chapter{Specifikáció}
 
-%A 3. fejezetben kellene részletesen leírni, hogy milyen feladatokat és hogyan old majd meg az elkészített alkalmazás.
 \Section{Áttekintés}
 
 Az előző fejezetben láthattuk, hogy már léteznek készen elérhető alkalmazások üzleti folyamatok modellezésére. A \textit{Draw.io} összetettségével, lehetőségeinek sokaságával, ugyanakkor egyszerű használatával egy kiváló alkalmazás, azonban azáltal, hogy teljes szabadságot nyújt a diagramok, folyamatok ábrázolásának használatához, könnyen előfordulhat, hogy az elkészült ábrák (főleg nagy elemhalmazzal való dolgozás esetén) bizonyos integritási feltételeknek nem tesznek eleget, és ezáltal hibás folyamatmodellezési ábrák készülhetnek. Ez különösen akkor jelenthet gondot, hogyha formális célból készül az adott ábra.
 
-Ebben a fejezetben fogjuk áttekinteni, hogyan is épül fel a gráfszerkesztő alkalmazásunk, melynek segítségével az üzleti folyamatok modellezése történik, illetve hogy miben tér el a már elkészült, hivatalos gráfszerkesztő programoktól, azoknak a hibáit hogyan próbálja meg megszűntetni.
+Ebben a fejezetben fogjuk áttekinteni, hogyan is épül fel a gráf szerkesztő alkalmazásunk, melynek segítségével az üzleti folyamatok modellezése történik, illetve hogy miben tér el a már elkészült, hivatalos gráf szerkesztő programoktól, azoknak a hibáit hogyan próbálja meg megszűntetni.
 
 \Section{A program felépítése}
 
-Az elkészített programnak alapvetően sok apró alkotórészt kell tartalmaznia. Lássunk egy egyszerű, sematikus ábrát arról, hogy hogyan is nézzen ki majd a gráfszerkesztőnk. Ezt a \ref{fig:sematikus} ábra szemlélteti.
+Az elkészített programnak alapvetően sok apró alkotórészt kell tartalmaznia. Lássunk egy egyszerű, sematikus ábrát arról, hogy hogyan is nézzen ki majd a gráf szerkesztőnk. Ezt a \ref{fig:sematikus} ábra szemlélteti.
 
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{images/sematikus.png}
-\caption{A gráfszerkesztő sematikus rajza}
+\caption{A gráf szerkesztő sematikus rajza}
 \label{fig:sematikus}
 \end{figure}
 
@@ -39,7 +38,7 @@ Bal oldalon található az \textbf{eszköztár}, amelynek segítségével külö
 
 \item Az eszköztár alatt található egy \textbf{mentés} gomb, melynek segítségével elmenthetjük az elkészített gráfot egy adatbázisba az esetleges későbbi módosítások céljából.
 
-\item Végül a mentés gomb mellett egy \textbf{témák} feliratú gomb helyezkedik el, melyre rákattintva választhatjuk ki az elemek különböző témáját, stílusát. Ez egy apróbb felhasználóbarát élményt nyújt azáltal, hogy különböző színű és alakú formák használatát is lehetővé teszi az alapértelmezetteken kívül. Természetesen ez nem folyásolja be a program használatát, csupán a kinézetét változtatja meg a felhasználó általt kívántra.
+\item Végül a mentés gomb mellett egy \textbf{témák} feliratú gomb helyezkedik el, melyre rákattintva választhatjuk ki az elemek különböző témáját, stílusát. Ez egy apróbb felhasználóbarát élményt nyújt azáltal, hogy különböző színű és alakú formák használatát is lehetővé teszi az alapértelmezetteken kívül. Természetesen ez nem folyásolja be a program használatát, csupán a kinézetét változtatja meg a felhasználó által kívántra.
 \end{enumerate}
 
 A \textbf{szerkesztő felület} (vagy más szóval vászon (\textit{canvas})) a létrehozott elemek megjelenítéséért felelős. Kezdetben üres, egyszínű az egész. Ahogy viszont rákattintunk az eszköztárban egy általunk kiválasztott elemre, úgy az megjelenik rajta, és különböző műveleteket tudunk rajta végezni.
@@ -61,22 +60,22 @@ A \textbf{szerkesztő felület} (vagy más szóval vászon (\textit{canvas})) a 
 \item Csak két, általunk kiválasztott csomópontot lehet összekötni vonallal. Megkülönböztetünk \textit{cél}- és \textit{forrás csomópont}ot. Az összekötő vonal végén a nyíl arra az elemre fog mutatni, amelyet később jelölünk ki (tehát a célcsomópontra).
 \item Egy csomóponthoz több vonal is tartozhat, amiből a következő pont is következik:
 \item Egy csomópont cél- és forrás csomópontként is funkcionálhat.
-\item Tehát gyakorlatilag annyi vonal indulhat ki egy csomópontól / érkezhet be egy csomópontba, amennyit csak szeretne a felhasználó.
+\item Tehát gyakorlatilag annyi vonal indulhat ki egy csomópontból / érkezhet be egy csomópontba, amennyit csak szeretne a felhasználó.
 \end{itemize}
 
 \item Lehetőség van adott csomópont törlésére.
 
 \begin{itemize}
 \item Ha már a továbbiakban nincs szükség egy csomópontra, akkor az letörölhető a szerkesztőfelületről.
-\item Ilyenkor ha van a csomóponthoz tartozó vonal, akkor az is törlésre kerül (több vonal esetén az összes).
+\item Ilyenkor, ha van a csomóponthoz tartozó vonal, akkor az is törlésre kerül (több vonal esetén az összes).
 \item A programnak ügyelnie kell arra, hogy egy csomópont törlése után se legyenek a későbbiekben létrehozott csomópontok ID-jai között azonosak.
 \end{itemize}
 
 \end{enumerate}
 
-\Section{Miben különbözik az elkészített program a már használatban lévő gráfszerkesztőktől?}
+\Section{Miben különbözik az elkészített program a már használatban lévő gráf szerkesztőktől?}
 
-Korábban említettem, hogy a \textit{Draw.io} alkalmazásnak is vannak hiányosságai annak ellenére, hogy rendkívül sok lehetőséget kínál. Most nézzük néhány példát, amik előfordulhatnak akkor, hogyha a felhasználó nem elég körültekintő egy ilyen vagy ehhez hasonló gráfszerkesztő használata közben, és elkövet olyan hibákat a szerkesztés folyamán, amik miatt nem várt eredmény születhet, illetve hogy ezek a hibák miért jelenthetnek problémát.
+Korábban említettem, hogy a \textit{Draw.io} alkalmazásnak is vannak hiányosságai annak ellenére, hogy rendkívül sok lehetőséget kínál. Most nézzük néhány példát, amik előfordulhatnak akkor, hogyha a felhasználó nem elég körültekintő egy ilyen vagy ehhez hasonló gráf szerkesztő használata közben, és elkövet olyan hibákat a szerkesztés folyamán, amik miatt nem várt eredmény születhet, illetve hogy ezek a hibák miért jelenthetnek problémát.
 
 \begin{enumerate}
 \item Nem pontosan köt össze a vonallal két folyamatot.
@@ -126,7 +125,7 @@ Ezekkel a fent felsorolt, esetlegesen felmerülő hibákkal szemben nézzük meg
 \item A felhasználót a canvas más színűre változtatásával figyelmezteti a program amiatt, hogy fedésbe került két csomópont.
 \end{itemize}
 
-\item Figyelmeztet az alkalmazás ha hiányzik kezdő- vagy végállapot.
+\item Figyelmeztet az alkalmazás, ha hiányzik kezdő- vagy végállapot.
 
 \begin{itemize}
 \item Az előző ponthoz hasonlóan itt is arról tájékoztatja a felhasználót a program, hogy nem teljes az általa modellezett folyamatábra.
@@ -138,7 +137,7 @@ A fent említett utóbbi két példa egészen addig fog hibajelzést generálni 
 
 \Section{Egyszerűbb folyamatábra létrehozása lépésről lépésre}
 
-Nézzük meg, hogy az elkészített alkalmazásban a felhasználó hogyan tud létrehozni egy egyszerűbb folyamatbárát. Fontos, hogy ez az alfejezet csak elméletben írja le, hogy hogyan valósítható meg a folyamatmodellezés a program segítségével. Folyamatábrák konkrét létrehozását, használatát, elmentését az 5. fejezet tárgyalja.
+Nézzük meg, hogy az elkészített alkalmazásban a felhasználó hogyan tud létrehozni egy egyszerűbb folyamatábrát. Fontos, hogy ez az alfejezet csak elméletben írja le, hogy hogyan valósítható meg a folyamatmodellezés a program segítségével. Folyamatábrák konkrét létrehozását, használatát, elmentését az 5. fejezet tárgyalja.
 
 A program, ahogy azt a felépítésénél olvashattuk, egy teljesen üres canvas-szal (vászonnal) fogadja a felhasználót kezdetben. Ez maga a szerkesztő felület, ahol a folyamatmodellezés történik, és itt fogjuk látni az elkészített folyamatábránkat végeredményként. Egy egyszerű folyamatábrát az alábbi lépéseket követve tudunk létrehozni (természetesen ezek a lépések csak iránymutatóak, nem kötött sorrendet határoznak meg):
 
@@ -172,7 +171,7 @@ A program, ahogy azt a felépítésénél olvashattuk, egy teljesen üres canvas
 \end{itemize}
 %Ezekért figyelmeztet a program
 
-\item Végül ha minden simítást elvégeztünk a folyamatábránkon (megfelelő méretűekre változtattuk a csomópontokat, az általunk kívánt helyekre mozgattuk őket, stb.) utolsó lépésként már csak el kell azt mentenünk, és készen is vagyunk.
+\item Végül, ha minden simítást elvégeztünk a folyamatábránkon (megfelelő méretűekre változtattuk a csomópontokat, az általunk kívánt helyekre mozgattuk őket, stb.), utolsó lépésként már csak el kell azt mentenünk, és készen is vagyunk.
 \end{enumerate}
 
 \Section{UX design szempontok a programnál}
@@ -187,7 +186,7 @@ Nélkülözhetetlen egy, a UX-szel kapcsolatos fogalmat is megemlíteni: a \text
 
 \SubSection{UX alapkövetelmények}
 
-Nézzük meg, hogy milyen alapkövetelményei vannak a UX-nek egy adott weboldal szemponjából, illetve hogy ezeket az alapkövetelményeknek mennyire felel meg a szakdolgozat programja.
+Nézzük meg, hogy milyen alapkövetelményei vannak a UX-nek egy adott weboldal szempontjából, illetve hogy ezeket az alapkövetelményeknek mennyire felel meg a szakdolgozat programja.
 
 \begin{enumerate}
 \item \textbf{Legyen hasznos:} A célközönségnek kell a legnagyobb fókuszban lennie: jelen esetben ez a felhasználók, akik számára készül a program. Ezáltal úgy kell azt megvalósítani, hogy az érdemleges információt tartalmazzon, felkeltse a felhasználó érdeklődését, és így hasznosnak találja a programot.
@@ -199,7 +198,7 @@ Nézzük meg, hogy milyen alapkövetelményei vannak a UX-nek egy adott weboldal
 \item \textbf{Legyen könnyen használható:} Ne legyen túlzsúfolt az oldal, hanem törekedjen az átláthatóságra. Rajta a navigáció legyen következetes és mindenki számára egyértelmű. Ha az alkalmazás nyújtotta lehetőségeket egyszerűen, könnyedén lehet kezelni, az mindenképp pozitív élményt jelent a felhasználó számára.
 
 \begin{itemize}
-\item Az alkalmazás nincs túlbonyolítva, kivitelezése átlátható, használata egyszerű. Ami pedig még inkább megkönnyíti a felhasználó eligazodását, hogy a műveletet végrehajtó gombokra ha ráviszi az egérmutatót, akkor azok egy rövid leírást (\textit{tooltip}et) jelenítenek meg számára, amely a könnyebb használatot segíti elő. Például a \textit{mentés} gombnál leírja, hogy mi fog történni annak megnyomása esetén.
+\item Az alkalmazás nincs túlbonyolítva, kivitelezése átlátható, használata egyszerű. Ami pedig még inkább megkönnyíti a felhasználó eligazodását, hogy a műveletet végrehajtó gombokra, ha ráviszi az egérmutatót, akkor azok egy rövid leírást (\textit{tooltip}et) jelenítenek meg számára, amely a könnyebb használatot segíti elő. Például a \textit{mentés} gombnál leírja, hogy mi fog történni annak megnyomása esetén.
 \end{itemize}
 %tooltip-et megírni a html-ben (title = "asd")
 \item \textbf{Legyen kívánatos:} Fontos szempont a testreszabottság. Elvárás lehet a célközönség részéről a kifogástalan esztétikai élmény. Ezáltal lényeges, hogy minél letisztultabb felületet biztosítson az alkalmazás. Nem mindig a legfelkapottabb a célra legmegfelelőbb, viszont kívánatossá teheti a programot.
@@ -211,7 +210,7 @@ Nézzük meg, hogy milyen alapkövetelményei vannak a UX-nek egy adott weboldal
 \item \textbf{Legyen könnyen kereshető:} Ez az alapkövetelmény azt írja elő, hogy az adott oldalon / alkalmazásban a keresés hatékony legyen. A felhasználók hamar megtalálják azt, amit keresnek, és hogy egyáltalán az adott oldal rendelkezzen a felhasználó számára a keresett információval.
 
 \begin{itemize}
-\item Ezt azért teljesíti könnyen a programunk, mert amint betölt az oldal, mindent a szemünk előtt látunk rajta. Alapvetően nincsenek rejtett dolgok, azonnal elkezdhetjük a folyamatmodellezést, minden egyszerűen a kezünk ügyébe kerül. Egyedül a mentés és a csomópont szerkesztés ami bizonyos funkció végrehajtásakor jelenik meg a felhasználó számára, de ezt az 5. fejezet részletesen tárgyalja majd.
+\item Ezt azért teljesíti könnyen a programunk, mert amint betölt az oldal, mindent a szemünk előtt látunk rajta. Alapvetően nincsenek rejtett dolgok, azonnal elkezdhetjük a folyamatmodellezést, minden egyszerűen a kezünk ügyébe kerül. Egyedül a mentés és a csomópont szerkesztés, ami bizonyos funkció végrehajtásakor jelenik meg a felhasználó számára, de ezt az 5. fejezet részletesen tárgyalja majd.
 \end{itemize}
 
 \item \textbf{Legyen hozzáférhető:} Vagyis mindenki számára elérhető. A blogbejegyzés különös hangsúlyt fektet a fogyatékkal élőkre, hiszen számukra kellene leginkább biztosítani a könnyű kezelhetőséget és használhatóságot. Ennek ellenére mégsem teljesül sok weboldal esetében ez az alapkövetelmény.

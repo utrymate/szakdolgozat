@@ -2,13 +2,13 @@
 
 \Section{Bevezetés}
 
-A specifikációk alapján a programban a felhasználónak kell tudnia csomópontokat hozzáadni, szerkeszteni, és azokat összekötni más csomópontokkal. Továbbá az éppen aktuális munkáját a gráfszerkesztőn el kell tudni mentenie, és a program újraindításánál visszatöltenie azt. Ez utóbbi megvalósításához szükség van valamilyen "tárolóra", vagyis egy szerverre és egy adatbázisra. Ennél a fejezetnél már nem csak a látható programrészen van a hangsúly, hanem legalább ugyanakkora figyelmet kap a szerver oldal is az adatbázissal, hiszen azok is kiemelkedő részei az alkalmazásnak.
+A specifikációk alapján a programban a felhasználónak kell tudnia csomópontokat hozzáadni, szerkeszteni, és azokat összekötni más csomópontokkal. Továbbá az éppen aktuális munkáját a gráf szerkesztőn el kell tudni mentenie, és a program újraindításánál visszatöltenie azt. Ez utóbbi megvalósításához szükség van valamilyen "tárolóra", vagyis egy szerverre és egy adatbázisra. Ennél a fejezetnél már nem csak a látható programrészen van a hangsúly, hanem legalább ugyanakkora figyelmet kap a szerver oldal is az adatbázissal, hiszen azok is kiemelkedő részei az alkalmazásnak.
 
 \Section{Technológia és architektúra a szerver oldalon}
 
-Ahhoz, hogy a bevezetőben említett specifikációt megvalósító szoftvert meg tudjuk írni, először kijelöljük a megfelelő technológiákat és az architektúrát. A kliens-szerver architetúra megfelelő erre az alkalmazásra. A kliens egy böngészős frontend, ami egy API-n keresztül tud kommunikálni a backend szerverrel, amely perzisztensen tárolja az adatokat egy relációs adatbázisban. A kliens esetünkben a böngészőben futó \textbf{JavaScript} alkalmazás, míg a szerver egy \textbf{Python} nyelven íródott \textbf{Falcon API}-t használ, valamint \textbf{SQLite} adatbázist a tárolásra.
+Ahhoz, hogy a bevezetőben említett specifikációt megvalósító szoftvert meg tudjuk írni, először kijelöljük a megfelelő technológiákat és az architektúrát. A kliens-szerver architektúra megfelelő erre az alkalmazásra. A kliens egy böngészős frontend, ami egy API-n keresztül tud kommunikálni a backend szerverrel, amely perzisztensen tárolja az adatokat egy relációs adatbázisban. A kliens esetünkben a böngészőben futó \textbf{JavaScript} alkalmazás, míg a szerver egy \textbf{Python} nyelven íródott \textbf{Falcon API}-t használ, valamint \textbf{SQLite} adatbázist a tárolásra.
  
-Hogy ez működjön a számítógépünkön először telepíteni kell a \textbf{Python}-t, és a \textbf{pip}-et. A Pythont egyszerűen le lehet tölteni a hivatalos honlapról a \url{https://www.python.org/downloads/} URL címen keresztül. Windows felhasználóként a Windowshoz készült 64-bites setup segítségével telepítettem fel az alkalmazást. A \ref{fig:pyt1} ábrán látható, hogy a Python telepítésével egyidejűleg lehetőségünk van a pip telepítésére is, ehhez azonban manuális telepítés szükséges.
+Hogy ez működjön a számítógépünkön, először telepíteni kell a \textbf{Python}-t, és a \textbf{pip}-et. A Pythont egyszerűen le lehet tölteni a hivatalos honlapról a \url{https://www.python.org/downloads/} URL címen keresztül. Windows felhasználóként a Windowshoz készült 64-bites setup segítségével telepítettem fel az alkalmazást. A \ref{fig:pyt1} ábrán látható, hogy a Python telepítésével egyidejűleg lehetőségünk van a pip telepítésére is, ehhez azonban manuális telepítés szükséges.
 
 \begin{figure}[h]
 \centering
@@ -27,11 +27,9 @@ A telepítés következő lépésében célszerű bepipálni a 4. pontot, ami a 
 %\label{fig:pyt2}
 %\end{figure}
 
-%Végigmenve a telepítőn már fel is telepítettük sikeresen a Pythont és a pip-et, amiről értesít is a setup. Le is ellenőrizhetjük, hogy valóban települtek-e a kívánt alkalmazások: parancssorba beírva a \texttt{python} parancsot attól függetlenül, hogy melyik jegyzékben vagyunk (hiszen hozzáadtuk a környezeti változókhoz a Pythont), azonnal elindul a \textit{python.exe} fájl. Helyét a \texttt{where python} parancs beírásával érhetjük el, amely megegyezik a telepítéskor megadott hellyel. A pip esetében ha kiadjuk a \texttt{pip} parancsot a parancssorba, az megmutatja, hogy milyen pip parancsok érhetőek el (innen tudhatjuk, hogy létezik a pip fájlunk, hiszen ha nem lenne, a parancsok kilistázása helyett hibaüzenetet írna ki a parancssor).
-
 Ezek után a program működéséhez elengedhetetlen csomagokat telepítjük: az \textbf{SQLAlchemy}-t és a korábban említett \textbf{Falcon}-t. A telepítés a következő formátum megadásával történik: \texttt{python -m pip install [csomag neve]}
 
-Tehát például a Falcont az alábbi parancs kiadása telepíti:
+Tehát például a Falcon-t az alábbi parancs kiadása telepíti:
 
 \begin{python}
 python -m pip install falcon
@@ -54,7 +52,7 @@ api.add_route('/css/{filename}', StaticCSS())
 api.add_route('/{filename}', StaticHTML())
 \end{python}
 
-A backend programban a Falcon keretrendszer kezeli az api-t, és egy adatbáziskezelő segítségével csatlakozunk az adatbázishoz az alábbi módon:
+A backend programban a Falcon keretrendszer kezeli az api-t, és egy adatbázis-kezelő segítségével csatlakozunk az adatbázishoz az alábbi módon:
 
 \begin{python}
 api = falcon.API()
@@ -62,7 +60,7 @@ dbms = mydatabase.MyDatabase(mydatabase.SQLITE, username='', password='',
 dbname='mydb.sqlite')
 \end{python}
 
-Az adatbáziskezelő osztály tartalmaz metódusokat, amivel az alapvető műveleteket elvégezhetjük, mint például a lekérdezést, beszúrást, törlést.
+Az adatbázis-kezelő osztály tartalmaz metódusokat, amivel az alapvető műveleteket elvégezhetjük, mint például a lekérdezést, beszúrást, törlést.
 
 \begin{python}
 # beszuras, torles
@@ -184,11 +182,11 @@ Ugyanezen a végponton HTTP POST kérés után mentjük az adatokat, amelynek a 
 %\label{fig:post}
 %\end{figure}
 
-Az API azért REST, mert követi a REST architektúrát, azaz a web url és kérés metódus által pontosan azonosítható, mit akar a kliens. Például ha a metódus GET és az url \texttt{/api/nodes} az azt jelenti, hogy a kliens le szeretné kérni az összes node-ot.
+Az API azért REST, mert követi a REST architektúrát, azaz a web URL és kérés metódus által pontosan azonosítható, mit akar a kliens. Például ha a metódus GET és az URL \texttt{/api/nodes} az azt jelenti, hogy a kliens le szeretné kérni az összes node-ot.
  
 A szerver a már fentebb említett SQLite adatbázissal is kommunikál, itt perzisztensen tároljuk az adatokat, így a következő indításnál is megmarad minden a szerkesztőben.
 
-Az adatbázis két táblát használ, a \textbf{nodes} és az \textbf{edges} táblákat. Először manuálisan kell lértrehozni őket, az alábbi ER diagram szerint:
+Az adatbázis két táblát használ, a \textbf{nodes} és az \textbf{edges} táblákat. Először manuálisan kell létrehozni őket, az alábbi ER diagram szerint:
 
 \begin{figure}[h]
 \centering
@@ -222,7 +220,7 @@ ForeignKey("nodes.id"), nullable=False)
 \newpage
 
 \Section{A kliens oldal}
-A JavaScript kliens program 9 osztályból áll. Az osztályok mind külön feladatot látnak el. Az Editor osztály körül öleli a többi osztályt, és megosztja közöttuk az információkat. A Graph osztály kezeli a szerkesztőt. A szerkesztő és tartalma megrajzolása ebben az osztályban valósul meg. Minden a szerkesztőn megjelenő elem ennek az osztálynak valamelyik adattagjában megtalálható. Két fontos adattagja a \textbf{nodes} és \textbf{edges} tömbök, melyek a \textbf{Node} és \textbf{Edge} osztályok vagy ezen osztályok egyik leszármazottjának a példányait tartalmazzák. A Node osztály tartalmazza az csomópontokat a különböző alakzataival, míg az Edge osztály az alakzatokat összekötő vonalakat valósítja meg.
+A JavaScript kliens program 9 osztályból áll. Az osztályok mind külön feladatot látnak el. Az Editor osztály körül öleli a többi osztályt, és megosztja közöttük az információkat. A Graph osztály kezeli a szerkesztőt. A szerkesztő és tartalma megrajzolása ebben az osztályban valósul meg. Minden a szerkesztőn megjelenő elem ennek az osztálynak valamelyik adattagjában megtalálható. Két fontos adattagja a \textbf{nodes} és \textbf{edges} tömbök, melyek a \textbf{Node} és \textbf{Edge} osztályok vagy ezen osztályok egyik leszármazottjának a példányait tartalmazzák. A Node osztály tartalmazza az csomópontokat a különböző alakzataival, míg az Edge osztály az alakzatokat összekötő vonalakat valósítja meg.
  
 A Node osztálynak 3 közvetlen leszármazottja van: \textbf{Diamond}, \textbf{Rectangle} és \textbf{Circle} (magyarul: rombusz, téglalap és kör) melyek mind implementálják a Node osztály konstruktorát. A Circle osztálynak további két leszármazottja van: a \textbf{Start} és az \textbf{End}, melyek a kezdő- és végállapotokat jelölik.
 

@@ -9,7 +9,7 @@
 \label{fig:uml}
 \end{figure}
 
-A kliens program a következőképpen működik: A graphEditor.html dokumentum betöltése után létrehozzuk az Editor osztály egy példányát. Ezután inicializáljuk a szerkesztőt egy függvény segítségével. Itt beállítjuk a program működéséhez elengedhetetlen adattagokat, események kezelését. lyen adattagok a graph, canvas, context, themes.
+A kliens program a következőképpen működik: A graphEditor.html dokumentum betöltése után létrehozzuk az Editor osztály egy példányát. Ezután inicializáljuk a szerkesztőt egy függvény segítségével. Itt beállítjuk a program működéséhez elengedhetetlen adattagokat, események kezelését. Ilyen adattagok a graph, canvas, context, themes.
 
 Végül egy metódus segítségével átméretezzük az adott böngészőablak méretéhez arányosan biztosítva így, hogy bármilyen méretű képernyőn használható legyen a program.
 
@@ -35,7 +35,7 @@ function GetEditorData() {
            })
 \end{javascript}
 
-Ha ez sikerült, a függvény egy Promise-szal (ígéret) jelzi, és lekérhetjük az összekötő vonalakat. Mivel aszinkron az előző kérés is, előfordulhat olyan, hogy az összekötő vonalak hamarabb megérkeznek mint maguk a csomópontok, és ez a programban végzetes hibához vezetne. Ezért van szükség a Promise-ra. 
+Ha ez sikerült, a függvény egy Promise-szal (ígéret) jelzi, és lekérhetjük az összekötő vonalakat. Mivel aszinkron az előző kérés is, előfordulhat olyan, hogy az összekötő vonalak hamarabb megérkeznek, mint maguk a csomópontok, és ez a programban végzetes hibához vezetne. Ezért van szükség a Promise-ra. 
 
 \begin{javascript}
        .then(r => {
@@ -46,7 +46,7 @@ Ezután egy másik GET kéréssel lekérjük az összekötő vonalakat, és a me
 
 A szerkesztő állapotát a következőképpen tudjuk elmenteni: A mentés gombra kattintva először átalakítjuk az nodes és edges adattagokban található osztályokat JSON adattá, majd egy aszinkron POST kéréssel mentjük az adatokat a szerveren.
 
-Az csomópontokat megvalósító osztályokat univerzálisan kezeljük, amilyen tulajdonsággal nem rendelkezik egyszerűen 0-ra állítjuk, úgyse foglalkozunk vele.
+Az csomópontokat megvalósító osztályokat univerzálisan kezeljük, amilyen tulajdonsággal nem rendelkezik, egyszerűen 0-ra állítjuk, úgyse foglalkozunk vele.
 
 \begin{javascript}
 
@@ -64,7 +64,7 @@ Az csomópontokat megvalósító osztályokat univerzálisan kezeljük, amilyen 
        nodes.push(nodeJSON)
 \end{javascript}
 
-Az osszekötő vonalakat is csak azután küldjük el a szervernek, hogy megbizonyosodtunk arról, hogy a csomópontokat hibamentesen elmentettük. Az SQLite adatbázisban olyan idegen kulcs relációval kapcsolódnak a vonalak a csomópontokhoz, hogy ha a csomópont nem létezik, nem tudjuk elmenteni az összekötő vonalat.
+Az összekötő vonalakat is csak azután küldjük el a szervernek, hogy megbizonyosodtunk arról, hogy a csomópontokat hibamentesen elmentettük. Az SQLite adatbázisban olyan idegen kulcs relációval kapcsolódnak a vonalak a csomópontokhoz, hogy ha a csomópont nem létezik, nem tudjuk elmenteni az összekötő vonalat.
  
 Az eseménykezelés a következőképp zajlik: A billentyűk lenyomása és felengedéséhez az editor megfelelő metódusát rendeljük.
 
@@ -77,7 +77,7 @@ editor.graph.canvas.addEventListener("mouseup", editor.mouseUp.bind(editor), fal
 editor.graph.canvas.addEventListener("mousewheel", editor.mouseWheel.bind(editor), false);
 \end{javascript}
  
-Például a mouseDown eseménykezelő metódus úgy működik hogy ha lenyomjuk az egér bal gombját, a függvény újra rajzoltatja a gráfokat, majd kiszámítja hogy az egér rajta van-e valamely csomóponton, ha rajta van az lesz az éppen kijelölt csomópont, és a csomópont osztályban jelez, hogy húzható (\textit{drag}) állapotba került, azaz az éppen kijelölt csomópont követi az egérmutató mozgását.
+Például a \textit{mouseDown} eseménykezelő metódus úgy működik, hogy ha lenyomjuk az egér bal gombját, a függvény újra rajzoltatja a gráfokat, majd kiszámítja, hogy az egér rajta van-e valamely csomóponton, ha rajta van az lesz az éppen kijelölt csomópont, és a csomópont osztályban jelez, hogy húzható (\textit{drag}) állapotba került, azaz az éppen kijelölt csomópont követi az egérmutató mozgását.
 
 \begin{javascript}
 mouseDown(event)
@@ -101,7 +101,7 @@ mouseDown(event)
 \end{javascript}
 
  
-Ha a megfelelő helyre húztuk a csomópontot és felengedtük az egér bal gombját, a mouseUp eseménykezelő metódus jelzi a csomópontokat kezelő osztálynak, hogy a csomópont már nem húzható, azaz nem követi tovább az egeret.
+Ha a megfelelő helyre húztuk a csomópontot és felengedtük az egér bal gombját, a \textit{mouseUp} eseménykezelő metódus jelzi a csomópontokat kezelő osztálynak, hogy a csomópont már nem húzható, azaz nem követi tovább az egeret.
 
 \begin{javascript}
 mouseUp(event, context)
@@ -113,7 +113,7 @@ mouseUp(event, context)
 }
 \end{javascript}
 
-Az csomópontokat úgy tudjuk összekötni, hogy a kiinduló (forrás) csomópontra rákattintunk miközben nyomva tartjuk a \texttt{shift} billentyűt. Egy másik (a cél)csomópontra kattintva, miközben nyomva tartjuk az \texttt{alt} billentyűt, kijelölhetjük a összekötendő csomópontot. A \texttt{ctrl} billentyűvel törölni tudjuk a csomópontot.
+Az csomópontokat úgy tudjuk összekötni, hogy a kiinduló (forrás) csomópontra rákattintunk miközben nyomva tartjuk a \texttt{shift} billentyűt. Egy másik (a cél)csomópontra kattintva, miközben nyomva tartjuk az \texttt{alt} billentyűt, kijelölhetjük az összekötendő csomópontot. A \texttt{ctrl} billentyűvel törölni tudjuk a csomópontot.
 
 \begin{javascript}
 if (event.shiftKey === true) {
@@ -161,7 +161,7 @@ widen(length){
 }
 \end{javascript}
 
-Átméretezni egy csomópontot a resize metódussal lehet, itt is hasonlóan a csomópont tulajdonságaihoz megfelelő logikával:
+Átméretezni egy csomópontot a \textit{resize()} metódussal lehet, itt is hasonlóan a csomópont tulajdonságaihoz megfelelő logikával:
 
 \begin{javascript}
 resize(){
@@ -179,9 +179,9 @@ A bal oldali eszköztárban rákattintunk a hozzáadandó elemre, így az megjel
 
 \SubSection{Csomópontok összekötése vonallal}
 
-Az összekötésnél figyelembe kell vennünk, hogy a program megkülönböztet forrás- és cél csomópontot, hiszen ezalapján dönti el, hogy a vonal melyik végén lesz a nyíl (vagyis melyik csomópontból melyik másik következik).
+Az összekötésnél figyelembe kell vennünk, hogy a program megkülönböztet forrás- és cél csomópontot, hiszen ez alapján dönti el, hogy a vonal melyik végén lesz a nyíl (vagyis melyik csomópontból melyik másik következik).
 
-\textbf{Forrás csomópont kijelölése:} A szerkesztő felületen a \texttt{Shift} gomb lenyomása mellett az adott csomópontra való kattintás fogja kijelöni a forrás csomópontot.
+\textbf{Forrás csomópont kijelölése:} A szerkesztő felületen a \texttt{Shift} gomb lenyomása mellett az adott csomópontra való kattintás fogja kijelölni a forrás csomópontot.
 
 \textbf{Célcsomópont kijelölése:} A Shift gombot elengedve, helyette az \texttt{Alt} gomb lenyomása mellett egy másik csomópontra való kattintás az egérrel fogja meghatározni a célcsomópontot, vagyis azt, hogy hová lesz bekötve az adott vonal.
 
@@ -213,4 +213,4 @@ Az adott témát megváltoztatni az eszköztár alatt található \textbf{Témá
 
 Az elkészült folyamatábrát a Témák melletti \textbf{Mentés} gombra kattintva menthetjük el. Ez a funkció minden, a szerkesztő felületen megtalálható elemet (csomópontok, összekötő vonalak, szövegek) elment. Viszont ha a Mentés gomb megnyomása után további szerkesztéseket hajtunk végre, és nem nyomunk ismételten mentés gombot, akkor ez utóbbi módosítások már nem lesznek eltárolva az adatbázisban.
 
-Fontos még megjegyezni, hogy a gráfszerkesztő program a szerver futtatása nélkül is használható, viszont ebben az esetben (értelemszerűen) a mentés funkciót nem tudjuk használni. Ilyenkor (a legtöbb böngészőben) a szerkesztő felületen bárhová kattintva az egér jobb gombjával \texttt{PNG} fájlként menthetjük a folyamatábrát.
+Fontos még megjegyezni, hogy a gráf szerkesztő program a szerver futtatása nélkül is használható, viszont ebben az esetben (értelemszerűen) a mentés funkciót nem tudjuk használni. Ilyenkor (a legtöbb böngészőben) a szerkesztő felületen bárhová kattintva az egér jobb gombjával \texttt{PNG} fájlként menthetjük a folyamatábrát.
