@@ -52,7 +52,7 @@ class Editor {
                         this.graph.draw();
                     } else if (event.which === 3){
                         for (let j = 0; j < this.graph.edges.length; ++j) {
-                            if(this.graph.nodes[selectedIndex] === this.graph.edges[j].to)
+                            if(this.graph.nodes[selectedIndex] === this.graph.edges[j].to && this.graph.drawEdge["from"] == this.graph.edges[j].from)
                             {
                                 this.graph.edges.splice(j, 1);
                                 j = j-1;
