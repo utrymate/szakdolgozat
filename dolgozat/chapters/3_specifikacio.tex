@@ -4,7 +4,7 @@
 
 Az előző fejezetben láthattuk, hogy már léteznek készen elérhető alkalmazások üzleti folyamatok modellezésére. A \textit{Draw.io} összetettségével, lehetőségeinek sokaságával, ugyanakkor egyszerű használatával egy kiváló alkalmazás, azonban azáltal, hogy teljes szabadságot nyújt a diagramok, folyamatok ábrázolásának használatához, könnyen előfordulhat, hogy az elkészült ábrák (főleg nagy elemhalmazzal való dolgozás esetén) bizonyos integritási feltételeknek nem tesznek eleget, és ezáltal hibás folyamatmodellezési ábrák készülhetnek. Ez különösen akkor jelenthet gondot, hogyha formális célból készül az adott ábra.
 
-Ebben a fejezetben fogjuk áttekinteni, hogyan is épül fel a gráf szerkesztő alkalmazásunk, melynek segítségével az üzleti folyamatok modellezése történik, illetve hogy miben tér el a már elkészült, hivatalos gráf szerkesztő programoktól, azoknak a hibáit hogyan próbálja meg megszűntetni.
+Ebben a fejezetben fogjuk áttekinteni, hogyan is épül fel a gráf szerkesztő alkalmazásunk, melynek segítségével az üzleti folyamatok modellezése történik, illetve hogy miben tér el a már elkészült, hivatalos gráf szerkesztő programoktól, azoknak a hibáit hogyan próbálja meg elkerülni.
 
 \Section{A program felépítése}
 
@@ -26,10 +26,10 @@ Bal oldalon található az \textbf{eszköztár}, amelynek segítségével külö
 
 \begin{itemize}
 \item Az \textbf{elem neve} rész helyére kerül az adott elem (csomópont) megnevezése. Nevük alapján különböztethetőek meg az egyes elemek. Az elemeket egymás alatt célszerű lehet például használati gyakoriság alapján rendezni (a téglalap, mint tevékenység, az egyik leggyakrabban alkalmazott csomópont típus, ez lehetne legfelül).
-\item Az \textbf{elem hozzáadása} felirat helyén az adott elem formája jelenik meg. Ez gyakorlatilag egy gomb, melyre rákattintva hozható létre a mellette feltüntetett nevű elem a szerkesztő felületen egy előre meghatározott helyen. Természetesen ez csak egy alapértelmezett hely, ahol megjelenik kattintás után az adott elem, ezt a későbbiekben lehetőségünk van áthelyezni.
+\item Az \textbf{elem hozzáadása} felirat helyén az adott elem formája jelenik meg. Ez gyakorlatilag egy gomb, melyre rákattintva hozható létre a mellette feltüntetett nevű elem a szerkesztő felületen egy előre meghatározott helyen. Természetesen ez csak egy alapértelmezett hely, ahol megjelenik kattintás után az adott elem, melyet a későbbiekben lehetőségünk van áthelyezni.
 \end{itemize}
 
-\item A táblázat alatt található egy kisebb rész az elemek szerkesztésére. Ez akkor jelenik meg, amikor a szerkesztő felületen rákattintunk egy csomópontra, melyet szerkeszteni szeretnénk. Itt az alábi szerkesztési lehetőségek állnak rendelkezésünkre:
+\item A táblázat alatt található egy kisebb rész az elemek szerkesztésére. Ez akkor jelenik meg, amikor a szerkesztő felületen rákattintunk egy csomópontra, melyet szerkeszteni szeretnénk. Itt az alábbi szerkesztési lehetőségek állnak rendelkezésünkre:
 
 \begin{itemize}
 \item \textbf{Szöveget} adhatunk hozzá a kijelölt csomóponthoz. Elegendő csak beírni a felvinni kívánt szöveget, és az azonnal megjelenik az adott csomópont közepén. Ez egységes minden csomópontra (tehát mindegyik típushoz tudunk írni szöveget).
@@ -38,10 +38,10 @@ Bal oldalon található az \textbf{eszköztár}, amelynek segítségével külö
 
 \item Az eszköztár alatt található egy \textbf{mentés} gomb, melynek segítségével elmenthetjük az elkészített gráfot egy adatbázisba az esetleges későbbi módosítások céljából.
 
-\item Végül a mentés gomb mellett egy \textbf{témák} feliratú gomb helyezkedik el, melyre rákattintva választhatjuk ki az elemek különböző témáját, stílusát. Ez egy apróbb felhasználóbarát élményt nyújt azáltal, hogy különböző színű formák használatát is lehetővé teszi az alapértelmezetteken kívül. Természetesen ez nem folyásolja be a program használatát, csupán a kinézetét változtatja meg a felhasználó által kívántra.
+\item Végül a mentés gomb mellett a \textbf{témák} feliratú szöveg után egy legördülő menü helyezkedik el, melyre rákattintva választhatjuk ki az elemek különböző témáját, stílusát. Ez egy apróbb felhasználóbarát élményt nyújt azáltal, hogy különböző színű formák használatát is lehetővé teszi az alapértelmezetteken kívül. Természetesen ez nem befolyásolja a program használatát, csupán a kinézetét változtatja meg a felhasználó által kívántra.
 \end{enumerate}
 
-A \textbf{szerkesztő felület} (vagy más szóval vászon (\textit{canvas})) a létrehozott elemek megjelenítéséért felelős. Kezdetben üres, egyszínű az egész. Ahogy viszont rákattintunk az eszköztárban egy általunk kiválasztott elemre, úgy az megjelenik rajta, és különböző műveleteket tudunk rajta végezni.
+A \textbf{szerkesztő felület} (vagy más szóval vászon (\textit{canvas})) a létrehozott elemek megjelenítéséért felelős. Kezdetben üres, egyszínű az egész. Ahogy viszont rákattintunk az eszköztárban egy általunk kiválasztott elemre, úgy az megjelenik rajta, és különböző műveleteket tudunk azon végezni.
 
 \begin{enumerate}
 \item Minden létrehozott csomópont egy egyedi azonosítószámot (\textit{ID}-t) kap. Ez alapján lehet őket megkülönböztetni egymástól.
@@ -66,7 +66,7 @@ A \textbf{szerkesztő felület} (vagy más szóval vászon (\textit{canvas})) a 
 \item Lehetőség van adott csomópont törlésére.
 
 \begin{itemize}
-\item Ha már a továbbiakban nincs szükség egy csomópontra, akkor az letörölhető a szerkesztőfelületről.
+\item Ha már a továbbiakban nincs szükség egy csomópontra, akkor az letörölhető a szerkesztő felületről.
 \item Ilyenkor, ha van a csomóponthoz tartozó vonal, akkor az is törlésre kerül (több vonal esetén az összes).
 \item A programnak ügyelnie kell arra, hogy egy csomópont törlése után se legyenek a későbbiekben létrehozott csomópontok ID-jai között azonosak.
 \end{itemize}
@@ -77,13 +77,13 @@ A \textbf{szerkesztő felület} (vagy más szóval vászon (\textit{canvas})) a 
 
 \Section{Miben különbözik az elkészített program a már használatban lévő gráf szerkesztőktől?}
 
-Korábban említettem, hogy a \textit{Draw.io} alkalmazásnak is vannak hiányosságai annak ellenére, hogy rendkívül sok lehetőséget kínál. Most nézzük néhány példát, amik előfordulhatnak akkor, hogyha a felhasználó nem elég körültekintő egy ilyen vagy ehhez hasonló gráf szerkesztő használata közben, és elkövet olyan hibákat a szerkesztés folyamán, amik miatt nem várt eredmény születhet, illetve hogy ezek a hibák miért jelenthetnek problémát.
+Korábban említettem, hogy a \textit{Draw.io} alkalmazásnak is vannak hiányosságai annak ellenére, hogy rendkívül sok lehetőséget kínál. Most nézzünk néhány példát, amik előfordulhatnak akkor, hogyha a felhasználó nem elég körültekintő egy ilyen vagy ehhez hasonló gráf szerkesztő használata közben, és elkövet olyan hibákat a szerkesztés folyamán, amik miatt nem várt eredmény születhet, illetve hogy ezek a hibák miért jelenthetnek problémát:
 
 \begin{enumerate}
 \item Nem pontosan köt össze a vonallal két folyamatot.
 
 \begin{itemize}
-\item Mivel a Draw.io a vonalakat is a folyamatokhoz hasonló módon kezeli, ezért azt is a felhasználó tetszés szerinti helyre mozgathatja (tehát nem muszáj összekötnie vele két csomópontot, magában is állhat egy vonal). Ezáltal előfordulhat olyan ábra is, aminél a felhasználó a vonal vége és az összekötendő csomópont között figyelmetlenségből egy kis helyet kihagy, így valójában nem kötött össze két folyamatot, ami össze szeretett volna.
+\item Mivel a Draw.io a vonalakat is a folyamatokhoz hasonló módon kezeli, ezért azt is a felhasználó tetszés szerinti helyre mozgathatja (tehát nem muszáj összekötnie vele két csomópontot, magában is állhat egy vonal). Ezáltal előfordulhat olyan ábra is, aminél a felhasználó a vonal vége és az összekötendő csomópont között figyelmetlenségből egy kis helyet kihagy, így valójában nem kötött össze két folyamatot, amit össze szeretett volna.
 \end{itemize}
 
 \item Ha letöröl egy csomópontot, amely össze van kötve egy másikkal, akkor a hozzá tartozó vonal a "levegőben marad", nem fog két meghatározott csomópontot összekötni, ezáltal az alapvető funkciója válik feleslegessé.
@@ -106,25 +106,25 @@ Korábban említettem, hogy a \textit{Draw.io} alkalmazásnak is vannak hiányos
 
 \end{enumerate}
 
-Ezekkel a fent felsorolt, esetlegesen felmerülő hibákkal szemben nézzük meg azt minden egyes pontnál, hogy az elkészített program hogyan igyekszik azokat kiküszöbölni:
+Ezekkel a fent felsorolt, esetlegesen felmerülő hibákkal szemben nézzük meg minden egyes pontnál, hogy az elkészített program hogyan igyekszik azokat kiküszöbölni:
 
 \begin{enumerate}
 \item Összekötő vonalat csak adott 2 csomópont között lehetséges húzni.
 
 \begin{itemize}
-\item Az összekötést a program úgy oldja meg, hogy a felhasználó jelöli ki azt a két csomópontot, amelyet össze szeretne kötni. Ahogy korábban is említettem lesz egy forrás csomópont és egy célcsomópont, e kettő közt fogja kirajzolni a program a vonalat úgy, hogy a célcsomópont felé mutat a vonal végén lévő nyíl.
+\item Az összekötést a program úgy oldja meg, hogy a felhasználó jelöli ki azt a két csomópontot, amelyet össze szeretne kötni. Ahogy korábban is említettem, lesz egy forrás csomópont és egy célcsomópont, e kettő közt fogja kirajzolni a program a vonalat úgy, hogy a célcsomópont felé mutat a vonal végén lévő nyíl.
 \end{itemize}
 
 \item Csomópont törlése esetén a hozzákapcsolt vonal is törlésre kerül.
 
 \begin{itemize}
-\item Több nyíl esetén az összes törlődik elkerülve ezáltal a vonalak "levegőben maradását".
+\item Több nyíl esetén az összes törlődik, elkerülve ezáltal a vonalak "levegőben maradását".
 \end{itemize}
 
 \item A program jelez, hogyha egymásra kerülnek csomópontok.
 
 \begin{itemize}
-\item A felhasználót a canvas más színűre változtatásával figyelmezteti a program amiatt, hogy fedésbe került két csomópont.
+\item A felhasználót a canvas más színűre változtatásával figyelmezteti a program amiatt, hogy fedésbe került két vagy több csomópont.
 \item Valamint a canvas-on kívülre sem engedi mozgatni a csomópontot a program.
 \end{itemize}
 
@@ -161,7 +161,7 @@ A program, ahogy azt a felépítésénél olvashattuk, egy teljesen üres canvas
 \item Ezt követően megírhatjuk az egyes csomópontok szövegeit, hogy azok pontosan milyen tevékenységet jelölnek.
 
 \begin{itemize}
-\item Igény szerint a csomópontokat át lehet méretezni, de a csomópont automatikusan elkezd szélesedni mielőtt a beleírt karakterek hossza elérné a csomópont széleit.
+\item Igény szerint a csomópontokat át lehet méretezni, de a csomópont automatikusan elkezd szélesedni, mielőtt a beleírt karakterek hossza elérné a csomópont széleit.
 \end{itemize}
 
 \item Ha ezzel is megvagyunk, célszerű valamilyen szempont alapján (például időrendi sorrend szerint) egymás után elhelyezni a csomópontokat balról jobbra, illetve fentről lefelé.
@@ -189,7 +189,7 @@ Nélkülözhetetlen egy, a UX-szel kapcsolatos fogalmat is megemlíteni: a \text
 
 \SubSection{UX alapkövetelmények}
 
-Nézzük meg, hogy milyen alapkövetelményei vannak a UX-nek egy adott weboldal szempontjából, illetve hogy ezeket az alapkövetelményeknek mennyire felel meg a szakdolgozat programja.
+Nézzük meg, hogy milyen alapkövetelményei vannak a UX-nek egy adott weboldal szempontjából, illetve hogy ezeknek az alapkövetelményeknek mennyire felel meg a szakdolgozat programja.
 
 \begin{enumerate}
 \item \textbf{Legyen hasznos:} A célközönségnek kell a legnagyobb fókuszban lennie: jelen esetben ez a felhasználók, akik számára készül a program. Ezáltal úgy kell azt megvalósítani, hogy az érdemleges információt tartalmazzon, felkeltse a felhasználó érdeklődését, és így hasznosnak találja a programot.
