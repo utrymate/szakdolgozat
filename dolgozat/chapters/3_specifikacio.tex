@@ -2,13 +2,13 @@
 
 \Section{Áttekintés}
 
-Az előző fejezetben láthattuk, hogy már léteznek készen elérhető alkalmazások üzleti folyamatok modellezésére. A \textit{Draw.io} összetettségével, lehetőségeinek sokaságával, ugyanakkor egyszerű használatával egy kiváló alkalmazás, azonban azáltal, hogy teljes szabadságot nyújt a diagramok, folyamatok ábrázolásának használatához, könnyen előfordulhat, hogy az elkészült ábrák (főleg nagy elemhalmazzal való dolgozás esetén) bizonyos integritási feltételeknek nem tesznek eleget, és ezáltal hibás folyamatmodellezési ábrák készülhetnek. Ez különösen akkor jelenthet gondot, hogyha formális célból készül az adott ábra.
+Az előző fejezetben láthattuk, hogy már léteznek készen elérhető alkalmazások üzleti folyamatok modellezésére. A \textit{Draw.io} összetettségével, lehetőségeinek sokaságával, ugyanakkor egyszerű használatával egy kiváló alkalmazás, azonban azáltal, hogy teljes szabadságot nyújt a diagramok, folyamatok ábrázolásának használatához, könnyen előfordulhat, hogy az elkészült ábrák (különösen ha sok elemmel dolgozunk) bizonyos integritási feltételeknek nem tesznek eleget, és ezáltal hibás folyamatmodellezési ábrák készülhetnek. Ez különösen akkor jelenthet gondot, hogyha formális célból készül az adott ábra.
 
 Ebben a fejezetben fogjuk áttekinteni, hogyan is épül fel a gráf szerkesztő alkalmazásunk, melynek segítségével az üzleti folyamatok modellezése történik, illetve hogy miben tér el a már elkészült, hivatalos gráf szerkesztő programoktól, azoknak a hibáit hogyan próbálja meg elkerülni.
 
 \Section{A program felépítése}
 
-Az elkészített programnak alapvetően sok apró alkotórészt kell tartalmaznia. Lássunk egy egyszerű, sematikus ábrát arról, hogy hogyan is nézzen ki majd a gráf szerkesztőnk. Ezt a \ref{fig:sematikus} ábra szemlélteti.
+Az elkészített programnak alapvetően sok apró alkotórészt kell tartalmaznia. Lássunk egy egyszerű, sematikus ábrát arról, hogy hogyan is nézzen ki majd a gráf szerkesztőnk. Ezt \aref{fig:sematikus} ábra szemlélteti.
 
 \begin{figure}[h]
 \centering
@@ -19,7 +19,7 @@ Az elkészített programnak alapvetően sok apró alkotórészt kell tartalmazni
 
 Az ábra alapján máris van egy elképzelésünk a program szerkezetéről. Nézzük is meg annak konkrét felépítését.
 
-Bal oldalon található az \textbf{eszköztár}, amelynek segítségével különböző funkciók érhetőek el. Innen tudjuk irányítani (létrehozni, szerkeszteni) a gráf felépítéséhez szükséges elemeket. Az eszköztárból az alábbi funkciók érhetőek el:
+Bal oldalon található az \textbf{eszköztár}, amelynek segítségével különböző funkciók érhetőek el. Innen tudjuk irányítani (létrehozni, szerkeszteni) a gráf felépítéséhez szükséges elemeket. Az eszköztárból az alábbi funkciók érhetőek el.
 
 \begin{enumerate}
 \item Az eszköztár nagy részét egy táblázat teszi ki, amely két oszloppal, és a felvihető elemek számával megegyező sorral rendelkezik. A két oszlop a következő jelentéssel bír:
@@ -38,10 +38,10 @@ Bal oldalon található az \textbf{eszköztár}, amelynek segítségével külö
 
 \item Az eszköztár alatt található egy \textbf{mentés} gomb, melynek segítségével elmenthetjük az elkészített gráfot egy adatbázisba az esetleges későbbi módosítások céljából.
 
-\item Végül a mentés gomb mellett a \textbf{témák} feliratú szöveg után egy legördülő menü helyezkedik el, melyre rákattintva választhatjuk ki az elemek különböző témáját, stílusát. Ez egy apróbb felhasználóbarát élményt nyújt azáltal, hogy különböző színű formák használatát is lehetővé teszi az alapértelmezetteken kívül. Természetesen ez nem befolyásolja a program használatát, csupán a kinézetét változtatja meg a felhasználó által kívántra.
+\item Végül, a mentés gomb mellett a \textbf{témák} feliratú szöveg után egy legördülő menü helyezkedik el, melyre rákattintva választhatjuk ki az elemek különböző témáját, stílusát. Ez egy apróbb felhasználóbarát élményt nyújt azáltal, hogy különböző színű formák használatát is lehetővé teszi az alapértelmezetteken kívül. Természetesen ez nem befolyásolja a program használatát, csupán a kinézetét változtatja meg a felhasználó által kívántra.
 \end{enumerate}
 
-A \textbf{szerkesztő felület} (vagy más szóval vászon (\textit{canvas})) a létrehozott elemek megjelenítéséért felelős. Kezdetben üres, egyszínű az egész. Ahogy viszont rákattintunk az eszköztárban egy általunk kiválasztott elemre, úgy az megjelenik rajta, és különböző műveleteket tudunk azon végezni.
+A \textbf{szerkesztő felület} (vagy más szóval vászon, \textit{canvas}) a létrehozott elemek megjelenítéséért felelős. Kezdetben üres, egyszínű az egész. Ahogy viszont rákattintunk az eszköztárban egy általunk kiválasztott elemre, úgy az megjelenik rajta, és különböző műveleteket tudunk azon végezni.
 
 \begin{enumerate}
 \item Minden létrehozott csomópont egy egyedi azonosítószámot (\textit{ID}-t) kap. Ez alapján lehet őket megkülönböztetni egymástól.
@@ -179,7 +179,7 @@ A program, ahogy azt a felépítésénél olvashattuk, egy teljesen üres canvas
 
 \Section{UX design szempontok a programnál}
 
-Ezen alfejezet megírásához a(z) \cite{uxblog}. forrás blogbejegyzését használtam alapul. Az itt említett szempontok, meghatározások alapján építettem fel ezt a részt, és azt egészítettem ki a dolgozat programjára jellemző tulajdonságokkal, egyéni gondolatokkal.
+Az Interneten számos helyen találni felhasználói élménnyel, megfelelő grafikus felület és ergonómia kialakításával kapcsolatos leírásokat (például \cite{uxblog}). A következőkben ezen témakör fő jellemzőit, a tervezéssel és kivitelezéssel kapcsolatos elvárásokat mutatja be.
 
 \SubSection{Mi az a UX design?}
 

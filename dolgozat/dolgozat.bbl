@@ -1,27 +1,43 @@
 \begin{thebibliography}{1}
 
 \bibitem{xflower}
-Forrás: \url{https://xflower.hu/blog/}, \textit{Az üzleti folyamatokról
-  bővebben} szavakkal kezdődő bejegyzések.
+xFlower: \textit{Az üzleti folyamatokról
+  bővebben}, Blog, \url{https://xflower.hu/blog}, \\
+Internet, 2020.
 
 \bibitem{wiki}
-Forrás: \url{https://hu.wikipedia.org}.
+Wikipédia: \emph{Startup}, Wikipédia, \url{https://hu.wikipedia.org/wiki/Startup}, \\ Internet, 2020.
 
 \bibitem{drawio}
-A program megtekinthető itt: \url{https://app.diagrams.net/}.
+Gilfy: \emph{Draw.io}, Hivatalos weboldal, \url{https://app.diagrams.net}, \\
+Internet, 2020.
 
 \bibitem{uxblog}
-A blogbejegyzés, amely alapjául szolgált az alfejezetnek:
-  \url{https://www.newconcept.hu/blog/felhasznaloi-elmeny-tervezes-ux-design}.
+UX Design Budapest: \emph{Felhasználói élmény (UX tervezés)}, blogbejegyzés,
+\url{https://www.newconcept.hu/blog/felhasznaloi-elmeny-tervezes-ux-design}, \\
+Internet, 2020.
+
+\bibitem{python}
+Lutz, Mark. \emph{Programming python}. " O'Reilly Media, Inc.", 2001.
+
+\bibitem{sqlalchemy}
+Copeland, Rick. \emph{Essential sqlalchemy}.  O'Reilly Media, Inc., 2008.
+
+\bibitem{falcon}
+Griffiths, Kurt. \emph{Falcon Documentation}. (2019).
+
+\bibitem{sqlite}
+Owens, Mike. \emph{The definitive guide to SQLite}. Apress, 2006.
 
 \bibitem{xflowutolso}
-Forrás:
-  \url{https://xflower.hu/blog/az-uzleti-folyamatokrol-bovebben-iii-hogyan-hatarozzam-meg-folyamataimat}.
+xFlower: \emph{Hogyan határozzam meg folyamataimat?}, 
+\url{https://xflower.hu/blog/az-uzleti-folyamatokrol-bovebben-iii-hogyan-hatarozzam-meg-folyamataimat}, \\
+Internet, 2020.
 
 \bibitem{bpmn}
-Forrás:
-  \url{https://people.inf.elte.hu/fekete/algoritmusok_msc/workflow/hallgatoi_esszek/Bene_Katalin_Workflow.pdf},
-  10. oldal, 2. ábra.
+Bene Katalin: \emph{Üzleti folyamatok modellezése}, esszé,
+\url{https://people.inf.elte.hu/fekete/algoritmusok_msc/workflow/hallgatoi_esszek/Bene_Katalin_Workflow.pdf},
+10. oldal, 2. ábra, Internet, 2020.
 
 \bibitem{coombs1987markup}
 James~H Coombs, Allen~H Renear, and Steven~J DeRose.

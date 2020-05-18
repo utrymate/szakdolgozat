@@ -8,7 +8,7 @@ A specifikációk alapján a programban a felhasználónak kell tudnia csomópon
 
 Ahhoz, hogy a bevezetőben említett specifikációt megvalósító szoftvert meg tudjuk írni, először kijelöljük a megfelelő technológiákat és az architektúrát. A kliens-szerver architektúra megfelelő erre az alkalmazásra. A kliens egy böngészős frontend, ami egy API-n keresztül tud kommunikálni a backend szerverrel, amely perzisztensen tárolja az adatokat egy relációs adatbázisban. A kliens esetünkben a böngészőben futó \textbf{JavaScript} alkalmazás, míg a szerver egy \textbf{Python} nyelven íródott \textbf{Falcon API}-t használ, valamint \textbf{SQLite} adatbázist a tárolásra.
  
-Hogy ez működjön a számítógépünkön, először telepíteni kell a \textbf{Python}-t, és a \textbf{pip}-et. A Python-t egyszerűen le lehet tölteni a hivatalos honlapról\cite{pyt}. Windows felhasználóként a Windowshoz készült 64-bites setup segítségével telepítettem fel az alkalmazást. A \ref{fig:pyt1} ábrán látható, hogy a Python telepítésével egyidejűleg lehetőségünk van a pip telepítésére is, ehhez azonban manuális telepítés szükséges.
+Hogy ez működjön a számítógépünkön, először telepíteni kell a \textbf{Python}-t, és a \textbf{pip}-et. A Python-t egyszerűen le lehet tölteni a hivatalos honlapról \cite{python}. Windows felhasználóként a Windowshoz készült 64-bites setup segítségével telepítettem fel az alkalmazást. A \ref{fig:pyt1} ábrán látható, hogy a Python telepítésével egyidejűleg lehetőségünk van a pip telepítésére is, ehhez azonban manuális telepítés szükséges.
 
 \begin{figure}[h]
 \centering
@@ -27,7 +27,7 @@ A telepítés következő lépésében célszerű bepipálni a 4. pontot, ami a 
 %\label{fig:pyt2}
 %\end{figure}
 
-Ezek után a program működéséhez elengedhetetlen csomagokat telepítjük: az \textbf{SQLAlchemy}-t és a korábban említett \textbf{Falcon}-t. A telepítés a következő formátum megadásával történik: \texttt{python -m pip install [csomag neve]}
+Ezek után a program működéséhez elengedhetetlen csomagokat telepítjük: az \textbf{SQLAlchemy}-t  \cite{sqlalchemy} és a korábban említett \textbf{Falcon}-t \cite{falcon}. A telepítés a következő formátum megadásával történik: \texttt{python -m pip install [csomag neve]}
 
 Tehát például a Falcon-t az alábbi parancs kiadása telepíti:
 
@@ -40,7 +40,7 @@ Az SQLAlchemy-t pedig így a következő paranccsal fogjuk tudni telepíteni:
 python -m pip install sqlalchemy
 \end{python}
 
-Az SQLite3-at is érdemes telepítenünk, ha manuálisan akarjuk létrehozni az adatbázist és a táblákat. A telepítést itt is a hivatalos SQLite oldalon\cite{sqlite} keresztül tehetjük meg.
+Az SQLite3-at is érdemes telepítenünk, ha manuálisan akarjuk létrehozni az adatbázist és a táblákat. A telepítést itt is a hivatalos SQLite oldalon \cite{sqlite} keresztül tehetjük meg.
 
 Ezt követően egy webszerver telepítése következik, például \textbf{waitress} vagy Unix-szerű rendszerek esetében a \textbf{gunicorn}, amivel elérhetjük a programot egy porton keresztül. Esetünkben a 8000-es portot használjuk. A backend szerver egy API-n keresztül szolgálja fel a statikus elemeket is, mint a HTML, CSS, JavaScript fájlokat.
  
@@ -225,7 +225,16 @@ A JavaScript kliens program 9 osztályból áll. Az osztályok mind külön fela
 A Node osztálynak 3 közvetlen leszármazottja van: \textbf{Diamond}, \textbf{Rectangle} és \textbf{Circle} (magyarul: rombusz, téglalap és kör) melyek mind implementálják a Node osztály konstruktorát. A Circle osztálynak további két leszármazottja van: a \textbf{Start} és az \textbf{End}, melyek a kezdő- és végállapotokat jelölik.
 
 Ezen osztályoknak mind vannak saját metódusai, melyek ugyanazokat a funkciókat látják el, csak a részletekben térnek el. Ilyen például a \textit{resize()} és \textit{draw()} metódus. Mivel minden alakzatot meg kell rajzolni, vagy adott esetben átméretezni, ezek a metódusok minden alakzatot megvalósító osztályban megtalálhatóak, és a legtöbb funkció végrehajtásakor ezek meg is hívódnak.
+
+Az említett osztályok hierarchiáját \aref{fig:uml}. ábrán láthatjuk.
  
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.5]{images/umldiagram.png}
+\caption{A program UML diagramja}
+\label{fig:uml}
+\end{figure}
+
 A frontend egy API-n, \textbf{HTTP kérések}kel kommunikál a szerverrel. A mentés úgy zajlik, hogy a frontend alkalmazás összegyűjti az összes csomópontot és az őket összekötő vonalakat, majd egy objektumot csinál minden egyes csomópontból és vonalból csak a szükséges adatokkal, ezt követően pedig hozzáadja egy tömbhöz. Ezután JSON formátumba alakítja a tömbben lévő objektumokat, amit egy \textbf{HTTP POST} kéréssel elküldünk a szervernek.
 
 A lekéréshez \textbf{HTTP GET} kérést használunk, itt JSON formátumú tömböt kapunk benne a megfelelő adatokat tartalmazó objektumokkal. Ezeket az adatokat visszaalakítjuk, hozzájutva így a megfelelő osztályok konstruktorainak paramétereihez. Ezután a paraméterekkel osztályt hozunk létre belőle, és ezeket az osztályokat hozzáadjuk a Graph osztály nodes és edges adattagjaihoz. Innentől kezdve tudjuk reprezentálni őket a kliens alkalmazással.

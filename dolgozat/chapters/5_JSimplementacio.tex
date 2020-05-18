@@ -2,14 +2,7 @@
 
 \Section{A kliens program működése}
 
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.5]{images/umldiagram.png}
-\caption{A program UML diagramja}
-\label{fig:uml}
-\end{figure}
-
-A kliens program a következőképpen működik: A graphEditor.html dokumentum betöltése után létrehozzuk az Editor osztály egy példányát. Ezután inicializáljuk a szerkesztőt egy függvény segítségével. Itt beállítjuk a program működéséhez elengedhetetlen adattagokat, események kezelését. Ilyen adattagok a graph, canvas, context, themes.
+A kliens program a következőképpen működik. A \texttt{graphEditor.html} dokumentum betöltése után létrehozzuk az \texttt{Editor} osztály egy példányát. Ezután inicializáljuk a szerkesztőt egy függvény segítségével. Itt beállítjuk a program működéséhez elengedhetetlen adattagokat, események kezelését. Ilyen adattagok a graph, canvas, context, themes.
 
 Végül egy metódus segítségével átméretezzük az adott böngészőablak méretéhez arányosra a canvas-t, biztosítva így, hogy bármilyen méretű képernyőn használható legyen a program.
 
@@ -51,7 +44,6 @@ A szerkesztő állapotát a következőképpen tudjuk elmenteni: A mentés gombr
 A csomópontokat megvalósító osztályokat univerzálisan kezeljük: amilyen tulajdonsággal nem rendelkeznek, egyszerűen 0-ra állítjuk, úgyse foglalkozunk velük.
 
 \begin{javascript}
-
        let nodeJSON = {
            "type": type,
            "x": node.x,
@@ -234,13 +226,11 @@ Hogy legyen mihez viszonyítani, az adott csomópont aktuális mérete megjeleni
 A téglalap esetén először annak szélességét, majd a magasságát kell megadnunk. A kör alakú csomópontok (circle, start, end) esetében csak a kör sugarát kell megadnunk.
 
 A csomópontok egy előre definiált minimális méretnél kisebbre nem méretezhetőek. Ezek az értékek az alábbiak:
-
 \begin{itemize}
 \item Téglalap esetén 50x50,
 \item Rombusz esetén szintén 50x50 (ennek szélessége minden esetben megegyezik a magasságával), 
 \item Kör esetén pedig 20
 \end{itemize}
-
 Miután beírtuk az új méreteket, az ezek alatt található \texttt{Resize} gomb megnyomása fogja átméretezni a kiválasztott csomópontot.
 
 \SubSection{Téma megváltoztatása}
