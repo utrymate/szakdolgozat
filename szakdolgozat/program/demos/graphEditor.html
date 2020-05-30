@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<script src="js/graph.js"></script>
+<script src="js/editor.js"></script>
+<script src="js/nodes.js"></script>
+<script src="js/edges.js"></script>
+
+<script>
+    let editor = new Editor();
+</script>
+<body onload="" onresize="editor.resize()">
+<div class="grid-container">
+    <div class="item1">
+        <canvas id="my-canvas" oncontextmenu="return false;" width="1280" height="720"></canvas>
+    </div>
+    <div class="item2">
+        <table  class="tablazat" >
+            <caption>Toolbox</caption>
+            <tr>
+                <th>
+                    <p>Add node</p>
+                </th>
+                <td>
+                    <div id="rectangle" onclick="editor.addRectangle()" title="Add rectangle to canvas"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p>Add diamond</p>
+                </th>
+                <td>
+                    <div id="diamond" onclick="editor.addDiamond()" title="Add diamond to canvas"></div>
+                </td>
+            </tr>
+            <tr>
+                 <th>
+                    <p>Add circle</p>
+                 </th>
+                <td>
+                    <div id="circle" onclick="editor.addCircle()" title="Add circle to canvas"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p>Add start</p>
+                </th>
+                <td>
+                    <div id="start" onclick="editor.addStart()" title="Add start symbol to canvas"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p>Add end</p>
+                </th>
+                <td>
+                    <div id="end" onclick="editor.addEnd()" title="Add end symbol to canvas"></div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div id="addTextRect" style="">
+                        <span class="helper"></span>
+                        <div id="resize-nodes">
+
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <button  class="button" onclick="saveEditorData()">Save</button>
+        <label for="temavalto">graph themes:
+        <select class="selector" name="theme" id="temavalto" onchange="editor.changeTheme(this.value)">
+            <option value="minimal">minimal</option>
+            <option value="fancy">fancy</option>
+        </select>
+        </label>
+    </div>
+  </div>
+<script>
+    window.onscroll = function (e) {
+        editor.resize()
+    }
+
+    initialize(editor);
+    editor.resize();
+    const apiURL = "http://localhost:8000/api";
+    [].map(data => {
+        return data.id;
+    });
+
+    function GetEditorData() {
+        fetch(apiURL+'/nodes').then(response => response.json())
+            .then(data => {
+                console.log(data);
+                data.map(node => {
+                    let newNode = {};
+                    let theme = node["theme"];
+                    if (theme === "fancy") {
+                        editor.graph.selectedtheme = "fancy";
+                    } else {
+                        editor.graph.selectedtheme = "minimal";
+                    }
+                    switch (node["type"]) {
+                        case "rectangle":
+                            newNode = new Rectangle(node["x"],node["y"],node["id"],node["height"], node["width"], '', editor.graph.themes[editor.graph.selectedtheme].rectangleColor);
+                            break;
+                        case "circle":
+                            newNode = new Circle(node["x"],node["y"],node["id"],node["radius"], '', editor.graph.themes[editor.graph.selectedtheme].circleColor);
+                            break;
+                        case "diamond":
+                            newNode = new Diamond(node["x"],node["y"],node["id"],node["height"], node["width"], '', editor.graph.themes[editor.graph.selectedtheme].diamondColor);
+                            break;
+                        case "start":
+                            newNode = new Start(node["x"],node["y"],node["id"],node["radius"], '', editor.graph.themes[editor.graph.selectedtheme].startEndColor);
+                            break;
+                        case "end":
+                            newNode = new End(node["x"],node["y"],node["id"],node["radius"], '', editor.graph.themes[editor.graph.selectedtheme].startEndColor);
+                            break;
+                    }
+                    let index = editor.graph.nodes.push(newNode) -1;
+                    editor.graph.selectedIndex = index;
+                    editor.addTextToNode(node["text"]);
+                })
+                editor.changeTheme("minimal");
+            }).then(r => {
+                fetch(apiURL+'/edges').then(response =>response.json())
+                    .then(data => {
+                        data.map(elem =>{
+                            let from = editor.getNode(elem.edgefrom);
+                            let to = editor.getNode(elem.edgeto);
+                            let newEdge = new Edge(from, to,elem.id);
+                            editor.graph.edges.push(newEdge);
+                        })
+                        editor.graph.draw();
+                    })
+        })
+    }
+    function saveEditorData() {
+        let nodes = [];
+        let edges = [];
+        let type="";
+
+        editor.graph.nodes.map(node => {
+                switch (node.constructor.name ){
+                case "Rectangle":
+                    type = "rectangle";
+                    break;
+                case "Circle":
+                    type = "circle";
+                    break;
+                case "Diamond":
+                    type = "diamond";
+                    break;
+                case "Start":
+                    type = "start";
+                    break;
+                case "End":
+                    type = "end";
+                    break;
+            }
+
+            let nodeJSON = {
+                "type": type,
+                "x": node.x,
+                "y": node.y,
+                "id": node.id,
+                "text":node.text,
+                "height": node.height ? node.height : 0,
+                "width": node.width ? node.width : 0,
+                "radius": node.radius ? node.radius : 0,
+                "theme": node.color.constructor.name === "CanvasGradient" ? "fancy" : "minimal"
+            };
+            nodes.push(nodeJSON)
+        });
+
+        editor.graph.edges.map(edge =>{
+            let edgeJSON = {
+                "id": edge.id,
+                "from": edge.from.id,
+                "to": edge.to.id
+            };
+            edges.push(edgeJSON);
+        });
+        
+        console.log(JSON.stringify(nodes));
+        fetch(apiURL+'/nodes', {
+            method: 'POST',
+            body: JSON.stringify(nodes)
+        }).then(response => response.json()).then(data => {
+        }).then(r =>{
+            fetch(apiURL+'/edges', {
+                method: 'POST',
+                body: JSON.stringify(edges)
+            }).then(response => response.json()).then(data => {
+            });
+        })
+    }
+    GetEditorData();
+</script>
+</body>
+</html>
