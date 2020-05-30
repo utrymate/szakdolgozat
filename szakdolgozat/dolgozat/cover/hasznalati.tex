@@ -1,0 +1,32 @@
+\pagestyle{empty}
+
+\noindent \textbf{\Large A melléklet tartalma}
+
+\vskip 1cm
+
+\noindent A dolgozat melléklete a következőket tartalmazza:
+\begin{itemize}
+\item \texttt{dolgozat.pdf:} A szakdolgozat PDF formátumban.
+\item \texttt{dolgozat:} A szakdolgozat \LaTeX{} forráskódját tartalmazó jegyzék.
+\item \texttt{program:} Az elkészített programok forráskódja.
+\end{itemize}
+A dolgozat az elkészített program forráskódjával együtt \texttt{GitHub}-on is megtalálható az alábbi címen:
+
+\vskip 0.5cm
+
+\texttt{https://github.com/utrymate/szakdolgozat}
+
+\vskip 0.5cm
+
+\noindent \textbf{\large A program futtatása}
+
+\vskip 0.3cm
+
+\noindent Ha telepítettük a 4-es fejezetben leírt alkalmazásokat, akkor a következőképpen tudjuk elindítani a programot:
+
+\begin{itemize}
+\item A \texttt{program} jegyzékben található \texttt{server} jegyzékbe lépünk a Parancssor segítségével.
+\item Ha a \texttt{waitress}-t telepítettük, akkor az alábbi parancs indítja el a szervert: \texttt{waitress-serve --port=8000 server:api}
+\item A klienset a \url{http://localhost:8000/graphEditor.html} oldalon keresztül érhetjük el.
+\item Az adatbázis a \texttt{server} jegyzékben jön létre (ha még nem létezik) \texttt{mydb.sqlite} néven.
+\end{itemize}
