@@ -65,8 +65,6 @@ class Graph {
     }
 }
 
-var selectedIndex = null;
-
 function initialize(editor)
 {
     editor.graph.canvas = document.getElementById("my-canvas");
