@@ -9,7 +9,7 @@ class Editor {
         this.graph.draw();
         const mouse = this.calcMouseEvent(event);
         this.graph.drag = false;
-        selectedIndex = null;
+        let selectedIndex = null;
         let takaras = false;
         for (let i = 0; i < this.graph.nodes.length; ++i) {
             let node = this.graph.nodes[i];
@@ -41,7 +41,14 @@ class Editor {
                 if (event.altKey === true) {
                     this.graph.drawEdge["to"] = this.graph.nodes[selectedIndex];
                     if (event.which === 1 ){
-                        this.addEdge(this.graph.drawEdge["from"], this.graph.drawEdge["to"]);
+                        if (this.graph.drawEdge["from"] && this.graph.drawEdge["to"]){
+                            let duplicates = this.graph.edges.map(edge =>{
+                                return edge.from === this.graph.drawEdge["from"] && edge.to === this.graph.drawEdge["to"];
+                            })
+                            if (!duplicates.includes(true)){
+                                this.addEdge(this.graph.drawEdge["from"], this.graph.drawEdge["to"]);
+                            }
+                        }
                         this.graph.clear();
                         this.graph.draw();
                     } else if (event.which === 3){
